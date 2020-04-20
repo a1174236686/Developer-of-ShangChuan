@@ -1,0 +1,77 @@
+/* pages/find/find.wxss */
+.main{
+  padding: 0 30rpx;
+}
+
+.screen{
+  position: fixed;
+  width: 94%;
+  z-index: 1;
+  background-color: #fff;
+}
+
+.weui-search-bar {
+  position: relative;
+  padding: 8px 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+}
+.weui-icon-search_in-box {
+  position: absolute;
+  right: 10px;
+  top: 4px;
+}
+.weui-search-bar__form {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: auto;
+  flex: auto;
+  border-radius: 20px;
+}
+.weui-search-bar__box {
+  position: relative;
+  padding: 0 30px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1;
+  background-color: #F6F5F8;
+  border-radius: 20px;
+}
+.weui-search-bar__input {
+  height: 28px;
+  line-height: 28px;
+  font-size: 14px;
+}
+
+.miscellaneous{
+  display: flex;
+}
+
+.miscellaneousLeft{
+  width: 50%;
+}
+
+.miscellaneousRight{
+  width: 50%;
+  margin-left: 30rpx;
+}
+
+.box{
+  position: relative;
+  margin-top: 20rpx;
+}
+
+.box image{
+  width: 100%;
+  border-radius: 20rpx;
+}
+
+.box .text{
+  position: absolute;
+  left: 40%;
+  top: 45%;
+  color: #fff;
+  font-weight: bold;
+}
