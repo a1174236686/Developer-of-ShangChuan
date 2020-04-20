@@ -68,4 +68,5 @@
   border-radius: 24rpx;
   background-color: pink;
   color:white;
+  width: 690rpx;
 }

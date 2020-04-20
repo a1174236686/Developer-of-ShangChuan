@@ -1,0 +1,37 @@
+<!--pages/recharge/index.wxml-->
+<view class="container">
+	<template is="rechargeForm" data="{{rechargeForm}}" />
+	<view class="confirmPay">
+		<button class="btn">确认支付</button>
+	</view>
+</view>
+
+// rechargeForm
+<template name="rechargeForm">
+	<form class="rechargeForm">
+    <template is="pickNumCtn" data="{{...rechargeForm}}" />
+		<view class="payModeCtn">
+			<text class="payModeTit">支付方式</text>
+			<view class="modeCtn">
+				<radio-group>
+					<view class="modeCtn-radio-ctn">
+						<icon type="success" size="20" />
+						<view class="payMode"><text>2333</text></view>
+						<radio class="modeCtn-radio" />
+					</view>
+				</radio-group>
+			</view>
+		</view>
+	</form>
+</template>
+
+// 选择充值金额
+<template name="pickNumCtn" >
+	<view class="pickNumCtn">
+		<text class="pickNumTit">{{pickNumTit}}</text>
+		<view class="cardCtn">
+			<view class="cardItem" wx:for="{{pickNum}}" wx:for-index="index" wx:for-item="item" wx:key="index"
+      >{{item}}</view>
+		</view>
+	</view>
+</template>
