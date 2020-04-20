@@ -1,0 +1,76 @@
+/* pages/my/my.wxss */
+.header{
+  position: relative;
+}
+
+.header image{
+  width: 100%;
+  height: 150px;
+}
+
+.headerIconText_img{
+  opacity: 0.4;
+}
+
+.headerIconText{
+  width: 100%;
+  position: absolute;
+  top: 35px;
+  display: flex;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerIconText image{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  margin-left: 35px;
+}
+
+.headerIconText > icon{
+  margin-right: 25px;
+}
+
+.headerIconText_text{
+  padding: 0 15px;
+  flex: 1;  
+  color: red;
+}
+
+.headerIconText_name{
+  font-weight: bold;
+  padding-bottom: 16rpx;
+  font-size: 35rpx;
+}
+
+.headerIconText_num{
+  font-size: 22rpx;
+}
+
+.myFunctionList{
+  padding: 30rpx 30rpx;
+  color: #595B5D;
+}
+
+.myFunctionItem{
+  display: flex;
+  align-items: center;
+}
+
+.myFunctionItem .functionName{
+  padding: 0 24rpx;
+  flex: 1;
+  position: relative;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+
+.myFunctionItem .news{
+  position: absolute;
+  color: red;
+  font-size: 40rpx;
+  margin-left: 8rpx;
+  top: -22rpx;
+}

@@ -1,0 +1,21 @@
+<!--pages/my/my.wxml-->
+<view class="main">
+  <view class="header">
+    <image class="headerIconText_img" src="../../img/toux.jpg"></image>
+    <view class="headerIconText">
+      <image src="../../img/toux.jpg"></image>
+      <view class="headerIconText_text">
+        <view class="headerIconText_name">Myson</view>
+        <view class="headerIconText_num"><icon type="success" size="10"/>15919961615</view>
+      </view>
+      <icon type="success" size="40"/>
+    </view>
+  </view>
+  <view class="myFunctionList">
+    <view class="myFunctionItem">
+      <icon type="success" size="40"/>
+      <view class="functionName">我的预约<text class="news">•</text></view>
+      <icon type="success" size="40"/>
+    </view>
+  </view>
+</view>

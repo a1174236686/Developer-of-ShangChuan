@@ -1,0 +1,39 @@
+<!--pages/myUser/myUser.wxml-->
+<view>
+  <view>
+    <image src="../../img/myBg.png" ></image>
+    <view>
+      <view class="UserInfo">
+        <image src="../../img/myBg.png" class="UserIco"></image>
+        <view class="UserName">sunny</view>
+        <view></view>
+      </view>
+      <view>
+        <view>作品：350</view>
+        <view>点评：350</view>
+      </view>
+      <view>
+        <view>
+          <view>订单</view>
+          <view>20</view>
+        </view>
+        <image></image>
+      </view>
+      <view>
+        <view>
+          <view>收入</view>
+          <view>2650</view>
+        </view>
+        <image></image>
+      </view>
+    </view>
+  </view>
+
+  <view>
+    <view>
+      <image></image>
+      <view>我的评价</view>
+      <icon type="success" size="20"></icon>
+    </view>
+  </view>
+</view>
