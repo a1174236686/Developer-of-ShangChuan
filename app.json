@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/comments/comments",
     "pages/myUser/myUser",
     "pages/my/my",
     "pages/photographer/photographer",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/find/find"
+    "pages/find/find"      
   ],
   "window": {
     "backgroundTextStyle": "light",
