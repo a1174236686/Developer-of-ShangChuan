@@ -1,14 +1,29 @@
 {
-  "pages":[
-    "pages/joinWe/index",
-    "pages/logs/logs"
+  "pages": [
+    "pages/myUser/myUser",
+    "pages/my/my",
+    "pages/photographer/photographer",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/find/find"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
+  "tabBar": 
+    {
+      "position":"bottom",
+      "borderStyle":"white",
+     "list":[
+        {"pagePath":"pages/index/index","text":"首页"},
+        {"pagePath":"pages/photographer/photographer","text":"摄影师"},
+        {"pagePath":"pages/index/index","text":"发现"},
+        {"pagePath":"pages/my/my","text":"我的"}
+      ]
+     },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

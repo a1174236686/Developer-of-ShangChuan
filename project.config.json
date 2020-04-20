@@ -17,8 +17,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.4",
-	"appid": "wx14d0a1439a669f0a",
-	"projectname": "wxTest",
+	"appid": "wx68950d9adb1451c1",
+	"projectname": "my_watch",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
