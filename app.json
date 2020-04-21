@@ -1,8 +1,7 @@
 {
   "pages":[
     "pages/recharge/index",
-    "pages/joinWe/index",
-    "pages/logs/logs"
+    "pages/joinWe/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

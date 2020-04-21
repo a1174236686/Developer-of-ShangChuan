@@ -5,9 +5,33 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rechargeForm:{
+    formDataMap:{
+      pickNum:'￥30000',
+      payMode:'支付宝',
+    },
+    pickNumData:{
       pickNumTit:"支付金额",
-      pickNum:[100],
+      /**
+       * value映射formDataMap.pickNum
+       * 选中意味着的formDataMap值为相应value属性的值
+       */
+      pickNumArr:[
+        {frequency:'6次',Quota:'￥8800',value:'￥8800'},
+        {frequency:'12次',Quota:'￥15000',value:'￥15000'},
+        {frequency:'24次',Quota:'￥30000',value:'￥30000'},
+      ],
+    },
+    payModeData:{
+      payModeTit:"支付方式",
+      /**
+       * value映射formDataMap.payMode
+       * 选中意味着的formDataMap值为相应value属性的值
+       */
+      payModeArr:[
+        {text:"微信支付",value:'微信支付'},
+        {text:"支付宝",value:'支付宝'},
+        {text:"银联",value:'银联'},
+      ],
     },
   },
 
@@ -65,5 +89,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  selectLimit:function(e){
+    const param = e.currentTarget.dataset.param;
+    const formDataMap = this.data.formDataMap;
+    formDataMap.pickNum=param;
+    this.setData({formDataMap})
+    console.log('this.data.formDataMap',this.data.formDataMap)
   }
+  
 })
