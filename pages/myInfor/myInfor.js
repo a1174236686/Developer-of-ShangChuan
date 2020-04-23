@@ -1,16 +1,31 @@
-// pages/myUser/myUser.js
+// pages/myInfor/myInfor.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    optionsList:[
-      {label: '我的评价',id: 'evaluate',src: '../../img/evaluate.png'},
-      {label: '邀请奖励',id: 'reward',src: '../../img/reward.png'},
-      {label: '作品管理',id: 'works',src: '../../img/works.png'},
-      {label: '我的资料',id: 'data',src: '../../img/data.png'}
-    ]
+    infoList: [
+      {icon: '',name: '姓名', value: '张三', type: 'name'},
+      {icon: '',name: '性别', value: '李四', type: 'sex'},
+      {icon: '',name: '出生日期', value: '王五', type: 'date'},
+      {icon: '',name: '电话', value: '六六', type: 'phone'},
+      {icon: '',name: '区域', value: '戚戚', type: 'region'}],
+      noEdit: true,
+  },
+
+  formSubmit: function (e) {
+    wx.showNavigationBarLoading();
+    let vm = this;
+    setTimeout(function(){
+      vm.setData({noEdit: !vm.data.noEdit})
+      wx.hideNavigationBarLoading() //完成停止加载
+    },2000)
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+  },
+
+  switchBtn: function(){
+    this.setData({noEdit: !this.data.noEdit})
   },
 
   /**

@@ -1,16 +1,18 @@
-// pages/myUser/myUser.js
+// pages/withdrawal/withdrawal.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    optionsList:[
-      {label: '我的评价',id: 'evaluate',src: '../../img/evaluate.png'},
-      {label: '邀请奖励',id: 'reward',src: '../../img/reward.png'},
-      {label: '作品管理',id: 'works',src: '../../img/works.png'},
-      {label: '我的资料',id: 'data',src: '../../img/data.png'}
-    ]
+
+  },
+
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+  },
+  formReset: function () {
+    console.log('form发生了reset事件')
   },
 
   /**
