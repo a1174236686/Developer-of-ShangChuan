@@ -12,9 +12,9 @@
     "pages/photographer/photographer",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/find/find"      
-    "pages/joinWe/index"
-    "pages/recharge/index",
+    "pages/find/find",
+    "pages/joinWe/index",
+    "pages/recharge/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
