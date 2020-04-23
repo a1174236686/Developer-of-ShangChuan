@@ -1,5 +1,11 @@
 {
   "pages": [
+    "pages/myEvaluate/myEvaluate",
+    "pages/myInfor/myInfor",
+    "pages/worksManagement/worksManagement",
+    "pages/myOrder/myOrder",
+    "pages/withdrawal/withdrawal",
+    "pages/myWallet/myWallet",
     "pages/comments/comments",
     "pages/myUser/myUser",
     "pages/my/my",

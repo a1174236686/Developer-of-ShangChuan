@@ -1,0 +1,115 @@
+/* pages/myOrder/myOrder.wxss */
+page{
+  background-color: #f5f5f5;
+}
+
+.switchTab{
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.switchTab > view{
+  flex: 1;
+  text-align: center;
+  color: #B1B1B1;
+  font-size: 30rpx;
+  font-weight: bold;
+  position: relative;
+  height: 90rpx;
+  line-height: 90rpx;
+}
+
+.orderList{
+  margin-top: 100rpx;
+}
+
+.switchTab .active{
+  width:27rpx;
+  height:6rpx;
+  background:rgba(254,68,80,1);
+  border-radius:3rpx;
+  position: absolute;
+  bottom: 0;
+  left: 43%;
+}
+
+.switchTab .colorActive{
+  color: #FE4450;
+}
+
+.orderItem{
+  margin-top: 10rpx;
+  background-color: #fff;
+  padding: 28rpx 32rpx;
+}
+
+.orderItem_name{
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #E7E7E7;
+  padding-bottom: 30rpx;
+}
+
+.orderItem_name_Head{
+  border-radius: 50%;
+  width: 106rpx;
+  height: 106rpx;
+}
+
+.orderItem_name_Text{
+  font-size: 34rpx;
+  font-weight: bold;
+  padding: 0 17rpx 0 28rpx;
+}
+
+.orderItem_name_Call{
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.orderItem_Time{
+  display: flex;
+  color: #B1B1B1;
+  font-size: 24rpx;
+  margin-top: 24rpx;
+}
+
+.orderItem_Time label{
+  font-weight: bold;
+  color: #333;
+  font-size: 26rpx;
+}
+
+.orderItem_Customer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.orderItem_Customer_right{
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 30rpx;
+}
+
+.orderItem_Customer_right view{
+  margin-left: 17rpx;
+  width: 154rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  border-radius: 40rpx;
+  background-color: #FF6D77;
+  color: #fff;
+  font-size: 28rpx;
+}
+
+.orderItem_Customer_right .orderItem_Customer_cancel{
+  background-color: #FFCD6D;
+}
