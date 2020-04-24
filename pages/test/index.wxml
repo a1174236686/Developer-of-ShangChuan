@@ -1,0 +1,17 @@
+<view class="rateCtn">
+  <view class="rateItem">
+    <mp-icon icon="star" color="#FFCE0C" ext-class="floatingStars" size="{{45}}"/>
+    <mp-icon icon="star" color="#FFCE0C" type="field" size="{{45}}" />
+  </view>
+  <view class="rateItem">
+    <mp-icon icon="star" color="#FFCE0C" ext-class="floatingStars" size="{{45}}" />
+    <mp-icon icon="star" color="#FFCE0C" type="field" size="{{45}}" />
+  </view>
+  <view class="rateItem">
+    <mp-icon icon="star" color="#FFCE0C" ext-class="floatingStars" size="{{45}}" />
+    <mp-icon icon="star" color="#FFCE0C" ext-class="width3" size="{{45}}" type="field" />
+  </view>
+  <view class="rateItem">
+    <mp-icon icon="star" color="#FFCE0C" ext-class="floatingStars" size="{{45}}" />
+  </view>
+</view>

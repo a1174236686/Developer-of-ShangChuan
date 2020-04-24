@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/test/index",
     "pages/recharge/index",
     "pages/joinWe/index"
   ],
@@ -10,5 +11,8 @@
     "navigationBarTextStyle":"black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }
