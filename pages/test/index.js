@@ -1,11 +1,40 @@
 // pages/test/index.js
-Page({
 
+const computedBehavior = require('miniprogram-computed')
+
+Page({
+  behaviors: [computedBehavior],
   /**
    * 页面的初始数据
    */
   data: {
+    disabled:true,
+    max:5,
+    score:1.6,
+  },
 
+  computed:{
+    scoreInteger:function(data){
+      const {score} = data;
+      const int = Math.ceil(score);
+      console.log('int',int)
+      return int
+    },
+    scoreDecimal:function(data){
+      let {score} = data;
+      score+="";
+      const index =score.indexOf(".");
+      if(index===-1) return 0;
+      else {
+        console.log('???',score.substring(index+1,index+2))
+        return score.substring(index+1,index+2)
+      };
+    },
+  },
+
+  scoreChange:function(e){
+    console.log("我是分数改变",e.currentTarget.dataset.param);
+    this.setData({score:e.currentTarget.dataset.param})
   },
 
   /**

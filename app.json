@@ -2,7 +2,8 @@
   "pages":[
     "pages/test/index",
     "pages/recharge/index",
-    "pages/joinWe/index"
+    "pages/joinWe/index",
+    "pages/evaluate/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

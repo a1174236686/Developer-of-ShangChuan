@@ -19,37 +19,37 @@
 }
 
 .rateCtn .rateItem .width1{
-  width: 10%!important;
+  width: 25%!important;
 }
 
 .rateCtn .rateItem .width2{
-  width: 20%!important;
+  width: 28%!important;
 }
 
 .rateCtn .rateItem .width3{
-  width: 30%!important;
+  width: 31%!important;
 }
 
 .rateCtn .rateItem .width4{
-  width: 40%!important;
+  width: 35%!important;
 }
 
 .rateCtn .rateItem .width5{
-  width: 50%!important;
+  width: 43%!important;
 }
 
 .rateCtn .rateItem .width6{
-  width: 60%!important;
+  width: 46%!important;
 }
 
 .rateCtn .rateItem .width7{
-  width: 70%!important;
+  width: 49%!important;
 }
 
 .rateCtn .rateItem .width8{
-  width: 80%!important;
+  width: 52%!important;
 }
 
 .rateCtn .rateItem .width9{
-  width: 90%!important;
+  width: 60%!important;
 }

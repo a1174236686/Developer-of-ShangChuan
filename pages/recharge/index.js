@@ -96,7 +96,6 @@ Page({
     const formDataMap = this.data.formDataMap;
     formDataMap.pickNum=param;
     this.setData({formDataMap})
-    console.log('this.data.formDataMap',this.data.formDataMap)
   }
   
 })

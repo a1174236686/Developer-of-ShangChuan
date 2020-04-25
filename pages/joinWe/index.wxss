@@ -1,5 +1,6 @@
 .container{
   padding: 30rpx;
+  font-family:PingFang;
 }
 
 .top image{
