@@ -1,23 +1,26 @@
-// pages/my/my.js
+// pages/releaseWorks/releaseWorks.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    optionsList:[
-      {label: '我的预约',id: 'myOrder/myOrder',src: '../../img/yuyue.png'},
-      {label: '我的会员卡',id: 'reward',src: '../../img/vip.png'},
-      {label: '邀请有奖',id: 'works',src: '../../img/jiangli.png'},
-      {label: '加入我们',id: 'data',src: '../../img/joinwe.png'}
-    ]
+    imgSrc: ''
   },
 
-  gotoView: function(e){
-    console.log('/page')
-    wx.navigateTo({
-      url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
-    })
+  clearSrc:function(){
+    this.setData({imgSrc: ''})
+  },
+
+  choice:function(){
+    let vm = this;
+    wx.chooseImage({sourceType: 'album',
+    success:function(e){
+      console.log('成功',e.tempFiles[0].path);
+      vm.setData({imgSrc: e.tempFiles[0].path})
+    },fail:function(e){
+      console.log('失败',e);
+    }})
   },
 
   /**

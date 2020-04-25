@@ -1,0 +1,25 @@
+<!--pages/position/index.wxml-->
+<view class="content">
+	<view class="week">
+		<view wx:for="{{weekList}}" wx:key="index" wx:for-item="it">{{it}}</view>
+	</view>
+
+	<view wx:for="{{list}}" wx:key="index" wx:for-item="info">
+		<view class="year">{{info.year}}年{{info.month}}月</view>
+		<view>
+   
+			<view class="flex-list" wx:for="{{info.list}}" wx:key="index" wx:item="item">
+      
+				<view wx:for="{{item}}" wx:for-item="idx" wx:for-item="it" :class="['day',it.current?'active':'',it.isDay?'isDay':'']">{{it.value}}</view>
+			</view>
+		</view>
+	</view>
+
+  <view wx:for="{{cityList}}" wx:key="index">
+  <view bindtap="open" data-id="{{item.id}}" data-index="{{index}}">{{index+1}}-{{item.name}}</view>
+     <view wx:for="{{item.childList}}" wx:key="i" wx:for-item="it" wx:for-index="i">{{index+1}}.{{i+1}}{{it.name}}</view>
+  </view>
+
+
+
+</view>

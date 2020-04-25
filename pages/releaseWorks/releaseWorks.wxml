@@ -1,0 +1,14 @@
+<!--pages/releaseWorks/releaseWorks.wxml-->
+<view class="main">
+    <view>
+      <textarea class="text" placeholder="请输入作评名称"></textarea>
+    </view>
+    <view class="imgbox">
+      <view class="clioneImg" wx:if='{{imgSrc}}'>
+        <image src="{{imgSrc}}"></image>
+        <view class="close" bindtap="clearSrc">+</view>
+      </view>
+      <view wx:if='{{!imgSrc}}' class="addBth" bindtap="choice">+</view>
+    </view>
+    <view class="withdrawalBtn">发布</view>
+</view>

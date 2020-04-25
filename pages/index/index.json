@@ -1,4 +1,4 @@
 {
-  "usingComponents": {},
+  "usingComponents": {"mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"},
   "navigationBarTitleText": "首页"
 }

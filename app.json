@@ -1,5 +1,11 @@
 {
   "pages": [
+    "pages/vipCard/index",
+    "pages/index/index",
+    "pages/my/my",  
+    "pages/my_sy/index",
+    "pages/releaseWorks/releaseWorks",
+    "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
     "pages/myInfor/myInfor",
     "pages/worksManagement/worksManagement",
@@ -7,9 +13,7 @@
     "pages/withdrawal/withdrawal",
     "pages/myWallet/myWallet",
     "pages/myUser/myUser",
-    "pages/my/my",
     "pages/photographer/photographer",
-    "pages/index/index",
     "pages/logs/logs",
     "pages/find/find"
   ],
@@ -19,15 +23,22 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "useExtendedLib": {
+    "weui": true
+  },
   "tabBar": 
     {
       "position":"bottom",
+      "color": "#B7C0CC",
       "borderStyle":"white",
+      "backgroundBackground": "#fff",
+      "selectedBackgroundBackground": "#000",
+      "selectedColor": "#ED2B2B",
      "list":[
-        {"pagePath":"pages/index/index","text":"首页"},
-        {"pagePath":"pages/photographer/photographer","text":"摄影师"},
-        {"pagePath":"pages/index/index","text":"发现"},
-        {"pagePath":"pages/my/my","text":"我的"}
+        {"pagePath":"pages/index/index","text":"首页","iconPath": "./img/shouye.png","selectedIconPath": "img/shouye.png"},
+        {"pagePath":"pages/my_sy/index","text":"摄影师","iconPath": "./img/zhanshisheyingshi.png","selectedIconPath": "img/zhanshisheyingshi.png"},
+        {"pagePath":"pages/find/find","text":"发现","iconPath": "./img/faxian.png","selectedIconPath": "img/faxian.png"},
+        {"pagePath":"pages/my/my","text":"我的","iconPath": "./img/wodetianchong.png","selectedIconPath": "img/wodetianchong.png"}
       ]
      },
   "style": "v2",

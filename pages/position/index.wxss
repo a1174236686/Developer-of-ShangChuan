@@ -1,0 +1,47 @@
+/* pages/position/index.wxss */
+
+.content {
+  background: #FFFFFF;
+
+}
+
+.week {
+  display: flex;
+  justify-content: center;
+
+}
+
+.week view {
+  flex: 1;
+  text-align: center;
+}
+
+.year {
+  text-align: center;
+}
+
+.day {
+  color: rgba(223, 223, 230, 1);
+  padding: 8upx;
+}
+
+.isDay {
+  background: #f00;
+  color: #FFFFFF !important;
+}
+
+.active {
+
+  color: rgba(139, 138, 153, 1)
+}
+
+.flex-list {
+  display: flex;
+  justify-content: center;
+
+}
+
+.flex-list view {
+  flex: 1;
+  text-align: center;
+}

@@ -13,8 +13,8 @@
           <view class="data">2020-01-02</view>
         </view>
         <view class="imgText_operation">
-          <image src="../../img/toux.jpg"></image>
-          <image src="../../img/toux.jpg"></image>
+          <image src="../../img/share.png"></image>
+          <image src="../../img/news.png"></image>
         </view>
       </view>
     </view>

@@ -98,7 +98,7 @@
 }
 
 .imgText_operation image{
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 15rpx;
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 30rpx;
 }
