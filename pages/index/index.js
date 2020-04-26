@@ -1,11 +1,11 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+const serverUrl = app.globalData.serverUrl
 Page({
   data: {
-    motto: 'Hello World',
     userInfo: {},
+    serverUrl: serverUrl,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     tabList: [{label: '精选'},{label: '美食'},{label: '人物'},{label: '风景'}],
@@ -14,10 +14,6 @@ Page({
   switchTab: function(e){
     this.setData({showTabActive: e.currentTarget.dataset['index']})
   },
-
-  clickMe: function(){//测试点击事件
-    this.setData({ motto: "Hello World111" })
-  },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -25,6 +21,7 @@ Page({
     })
   },
   onLoad: function () {
+  
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -34,6 +31,7 @@ Page({
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
+        app.globalData.userInfo = res.userInfo;
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
@@ -44,6 +42,7 @@ Page({
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
+          console.log(res.userInfo)
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true

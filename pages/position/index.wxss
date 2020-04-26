@@ -1,0 +1,114 @@
+/* pages/position/index.wxss */
+
+.content {
+  background: #FFFFFF;
+  padding: 0 40rpx;
+  position: relative;
+}
+
+.weekTitle{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 10;
+}
+
+.headTitle{
+  display: flex;
+  height: 90rpx;
+}
+
+.titleText{
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.titleIcon{
+  position: absolute;
+  left: 40rpx;
+}
+
+.headTitle{
+  position: relative;
+}
+
+.titleText{
+  text-align: center;
+  flex: 1;
+}
+
+.week {
+  display: flex;
+  justify-content: center;
+  padding: 0 40rpx;
+}
+
+.week view {
+  flex: 1;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #8B8A99;
+  font-weight: bold;
+}
+
+.calendarItem{
+  padding: 40rpx 0;
+}
+
+.calendarTitle{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.yearMo{
+  width:252rpx;
+  height:90rpx;
+  background:rgba(248,248,248,1);
+  border-radius:45rpx;
+  color: #272637;
+  font-size: 32rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-weight: bold;
+}
+
+.flex-list {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-list .soloDay{
+  flex: 1;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #8B8A99;
+  font-size: 30rpx;
+  font-weight: bold;
+  position: relative;
+}
+
+.flex-list > .active{
+  background-color: #FF434E;
+  line-height: 75rpx;
+  color: #fff;
+  border-radius: 10rpx;
+}
+
+.dayText{
+  position: absolute;
+  color: #fff;
+  font-size: 18rpx;
+  font-weight: bold;
+  bottom: 15rpx;
+  width: 100%;
+  line-height: 20rpx;
+}
+
+.flex-list > .noClose{
+  color: #DFDFE6;
+}

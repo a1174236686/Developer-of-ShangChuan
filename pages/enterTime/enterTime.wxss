@@ -1,0 +1,96 @@
+/* pages/enterTime/enterTime.wxss */
+.syItem{
+  display: flex;
+  margin-bottom: 24rpx;
+  padding-top: 20rpx;
+}
+
+.syIcon{
+  margin: 0 16rpx 0 49rpx;
+}
+
+.syIcon image{
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+}
+
+.syInfo{
+  flex: 1;
+}
+
+.syInfo > view{
+  display: flex;
+  align-items: center;
+  padding-bottom: 10rpx;
+}
+
+.infoTtile{
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.titleLabel{
+  padding: 0 12rpx;
+  height: 35rpx;
+  line-height: 35rpx;
+  background-color: #FAE8C4;
+  border-radius: 4rpx;
+  font-size: 20rpx;
+  color: #9F6B32;
+  margin-left: 20rpx;
+}
+
+.score view:first-child{
+  color: #F62020;
+  font-size: 30rpx;
+  margin-right: 8rpx;
+  font-weight: bold;
+}
+
+.score view:last-child{
+  color: #ccc;
+  font-size: 22rpx;
+  margin-top: 6rpx;
+}
+
+.countScore label{
+  color: #ccc;
+}
+
+.timeTitle{
+  display: flex;
+  justify-content: center;
+  padding-top: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.timeTitle view{
+  height: 90rpx;
+  line-height: 90rpx;
+  background-color: #F8F8F8;
+  border-radius: 40rpx;
+  padding: 0 30rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.times{
+  padding: 20rpx 0;
+}
+
+.timeList{
+  padding: 0 25rpx;
+}
+
+.timeRow{
+  display: flex;
+}
+
+.timeItem{
+  flex: 1;
+  height: 60rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #8B8A99;
+}

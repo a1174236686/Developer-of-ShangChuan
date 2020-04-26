@@ -1,0 +1,25 @@
+<!--pages/withdrawal/withdrawal.wxml-->
+<view>
+  <view class="withdrawal">
+    <image class="withdrawalBg" src="../../img/withdrawalBg.png"></image>
+    <view class="withdrawalInfo">
+      <view>可提现金额:</view>
+      <view class="withdrawalInfo_money">20,000.00</view>
+      <view class="withdrawalInfo_details">注：提现时间为7个工作日</view>
+    </view>
+  </view>
+  <view class="fillInfo">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="fillInfoItem">
+        <view>提现金额：</view><input placeholder="请输入提现金额"></input>
+      </view>
+      <view class="fillInfoItem">
+        <view>提现方式：</view><view style="color: #666666;">微信</view>
+      </view>
+      <view class="fillInfoItem">
+        <view>手机号码：</view><input placeholder="请输入手机号码"></input>
+      </view>
+    </form>
+  </view>
+  <view class="withdrawalBtn">提现</view>
+</view>

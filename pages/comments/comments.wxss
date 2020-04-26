@@ -1,0 +1,97 @@
+.designerBorder{
+border: 1rpx solid #000;
+}
+
+page{
+  height: 100%;
+}
+.main{
+   height: 100%;
+    background:  #E7E7E7;
+}
+
+.main .item{
+  background: #fff;
+margin-top: 10rpx;
+padding: 15rpx 31rpx 15rpx 31rpx;
+}
+
+.main .item .head{
+display: flex;
+align-items:  center;
+}
+
+.main .item .head .img{
+height:66rpx;
+width:66rpx;
+border-radius:66rpx;
+}
+
+
+.main .item .head .name{
+font-family: "PingFang-SC-Bold";
+font-weight: 600;
+font-size: 34rpx;
+margin-left: 30rpx;
+color: #403434;
+}
+
+.main .item .head .starContainer{
+flex: 1;
+display: flex;
+}
+
+.main .item .head .starContainer .starBox{
+height: 100%;
+margin-left: auto;
+display: flex; 
+
+
+}
+
+.main .item .head .starContainer .starItem {
+width: 28rpx;
+height: 28rpx;
+margin: 0rpx 9rpx 0rpx 9rpx;
+}
+
+.main .item .line{
+height: 15rpx;
+border-bottom: 1rpx solid #E7E7E7
+}
+
+.main .item .body {
+  display: flex;  
+  flex-direction: column;
+}
+
+.main .item .body .contentText{
+  font-family: "PingFang-SC-Bold";
+  font-size: 24rpx;
+  font-weight: 600;
+height: 72rpx;
+line-height: 72rpx;
+color: #333333;
+letter-spacing:2rpx;
+}
+
+.main .item .body .contentImgs{
+  display: flex;
+}
+
+.main .item .body .contentImg +.contentImg{
+  margin-left: 13rpx
+}
+.main .item .body .contentImg{
+  height: 160rpx;
+  width: 160rpx;
+  border-radius: 20rpx;
+}
+
+.main .item .body .Datetime{
+  height: 70rpx;
+  font-size: 14px;
+line-height: 70rpx;
+color: #A3A3A3;
+
+}

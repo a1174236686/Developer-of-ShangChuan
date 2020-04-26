@@ -1,0 +1,28 @@
+<!--pages/enterTime/enterTime.wxml-->
+<view class="main">
+  <view class="syItem">
+    <view class="syIcon"><image src="../../img/toux.jpg"></image></view>
+    <view class="syInfo">
+      <view class="infoTtile">程潇潇摄影师 <view class="titleLabel">高级摄影师</view></view>
+      <view class="score">
+          <view>5.0</view>
+          <view>评分</view>
+      </view>
+      <view class="countScore" style="font-size: 22rpx">
+        <label>总评分：</label>
+        <view>星星组件</view>
+      </view>
+    </view>
+  </view>
+  <view class="times" wx:for="{{[1,2]}}" wx:for-item="items" wx:for-index="indexs" wx:key="indexs">
+    <view class="timeTitle">
+      <view>2018年8月 星期四</view>
+    </view>
+    <view class="timeList">
+      <view class="timeRow" wx:for="{{timeList}}" wx:key="index">
+        <view class="timeItem" wx:for="{{item.child}}" wx:for-item="it" wx:for-index="idx" wx:key="it"
+        bindtap="selectTime" data-date="{{it}}">{{it}}</view>
+      </view>
+    </view>
+  </view>
+</view>

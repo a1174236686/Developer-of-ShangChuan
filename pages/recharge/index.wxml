@@ -1,0 +1,52 @@
+<view class="container">
+		<template is="rechargeForm" data="{{pickNumData,payModeData,...formDataMap}}" />
+		<template is="confirmPay" />
+</view>
+
+<!-- 充值表单 -->
+<template name="rechargeForm">
+		<form class="rechargeForm">
+				<template is="pickNumCtn" data="{{...pickNumData,formDataMap,pickNum}}" />
+				<template is="payModeCtn" data="{{...payModeData,formDataMap,payMode}}" />
+		</form>
+</template>
+
+<!-- 选择充值金额 -->
+<template name="pickNumCtn">
+		<view class="pickNumCtn">
+				<text class="pickNumTit">{{pickNumTit}}</text>
+				<view class="cardCtn">
+						<view class="{{item.value===pickNum?'Selection':'cardItem'}}" 
+						wx:for="{{pickNumArr}}" wx:for-index="index" wx:for-item="item" 
+						wx:key="index" bindtap="selectLimit" data-param="{{item.value}}">
+								<view class="infoCtn">
+									<view class="Quota">{{item.Quota}}</view>
+									<view class="frequency">{{item.frequency}}</view>
+								</view>
+						</view>
+				</view>
+		</view>
+</template>
+
+<!-- 选择支付方式 -->
+<template name="payModeCtn">
+		<view class="payModeCtn">
+				<text class="payModeTit">{{payModeTit}}</text>
+				<view class="modeCtn">
+						<radio-group>
+								<view class="modeCtn-radio-ctn" wx:for="{{payModeArr}}" wx:for-index="index" wx:for-item="item" wx:key="index">
+										<icon type="success" size="20" />
+										<view class="payMode"><text>{{item.text}}</text></view>
+										<radio class="modeCtn-radio" checked="{{item.value===payMode}}" />
+								</view>
+						</radio-group>
+				</view>
+		</view>
+</template>
+
+<!-- 支付按钮 -->
+<template name="confirmPay">
+		<view class="confirmPay">
+				<button class="btn">确认支付</button>
+		</view>
+</template>

@@ -59,6 +59,7 @@
   border-radius: 20rpx;
   background-color: #fff;
   box-shadow: 0px 3px 2px #f2f2f2;
+  margin-bottom: 30rpx;
 }
 
 .imgText_img{
@@ -98,7 +99,7 @@
 }
 
 .imgText_operation image{
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 15rpx;
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 30rpx;
 }
