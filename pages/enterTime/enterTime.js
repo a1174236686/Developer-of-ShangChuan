@@ -1,40 +1,41 @@
-// pages/my/my.js
-const app = getApp()
-const serverUrl = app.globalData.serverUrl
+// pages/enterTime/enterTime.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    serverUrl: serverUrl,
-    optionsList:[
-      {label: '我的预约',id: 'myOrder/myOrder',src: serverUrl + '/statics/image/yuyue.png'},
-      {label: '我的会员卡',id: 'reward',src: serverUrl + '/statics/image/vip.png'},
-      {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
-      {label: '加入我们',id: 'data',src: serverUrl + '/statics/image/joinWe.png'}
-    ]
-  },
-
-  gotoView: function(e){
-    console.log('/page')
-    wx.navigateTo({
-      url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
-    })
+    timeList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let rowLength = 30 * 6;
+    let length = 24 * 60 / rowLength;
+    let list = [];
+    for(let i = 0;i < length;i++){
+      list.push({child: []})
+      for(let j = 0;j < 6;j++){
+        let Minute = i * 6 *30 + j * 30;
+        //console.log(Minute,Math.floor(Minute / 60 % 30),Minute % 60)
+        let h = Math.floor(Minute / 60 % 30) < 10 ? '0' + Math.floor(Minute / 60 % 30) : Math.floor(Minute / 60 % 30);
+        let yu = Minute % 60 === 0 ? '0' + Minute % 60 :  Minute % 60;
+        list[i].child.push(h + ':' + yu);
+      }
+    }
+    this.setData({timeList: list})
+  },
 
+  selectTime:function(e){
+    console.log(e.currentTarget.dataset.date)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
   },
 
   /**

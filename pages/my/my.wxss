@@ -49,6 +49,10 @@
   font-size: 22rpx;
 }
 
+.moreWork{
+  margin-right: 60rpx;
+}
+
 .myFunctionList{
   padding: 30rpx 30rpx;
   color: #595B5D;
@@ -57,6 +61,12 @@
 .myFunctionItem{
   display: flex;
   align-items: center;
+  margin-bottom: 46rpx;
+}
+
+.myFunctionItem image{
+  width: 70rpx;
+  height: 70rpx;
 }
 
 .myFunctionItem .functionName{

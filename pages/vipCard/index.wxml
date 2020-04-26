@@ -1,0 +1,37 @@
+<view class="clubCard">
+  <image class="clubCardImg" src="../../img/card.png"></image>
+  <view class="clubCardTwo">
+    <image class="cardText" src="../../img/cardText.png"></image>
+    <view class="numText">{{number}}</view>
+    <image class="recharge" src="../../img/recharge.png"></image>
+    <image class="medal" src="../../img/medal.png"></image>
+    <image class="Lv" src="../../img/Lv.png"></image>
+    <view class="grade">{{grade}}</view>
+  </view>
+</view>
+<view class="bigBox">
+  <view class="box">
+    <view class="boxNum boxNumOne">6</view>
+    <view class="boxNum boxNumTwo">剩余次数</view>
+  </view>
+  <view class="box" style="margin-left:18rpx;">
+    <view class="boxNum boxNumOne">3</view>
+    <view class="boxNum boxNumTwo">累计使用</view>
+  </view>
+  <view class="box" style="margin-left:18rpx;">
+    <view class="boxNum boxNumOne">3</view>
+    <view class="boxNum boxNumTwo">累计充值</view>
+  </view>
+</view>
+<view class="text">
+  <view class="iconText"><image class="icon" src="../../img/icon.png"></image>使用须知：</view>
+  <view class="iconText">
+    1. 这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字...
+  </view>
+  <view class="iconText">
+    2. 这里是文字这里是文字这里是文字这里是文字这里是文字
+  </view>
+  <view class="iconText">
+    3. 这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字...
+  </view>
+</view>
