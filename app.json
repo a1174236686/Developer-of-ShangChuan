@@ -6,7 +6,6 @@
     "pages/position/index",
     "pages/my_sy/index",
     "pages/vipCard/index",
-    "pages/releaseWorks/releaseWorks",
     "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
     "pages/myInfor/myInfor",
@@ -21,6 +20,9 @@
     "pages/find/find",
     "pages/joinWe/index",
     "pages/recharge/index"
+    "pages/releaseWorks/releaseWorks",
+    "pages/test/index",
+    "pages/evaluate/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -45,5 +47,8 @@
       ]
      },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }

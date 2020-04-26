@@ -1,0 +1,55 @@
+/* pages/test/index.wxss */
+.rateCtn{
+  display: flex;
+}
+
+.rateCtn .rateItem{
+  position: relative;
+  width: 92rpx;
+  height: 88rpx;
+}
+
+.rateCtn .rateItem .starsBasicSty{
+  padding: 0rpx!important;
+  margin: 0!important;
+}
+
+.rateCtn .rateItem .floatingStars{
+  position: absolute;
+}
+
+.rateCtn .rateItem .width1{
+  width: 25%!important;
+}
+
+.rateCtn .rateItem .width2{
+  width: 28%!important;
+}
+
+.rateCtn .rateItem .width3{
+  width: 31%!important;
+}
+
+.rateCtn .rateItem .width4{
+  width: 35%!important;
+}
+
+.rateCtn .rateItem .width5{
+  width: 43%!important;
+}
+
+.rateCtn .rateItem .width6{
+  width: 46%!important;
+}
+
+.rateCtn .rateItem .width7{
+  width: 49%!important;
+}
+
+.rateCtn .rateItem .width8{
+  width: 52%!important;
+}
+
+.rateCtn .rateItem .width9{
+  width: 60%!important;
+}

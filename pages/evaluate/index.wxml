@@ -1,0 +1,46 @@
+<!--pages/evaluate/index.wxml-->
+<view class="container">
+	<view class="PhotographerInfoWrap">
+		<view class="profilePictureWrap">
+			<image mode="scaleToFill" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+		</view>
+		<view class="infoContent">
+			<view class="name">
+				<text>陈潇潇</text>
+				<view class="levelTlele">高级摄影师</view>
+			</view>
+			<view class="score">
+				<text class="value">5.0</text>
+				<text class="valueTlele">评分</text>
+			</view>
+			<view>
+				展示星星
+			</view>
+		</view>
+	</view>
+	<form class="evaluateForm">
+		<view class="evaluateDimension">
+			<view class="dimensionItem">
+				<view class="dimensionTlt">专业度</view>
+				<view class="showRate">我是一个星星</view>
+			</view>
+			<view class="dimensionItem">
+				<view class="dimensionTlt">服务态度</view>
+				<view class="showRate">我是一个星星</view>
+			</view>
+			<view class="dimensionItem">
+				<view class="dimensionTlt">响应速度</view>
+				<view class="showRate">我是一个星星</view>
+			</view>
+		</view>
+    <view class="OtherEvaluateWrap">
+      <view class="title">其他建议</view>
+      <view class="OtherEvaluate">
+        <textarea placeholder="请填写内容建议"/>
+      </view>
+    </view>
+    <view class="uploaderWrap">
+      <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" max-count="5" />
+    </view>
+	</form>
+</view>
