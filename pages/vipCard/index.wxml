@@ -24,7 +24,7 @@
   </view>
 </view>
 <view class="text">
-  <view class="iconText"><image class="icon" src="../img/icon.png"></image>使用须知：</view>
+  <view class="iconText"><image class="icon" src="../../img/icon.png"></image>使用须知：</view>
   <view class="iconText">
     1. 这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字...
   </view>

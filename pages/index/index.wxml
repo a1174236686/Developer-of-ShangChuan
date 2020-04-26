@@ -5,16 +5,16 @@
   </view>
   <view class="imgTextList">
     <view class="imgTextItem" wx:for="{{[1,1,2]}}" wx:key="index">
-      <image class="imgText_img" src='../../img/1.jpg'></image>
+      <image class="imgText_img" src='{{serverUrl}}/statics/image/1.jpg'></image>
       <view class="imgText_text">
-        <image class="imgText_portrait" src="../../img/toux.jpg"></image>
+        <image class="imgText_portrait" src="{{serverUrl}}/statics/image/toux.jpg"></image>
         <view class="imgText_name">
           <view>Sunny</view>
           <view class="data">2020-01-02</view>
         </view>
         <view class="imgText_operation">
-          <image src="../../img/share.png"></image>
-          <image src="../../img/news.png"></image>
+          <image src="{{serverUrl}}/statics/image/share.png"></image>
+          <image src="{{serverUrl}}/statics/image/news.png"></image>
         </view>
       </view>
     </view>

@@ -1,6 +1,6 @@
 // pages/my_sy/index.js
 
-
+const app = getApp();
 Page({
 
   /**
@@ -13,6 +13,7 @@ Page({
      {url:"../../static/l1.png",id:"2",mode:"aspectFill"},
      {url:"../../static/l1.png",id:"3",mode:"scaleToFill"}
    ],
+   name: {},
    imgUrls: [
  
     "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=231620273,2622968107&fm=27&gp=0.jpg",
@@ -44,7 +45,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({name: app.globalData.userInfo})
   },
 
   swiperChange(e){

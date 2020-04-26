@@ -1,9 +1,11 @@
 {
   "pages": [
-    "pages/vipCard/index",
+    "pages/enterTime/enterTime",
     "pages/index/index",
     "pages/my/my",  
+    "pages/position/index",
     "pages/my_sy/index",
+    "pages/vipCard/index",
     "pages/releaseWorks/releaseWorks",
     "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
@@ -31,8 +33,6 @@
       "position":"bottom",
       "color": "#B7C0CC",
       "borderStyle":"white",
-      "backgroundBackground": "#fff",
-      "selectedBackgroundBackground": "#000",
       "selectedColor": "#ED2B2B",
      "list":[
         {"pagePath":"pages/index/index","text":"首页","iconPath": "./img/shouye.png","selectedIconPath": "img/shouye.png"},
