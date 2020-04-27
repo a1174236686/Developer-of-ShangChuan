@@ -1,10 +1,13 @@
 // pages/myOrder/myOrder.js
+const app = getApp()
+const serverUrl = app.globalData.serverUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    serverUrl: serverUrl,
     tabList: [{name: '待接单',type: '1'},{name: '待拍摄',type: '2'},{name: '已拍摄',type: '3'},{name: '已完成',type: '4'}],//tab
     waitOrderList: [{name: '潘洋'},{name: '演叼'},{name: '演叼'},{name: '演叼'},{name: '演叼'}],//待接单
     waitShotList:[{name: '潘洋'},{name: '鸡西'}],//待拍摄

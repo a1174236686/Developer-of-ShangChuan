@@ -1,7 +1,7 @@
 // pages/my_sy/index.js
 import {updateCalendar} from '../../utils/util';
 const app = getApp()
-const serverUrl = app.globalData.serverUrl
+const serverUrl = app.globalData.serverUrl;
 Page({
   /**
    * 页面的初始数据
@@ -32,7 +32,17 @@ Page({
         image:"",
     }],
     currentDate: [],
-    weekList:['日', '一', '二', '三', '四', '五', '六']
+    weekList:['日', '一', '二', '三', '四', '五', '六'],
+    showDate: false
+  },
+
+  openDate:function(){
+    this.setData({showDate: true})
+  },
+
+  closeDate
+  :function(){
+    this.setData({showDate: false})
   },
 
   /**
@@ -72,6 +82,18 @@ Page({
   onReady: function () {
 
   },
+  
+  // onTabItemTap (item) {
+  //   console.log(item.index)
+  //   console.log(item.pagePath)
+  //   console.log(item.text)
+  //   console.log(app.globalData.userInfo)
+  //   if(!app.globalData.userInfo){
+  //     wx.navigateTo({
+  //       url: '../login/login'
+  //     })
+  //   }
+  // },
 
   /**
    * 生命周期函数--监听页面显示
