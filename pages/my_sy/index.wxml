@@ -52,8 +52,17 @@
   <view class="BecomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
 </view>
 <!-- 摄影师列表结束 -->
+  <view class="weekTitle">
+    <view class="headTitle">
+      <view class="titleIcon"><mp-icon icon="close" color="#8B8A99" size="{{25}}"></mp-icon></view>
+      <view class="titleText">日期选择</view>
+    </view>
+    <view class="week">
+      <view wx:for="{{weekList}}" wx:key="index" wx:for-item="it">{{it}}</view>
+    </view>
+  </view>
   <view class="showDate">
-    <Timer list="{{list}}"/>
+    <Timer list="{{list}}" currentDate="{{currentDate}}"/>
   </view>
 </view>
 

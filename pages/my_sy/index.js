@@ -30,7 +30,9 @@ Page({
         grade:4,//等级
         score:5.0,//评分
         image:"",
-      }]
+    }],
+    currentDate: [],
+    weekList:['日', '一', '二', '三', '四', '五', '六']
   },
 
   /**

@@ -6,6 +6,7 @@
   "backgroundTextStyle": "light",
   "usingComponents": {
     "Swiper":"../../components/theSwiper/theSwiper",
-    "Timer":"../position/index"
+    "Timer":"../position/index",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
   }
 }

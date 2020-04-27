@@ -1,16 +1,5 @@
 <!--pages/position/index.wxml-->
 <view class="content">
-	<view class="weekTitle">
-		<view class="headTitle">
-			<view class="titleIcon"><mp-icon icon="close" color="#8B8A99" size="{{25}}"></mp-icon></view>
-			<view class="titleText">日期选择</view>
-		</view>
-		<view class="week">
-			<view wx:for="{{weekList}}" wx:key="index" wx:for-item="it">{{it}}</view>
-		</view>
-	</view>
-	<view style="height: 180rpx"/>
-
 	<view class="calendarItem" wx:for="{{list}}" wx:key="infodex" wx:for-item="info" wx:for-index="infodex">
 			<view class="calendarTitle"><view class="yearMo">{{info.year}}年{{info.month}}月</view></view>
 				<view>
