@@ -17,10 +17,15 @@ Page({
   },
 
   gotoView: function(e){
-    console.log('/page')
-    wx.navigateTo({
-      url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
-    })
+    // console.log(e.currentTarget.dataset.view)
+    if(e.currentTarget.dataset.view =='data'){
+      wx.navigateTo({
+        url: '../joinWe/index'
+        })
+    }
+    // wx.navigateTo({
+    //   url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
+    // })
   },
 
   /**

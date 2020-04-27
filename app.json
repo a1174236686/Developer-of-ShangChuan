@@ -1,10 +1,12 @@
 {
   "pages": [
+    "pages/joinWe/index",
+    "pages/my/my",  
+    "pages/index/index",
+    
     "pages/my_sy/index",
     "pages/position/index",
     "pages/enterTime/enterTime",
-    "pages/index/index",
-    "pages/my/my",  
     "pages/vipCard/index",
     "pages/releaseWorks/releaseWorks",
     "pages/personalInfo/personalInfo",
