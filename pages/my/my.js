@@ -17,7 +17,6 @@ Page({
   },
 
   gotoView: function(e){
-    console.log('aaaa',wx.getStorageSync('tokenInfo'),wx.getStorageSync('userInfo'))
     if(wx.getStorageSync('tokenInfo') && wx.getStorageSync('userInfo')){
       wx.navigateTo({
         url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
