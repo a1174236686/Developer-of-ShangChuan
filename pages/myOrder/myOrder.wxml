@@ -9,9 +9,9 @@
   <view class="orderList">
     <view class="orderItem" wx:for="{{orderList}}" wx:key="index">
       <view class="orderItem_name">
-        <image class="orderItem_name_Head" src="../../img/toux.jpg"></image>
+        <image class="orderItem_name_Head" src="{{serverUrl}}/statics/image/toux.jpg"></image>
         <view class="orderItem_name_Text">{{item.name}}</view>
-        <image class="orderItem_name_Call" src="../../img/toux.jpg"></image>
+        <image class="orderItem_name_Call" src="{{serverUrl}}/statics/image/toux.jpg"></image>
       </view>
       <view class="orderItem_Info">
         <view class="orderItem_Time">
