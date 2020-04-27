@@ -1,5 +1,6 @@
 <!--index.wxml-->
 <view class="main">
+<button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">获取用户信息</button>
   <view class="tab">
     <text wx:for='{{tabList}}' wx:key="index" class="{{showTabActive === index ? 'active' : ''}}" bindtap="switchTab" data-index="{{index}}">{{item.label}}</text>
   </view>
@@ -10,7 +11,7 @@
         <image class="imgText_portrait" src="{{serverUrl}}/statics/image/toux.jpg"></image>
         <view class="imgText_name">
           <view>Sunny</view>
-          <view class="data">2020-01-02</view>
+          <view class="data">2020-01-02{{userInfo.nickName}}</view>
         </view>
         <view class="imgText_operation">
           <image src="{{serverUrl}}/statics/image/share.png"></image>

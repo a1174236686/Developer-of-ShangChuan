@@ -9,13 +9,11 @@ App({
     // 登录
     wx.login({
       success: res => {
-        console.log(res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         wx.getUserInfo({
           complete: (info_res) => {
-            console.log(info_res)
             wx.request({
-              url: 'http://294k6r6236.qicp.vip:25802/sheying' + '/wx/login',
+              url: this.globalData.serverUrl + '/wx/login',
               method: 'POST',
               data: {
                 code: res.code,
@@ -32,7 +30,7 @@ App({
         })
       }
     })
-    // 获取用户信息
+    //获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -54,7 +52,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    serverUrl: 'http://106.12.205.91:9000/sheying'
+    serverUrl: 'http://106.12.205.91:9000/sheying',
+    //serverUrl: 'http://294k6r6236.qicp.vip:25802/sheying',
+    userInfo: null
   }
 })

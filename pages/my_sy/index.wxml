@@ -4,12 +4,12 @@
   <!-- 地址 -->
     <view class="address">
       <view>深圳</view>
-      <image src="../../img/shiyuanjiaosanjiao.png"></image>
+      <image src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
     </view>
     <!-- 输入 -->
     <view class="input-box">
       <input placeholder="请输入摄影师/摄影对象"></input>
-        <image class="input-icon" src="../../img/ssmax.png"></image>
+      <image class="input-icon" src="{{serverUrl}}/statics/image/ssmax.png"></image>
     </view>
   </view>
   <!-- 头部结束 -->
@@ -22,14 +22,14 @@
 
 <!-- 区域开始 -->
 <view class="region">
-  <view>区域</view><image src="../../img/down.png"></image>
+  <view>区域</view><image src="{{serverUrl}}/statics/image/down.png"></image>
 </view>
 <!-- 区域结束 -->
 
 <!-- 摄影师列表开始 -->
 <view class="syList">
   <view class="syItem" wx:for="{{[1,2]}}" wx:key="index">
-    <view class="syIcon"><image src="../../img/toux.jpg"></image></view>
+    <view class="syIcon"><image src="{{serverUrl}}/statics/image/toux.jpg"></image></view>
     <view class="syInfo">
       <view class="infoTtile">程潇潇摄影师 <view class="titleLabel">高级摄影师</view></view>
       <view style="font-size: 20rpx">星星组件</view>
@@ -43,15 +43,17 @@
         <view>满减</view>
       </view>
       <view class="syAddress">
-        <image src="../../img/mapIcon.png"></image>
+        <image src="{{serverUrl}}/statics/image/mapIcon.png"></image>
         <view class="addressText">地址：这里是地址...</view>
         <view class="makeBtn">预约</view>
       </view>
     </view>
   </view>
-  <view class="BecomeVip"><image src="../../img/Become.png"></image></view>
+  <view class="BecomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
 </view>
 <!-- 摄影师列表结束 -->
-
+  <view class="showDate">
+    <Timer list="{{list}}"/>
+  </view>
 </view>
 

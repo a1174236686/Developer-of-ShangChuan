@@ -5,6 +5,7 @@
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
   "usingComponents": {
-    "Swiper":"../../components/theSwiper/theSwiper"
+    "Swiper":"../../components/theSwiper/theSwiper",
+    "Timer":"../position/index"
   }
 }

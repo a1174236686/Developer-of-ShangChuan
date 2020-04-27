@@ -4,24 +4,34 @@ var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 var qqmapsdk;
 Page({
 
+  properties: {
+    list: Array,
+  },
+
   /**
    * 页面的初始数据
    */
   data: {
-      list:[],
       weekList:['日', '一', '二', '三', '四', '五', '六'],
       cityList:[],
       currentY: '',
       currentM: '',
       currentD: '',
-      currentDate: []
+      currentDate: [],
+      list: [{child: [111,222,333]}]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //console.log(new Date().getMonth())
+    qqmapsdk = new QQMapWX({
+      key: '2B2BZ-PBVRW-K6RR3-OB4HW-W6CJS-HWFBO'
+  });
+
+  },
+
+  loadList:function(){
     let list = [];
     let nowDate = new Date();
     this.setData({currentY: nowDate.getFullYear(),currentM: nowDate.getMonth() + 1,currentD: nowDate.getDate()});
@@ -39,10 +49,6 @@ Page({
     }
     console.log(list)
     this.setData({list:list});
-    qqmapsdk = new QQMapWX({
-      key: '2B2BZ-PBVRW-K6RR3-OB4HW-W6CJS-HWFBO'
-  });
-
   },
 
   enterDate:function(e){
@@ -64,13 +70,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-
       this.getCityList();
-
-  
-
-
+      this.loadList();
   },
 
   open(e){

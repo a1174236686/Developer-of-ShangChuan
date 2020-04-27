@@ -94,3 +94,20 @@
   line-height: 60rpx;
   color: #8B8A99;
 }
+
+.timeList .timeRow .isStart{
+  border-radius: 20rpx 0 0 20rpx;
+  background-color: #FF6D77;
+  color: #fff;
+}
+
+.timeList .timeRow .isEnd{
+  background-color: #FF6D77;
+  border-radius: 0 20rpx 20rpx 0;
+  color: #fff;
+}
+
+.timeRow .active{
+  background-color: #FFC8CC;
+  color: #fff;
+}
