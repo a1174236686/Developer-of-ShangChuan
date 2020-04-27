@@ -9,5 +9,8 @@ App({
   globalData: {
     serverUrl: 'http://106.12.205.91:9000/sheying',
     //serverUrl: 'http://294k6r6236.qicp.vip:25802/sheying',
+    userInfo: null,
+    header: { 'content-type': 'application/x-www-form-urlencoded','token': "4091baed-a520-492b-8d22-7c594f80e213",},
+
   }
 })

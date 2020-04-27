@@ -12,7 +12,7 @@
     </view>
   </view>
   <view class="myFunctionList">
-    <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" bindtap="gotoView" data-view="{{item.id}}">
+    <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" bindtap="gotoView" data-view="{{item.id}}" data-detail="{{item}}" >
       <image src="{{item.src}}"></image>
       <view class="functionName">{{item.label}}<text class="news">•</text></view>
       <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon>
