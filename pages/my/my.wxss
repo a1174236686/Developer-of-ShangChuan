@@ -8,10 +8,6 @@
   height: 150px;
 }
 
-.headerIconText_img{
-  opacity: 0.4;
-}
-
 .headerIconText{
   width: 100%;
   position: absolute;
@@ -36,7 +32,11 @@
 .headerIconText_text{
   padding: 0 15px;
   flex: 1;  
-  color: red;
+  color: #fff;
+}
+
+.headerIconText_img{
+  -webkit-filter: blur(14rpx);
 }
 
 .headerIconText_name{
@@ -47,6 +47,8 @@
 
 .headerIconText_num{
   font-size: 22rpx;
+  display: flex;
+  align-items: center;
 }
 
 .moreWork{
@@ -83,4 +85,19 @@
   font-size: 40rpx;
   margin-left: 8rpx;
   top: -22rpx;
+}
+
+.bindPhoneNum{
+  margin-left: 10rpx;
+}
+
+.bindPhoneNum button{
+  background: none;
+  width: 200rpx;
+  height: auto;
+  font-size: 20rpx;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  color: red;
 }
