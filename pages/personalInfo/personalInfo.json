@@ -1,4 +1,5 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "摄影师主页"
+  "usingComponents": {"rate": "/components/rate/index"},
+  "navigationBarTitleText": "摄影师主页",
+  "enablePullDownRefresh": true
 }

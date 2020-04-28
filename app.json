@@ -1,5 +1,6 @@
 {
-  "pages": [ 
+  "pages": [
+    "pages/personalInfo/personalInfo",
     "pages/my/my",  
     "pages/joinWe/index",
     "pages/login/login",
@@ -8,7 +9,6 @@
     "pages/enterTime/enterTime",
     "pages/vipCard/index",
     "pages/releaseWorks/releaseWorks",
-    "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
     "pages/myInfor/myInfor",
     "pages/worksManagement/worksManagement",
