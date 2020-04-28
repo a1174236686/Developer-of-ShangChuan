@@ -14,24 +14,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-      var that = this;
-       // 查看是否授权
-       wx.getSetting({
-        success: function(res) {
-            if (res.authSetting['scope.userInfo']) {
-                wx.getUserInfo({
-                    success: function(res) {}
-                });
-            } else {
-                // 用户没有授权
-                // 改变 isHide 的值，显示授权页面
-            }
-        }
-    });
+  onLoad: function () {
+      
   },
 
   bindGetUserInfo: function(e) {
+    console.log(e.detail.userInfo)
     if (e.detail.userInfo) {
         //用户按了允许授权按钮
         var that = this;
@@ -43,6 +31,9 @@ Page({
         wx.login({
           success: res => {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
+             //wx.setStorageSync('tokenInfo',{}); //预览打开
+            //wx.navigateBack({}); //预览打开
+            wx.setStorageSync('temporaryCode',res.code);
             wx.request({
               url: app.globalData.serverUrl + '/wx/login',
               method: 'POST',
@@ -54,9 +45,15 @@ Page({
                 iv: e.detail.iv,
               },
               success (data) {
-                wx.setStorageSync('tokenInfo',data.data)
-                wx.navigateBack({
-                  complete: (res) => {},
+                wx.setStorageSync('tokenInfo',data.data);
+                wx.request({
+                  url: app.globalData.serverUrl + '/wxuser/session',
+                  header: {"token": data.data.token},
+                  method: 'GET',
+                  success (sessionInfo) {
+                    wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
+                    wx.navigateBack({});
+                  }
                 })
               }
             })
