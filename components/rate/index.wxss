@@ -1,1 +1,87 @@
-/* components/component-tag-name.wxss */
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1587652454452'); /* IE9 */
+  src: url('iconfont.eot?t=1587652454452#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAKwAAsAAAAABlQAAAJjAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCcApgcwE2AiQDCAsGAAQgBYRtBy4blwXIrrApw70IJNDGEEiV69X9cAQSIsiWbPbuaKXIJrtsRUgUCoxCgZIIh0Oha3wXBvc/7tceYr6IniZcksqX7YvvhjXvVLqIdNEQudCwkKi7+uL0z2O3iMIR9nkux3dXQIHMD5TjnIt6AfXiQAp0D4wCDahAQm8Yu+AF3ifQaFS5kN22nn6IVtjLAnGlSBxEF/yKwlL1Qm3D3iLuIUJ9ug19B+6i78cfX0ST1GR2xdFlqwgNnylORl78XzQeGGF7OSvYITKWgUKcNcYPhAnGCNMYDzcJjlUafFZVgVEcVSfYX2cXN4NhyH8mgSd81FSCx5poAJiZ9F7EgAHu6mi+f2TjdnGwf/N+bGxw/2RdGLp48HwweX4g/+ipZ8h9//C/fM2131X47q1yNbvYDD6sawCoRvNffsFfBXsvkfxUUs36uAI+PJNoQTVaIGfU780R/BXBwL5iiGxDKpqgcTgZOFtLo0ZUgN2dglPVPbeQDvV6JjjrjGTI6k0Thb6MGk1WUKveBhotaT/cpAsVJkoDFq0BhHYnSFo9Imv3QRT6J2r0+kKt9ghDo4tIO7PJbCixzRRzDIuIX0CKYJnENbHYuLQXSzM6R/OiiDmIaUAJIa/LU061YxPTJTYEZiUfYwQRahmoDTyGdd1CNrVULDCXzJhd5XaTphe5BMuAWDsojMNgIoS3AFEILCYSjGZiK5/vhUlm6Di0o6fOOwijApTpES8XzwCiXW4O6nmUZwJmSXwYhkAIymJA2sAsTKezIHbzLBUmYFzkCVFbFbcziAyVu7ZXGn93DBrZmhRObVZuGEcBAAAAAA==') format('woff2'),
+  url('iconfont.woff?t=1587652454452') format('woff'),
+  url('iconfont.ttf?t=1587652454452') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1587652454452#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.rateCtn{
+  display: flex;
+}
+
+.rateCtn .rateItem{
+  position: relative;
+}
+
+.rateCtn .rateItem+.rateItem{
+  margin-left: 8rpx;
+}
+
+.rateCtn .rateItem .starsOff, .starsOn{
+  display: block;
+  position: absolute;
+  font-family: "iconfont" !important;
+  font-size: 27rpx;
+  font-style: normal;
+  color:#FFCE0C;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.rateCtn .rateItem .starsOff:before, .starsOn:before{
+  content: "\e611";
+}
+
+
+.rateCtn .rateItem 
+.width1,
+.width2,
+.width3,
+.width4,
+.width5,
+.width6,
+.width7,
+.width8,
+.width9
+{
+  overflow: hidden;
+  Z-index:999;
+}
+
+.rateCtn .rateItem .width1{
+  width: 10%;
+}
+
+.rateCtn .rateItem .width2{
+  width: 20%;
+}
+
+.rateCtn .rateItem .width3{
+  width: 30%;
+}
+
+.rateCtn .rateItem .width4{
+  width: 40%;
+}
+
+.rateCtn .rateItem .width5{
+  width: 50%;
+}
+
+.rateCtn .rateItem .width6{
+  width: 60%;
+}
+
+.rateCtn .rateItem .width7{
+  width: 70%;
+}
+
+.rateCtn .rateItem .width8{
+  width: 80%;
+}
+
+.rateCtn .rateItem .width9{
+  width: 90%;
+}

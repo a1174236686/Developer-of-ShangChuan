@@ -1,9 +1,9 @@
 {
   "pages":[
+    "pages/evaluate/index",
     "pages/test/index",
     "pages/recharge/index",
-    "pages/joinWe/index",
-    "pages/evaluate/index"
+    "pages/joinWe/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
