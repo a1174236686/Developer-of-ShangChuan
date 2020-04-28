@@ -1,0 +1,44 @@
+<!--pages/myUser/myUser.wxml-->
+<view class="mian">
+  <view class="userInfo">
+    <image class="userInfo_bg" src="../../img/myBg.png"></image>
+    <view class="userInfo_title">
+      <view class="userInfo_NameImg">
+        <image src="../../img/toux.jpg"></image>
+        <view>sunny</view>
+        <icon type="success" size="20"></icon>
+      </view>
+      <view class="userCount">
+        <view>作品：350</view>
+        <view class="userCount_line"></view>
+        <view>点评：350</view>
+      </view>
+      <view class="numInfo">
+        <view class="text">
+          <view>订单</view>
+          <view>20</view>
+        </view>
+        <image src="../../img/toux.jpg"></image>
+      </view>
+      <view class="numInfo">
+        <view class="text">
+          <view>收入</view>
+          <view>2650</view>
+        </view>
+        <image src="../../img/toux.jpg"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="optionList">
+    <view class="optionListItem" wx:for="{{optionsList}}" wx:key="index">
+      <image src="{{item.src}}"></image>
+      <view>{{item.label}}</view>
+      <icon type="success" size="20"></icon>
+    </view>
+  </view>
+  
+  <view class="switchBtn">
+    <icon type="success" size="20"></icon><view>切换到用户个人中心</view>
+  </view>
+</view>

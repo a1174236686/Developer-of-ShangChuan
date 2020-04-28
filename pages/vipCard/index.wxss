@@ -1,0 +1,137 @@
+/**index.wxss**/
+
+.clubCard {
+  position: relative;
+  width: 90%;
+  height: 320rpx;
+  margin-left: 5%;
+}
+
+.clubCardTwo {
+  top: 0px;
+  position: absolute;
+  width: 100%;
+  height: 320rpx;
+}
+
+.clubCardImg {
+  width: 100%;
+  height: 320rpx;
+}
+
+.cardText {
+  left: 52rpx;
+  top: 35rpx;
+  position: absolute;
+  width: 178rpx;
+  height: 52rpx;
+}
+
+.numText {
+  width: 127rpx;
+  height: 18rpx;
+  position: absolute;
+  left: 52rpx;
+  top: 125rpx;
+  color: white;
+}
+
+.recharge {
+  left: 47rpx;
+  top: 213rpx;
+  position: absolute;
+  width: 204rpx;
+  height: 70rpx;
+}
+
+.medal {
+  left: 462rpx;
+  top: 35rpx;
+  position: absolute;
+  width: 173rpx;
+  height: 198rpx;
+}
+
+.Lv {
+  left: 513rpx;
+  top: 243rpx;
+  position: absolute;
+  width: 54rpx;
+  height: 42rpx;
+}
+
+.grade {
+  left: 568rpx;
+  top: 247rpx;
+  position: absolute;
+  width: 18rpx;
+  height: 23rpx;
+  color: white;
+}
+
+.bigBox {
+  margin-top: 20rpx;
+  display: flex;
+  padding: 0 40rpx;
+}
+
+.box {
+  height: 131rpx;
+  flex: 1;
+  border-radius: 20rpx;
+  border: 1rpx solid rgba(232, 219, 199, 1);
+  box-shadow: 0px 11rpx 26rpx 0px rgba(212, 212, 212, 0.28);
+  margin-top: 5px;
+  margin-right: 20rpx;
+}
+
+.box:last-child {
+  margin-right: 0;
+}
+
+.boxNum {
+  text-align: center;
+}
+
+.boxNumOne {
+  font-family: PingFang SC;
+  font-weight: 800;
+  background: linear-gradient(0deg, rgba(220, 194, 148, 1) 0%, rgba(191, 147, 85, 1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 15px;
+  font-size: 40rpx;
+}
+
+.boxNumTwo {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(127, 131, 140, 1);
+}
+
+.text {
+  width: 90%;
+  background: rgba(249, 249, 249, 1);
+  border-radius: 10px;
+  margin-top: 20rpx;
+  margin-left: 5%;
+  padding-bottom: 29rpx;
+}
+
+.icon {
+  width: 28rpx;
+  height: 24rpx;
+  padding-right:5rpx; 
+}
+
+.iconText {
+  padding-top: 29rpx;
+  padding-left: 29rpx;
+  font-size: 26rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: rgba(119, 119, 119, 1);
+  display: flex;
+  align-items: center;
+}

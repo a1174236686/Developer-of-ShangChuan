@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+
 const app = getApp();
 const computedBehavior = require('miniprogram-computed')
 
@@ -7,7 +8,7 @@ const computedBehavior = require('miniprogram-computed')
 Page({
   behaviors: [computedBehavior],
   data: {
-    topImgData:{
+    topImgData: {
       src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill'
     },
     /**
@@ -27,24 +28,31 @@ Page({
       birthday: '',
       IDImgFront: '',
       IDImgback: '',
-      name: ''
+      name: '',
+      adrees: '',
+
+
     },
+    adreesNumber: '',
     /**
      * mapping 映射formDataMap的key和dom对象的id
      * render  指定渲染模板的name 非必填项
      */
     formData: [
       { label: '姓名', placeholder: '请输入您的真实姓名', mapping: 'name' },
-      { label: '性别', placeholder: '请输入支付宝姓名', mapping: 'Gender' },
+      { label: '性别', placeholder: '请选择性别', mapping: 'Gender' },
       { label: '电话', placeholder: '请输入您的电话号码', mapping: 'PhoneNumber' },
       { label: '出身日期', render: 'pickerDate', mapping: 'birthday' },
       { label: '身份证号码', placeholder: '请输入您的身份证号码', mapping: 'id' },
-      { label: 'dizhi', placeholder: '请输入您的身份证号码', mapping: 'id' },
+      { label: '地址', render: 'adress', mapping: 'adrees' },
     ],
     IDImgData: [
-      { src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill', mapping: 'IDImgFront' },
-      { src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill', mapping: 'IDImgback' },
+      { src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
+      { src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
     ],
+  },
+  onLoad: function () {
+    console.log(wx.getStorageSync('tokenInfo'))
   },
   computed: {
     getFormCardData: function (data) {
@@ -67,48 +75,55 @@ Page({
   /**
    * 表单校验对象
    */
-  getFormCheckObj:function (){
-    const formCheckObj={
+  getFormCheckObj: function () {
+    const formCheckObj = {
       /**
        * 表单校验配置
        * key需要和formDataMap的key对应
        * 支持配置两种校验规则 非空校验required和自定义校验validator
        */
-      rules:{
-        id:{ required: true,message:'需要错误信息可以配置我',validator:()=>{console.log('需要自定义校验可以在这里写')}},
-        Gender: { required: true},
-        PhoneNumber: { required: true},
-        birthday: { required: true},
-        IDImgFront: { required: true},
-        IDImgback: { required: true},
-        name: { required: true},
+      rules: {
+        id: { required: true, message: '需要错误信息可以配置我', validator: () => { console.log('需要自定义校验可以在这里写') } },
+        Gender: { required: true },
+        PhoneNumber: { required: true },
+        birthday: { required: true },
+        IDImgFront: { required: true },
+        IDImgback: { required: true },
+        name: { required: true },
       },
       /**
        * 校验器
        */
-      Check:()=>{
-        const {rules} = formCheckObj;
-        const map = this.data.formDataMap;
-        for(const key in rules){
-          const rule=rules[key];
-          const mapValue=map[key];
-          const {required,validator,message} = rule;
-          if(required){
-            if(!mapValue) {
+      Check: () => {
+        const { rules } = formCheckObj;
+        const map = this.data.formDataMap
+        for (const key in rules) {
+          const rule = rules[key];
+          const mapValue = map[key];
+          const { required, validator, message } = rule;
+
+          if (required) {
+            if (!mapValue) {
               console.log(message)
+              return false;
             }
-          } else if(validator){
+          } else if (validator) {
             console.log('自定义校验');
           }
-        }
+        };
+
+        return true;
+
       }
+
     }
-    this.getFormCheckObj=()=>formCheckObj;
+    this.getFormCheckObj = () => formCheckObj;
     // 保证formCheckObj只会创建一次
     return formCheckObj;
   },
 
   bindDataChange: function (e) {
+    console.log(e)
     const { target, detail } = e;
     const obj = {};
     obj[target.id] = detail.value;
@@ -117,6 +132,7 @@ Page({
     })
   },
   pickIDImg: function (e) {
+
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
@@ -126,22 +142,105 @@ Page({
         const IDImgData = JSON.parse(JSON.stringify(this.data.IDImgData));
         const { target } = e;
         const obj = {};
-        obj[target.id] = tempFilePaths;
+        let tokenInfo = wx.getStorageSync('tokenInfo')
+        console.log(tokenInfo)
+
+        obj[target.id] = IDImgData;
         for (let i = 0, len = IDImgData.length; i < len; i++) {
           if (IDImgData[i].mapping === target.id) {
             IDImgData[i].src = tempFilePaths;
+            wx.uploadFile({
+              // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
+              url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
+              header: { 'token': tokenInfo.token },
+              filePath: tempFilePaths[0],
+              method: 'post',
+              name: 'file',
+              success: (res) => {
+                let text = JSON.parse(res.data)
+                IDImgData[i].baseSrc = text.fileName
+                obj[target.id] = text.fileName;
+                console.log(text)
+                this.setData({
+                  formDataMap: { ...this.data.formDataMap, ...obj }
+                })
+                console.log(this.data.formDataMap)
+              }
+            })
+            // wx.getFileSystemManager().readFile({
+            //   filePath: tempFilePaths[0],
+            //   encoding: "base64",
+            //   success: data => {
+            //     IDImgData[i].baseSrc = data.data
+            //     obj[target.id] = data.data;
+            //     console.log(data.data)
+            //     this.setData({
+            //       formDataMap: { ...this.data.formDataMap, ...obj }
+            //     })
+            //   }
+            // })
             break;
           }
         }
         this.setData({
           IDImgData,
-          formDataMap: { ...this.data.formDataMap, ...obj }
+          // formDataMap: { ...this.data.formDataMap, ...obj }
         })
+        console.log('obj', obj)
       }
     })
   },
-  submitForm:function(){
-    const {Check}=this.getFormCheckObj();
-    Check();
+  // 地址选择
+  open: function (e) {
+    const { target, detail } = e;
+    const obj = {};
+    obj[target.id] = detail.value;
+
+    console.log(e.detail)
+    this.setData({
+      formDataMap: { ...this.data.formDataMap, ...obj },
+      adreesNumber: e.detail.code
+    })
+
+  },
+  postMsg: function () {
+    console.log('来过')
+    // console.log(this.data.formDataMap)
+    let map = this.data.formDataMap
+    let sex = parseInt(map.Gender)
+    // let time = new Date(map.birthday)
+    console.log(this.data.adreesNumber)
+    let tokenInfo = wx.getStorageSync('tokenInfo')
+
+    // console.log('全部正确')
+    wx.request({
+      url: app.globalData.serverUrl + '/photographerapply/save',
+      header: { 'token': tokenInfo.token },
+      method: 'post',
+      data: {
+        // platform: 'wx',
+        name: map.name,//姓名
+        province: this.data.adreesNumber[0],//省编码
+        city: this.data.adreesNumber[1],//市编码
+        area: this.data.adreesNumber[2],//区编码
+        sex: sex,//性别
+        phone: map.PhoneNumber,//手机号码
+        birthDate: map.birthday,//出生年月
+        idCardNumber: map.id,//省份证号
+        idCardPhoto1: map.IDImgFront,//身份证正面照
+        idCardPhoto2: map.IDImgback//身份证背面照
+      },
+
+      success: function (result) {
+        console.log(result)
+
+      }
+    })
+  },
+  submitForm: function () {
+    const { Check } = this.getFormCheckObj();
+    const res = Check();
+    console.log('res', res);
+    res && this.postMsg();
   }
 })

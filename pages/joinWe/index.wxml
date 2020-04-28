@@ -50,6 +50,22 @@
 	</view>
 </template>
 
+
+<!--
+	地址选择
+-->
+<template name="adress">
+	<view class="item">
+		<view class="itemLabel">{{label}}</view>
+		<picker id='{{mapping}}' mode="region" value="{{formDataMap[mapping]}}"  bindchange="open">
+			<view class="picker">
+				{{formDataMap[mapping]}}
+				<icon type="success" size="20" />
+			</view>
+		</picker>
+	</view>
+</template>
+
 <!--
 	表单上传身份证
 -->

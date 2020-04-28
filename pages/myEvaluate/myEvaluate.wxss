@@ -1,0 +1,60 @@
+/* pages/myEvaluate/myEvaluate.wxss */
+page{
+  background-color: #F5F5F5;
+}
+
+.evaluateItem{
+  margin-top: 12rpx;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
+}
+
+.itemHead{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #F5F5F5;
+  padding-bottom: 20rpx;
+}
+
+.headLeft{
+  display: flex;
+  align-items: center;
+}
+
+.headLeft image{
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 50%;
+}
+
+.headLeft label{
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-left: 38rpx;
+}
+
+.itemTtile{
+  padding: 26rpx 0;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+.workList{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.workItem{
+  width: 161rpx;
+  height: 161rpx;
+  margin-right: 13rpx;
+  margin-bottom: 12rpx;
+  border-radius:20rpx;
+}
+
+.evaluateTime{
+  font-size: 24rpx;
+  color: #A3A3A3;
+  padding: 12rpx 0 5rpx;
+}

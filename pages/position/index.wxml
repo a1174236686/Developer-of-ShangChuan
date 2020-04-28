@@ -1,0 +1,21 @@
+<!--pages/position/index.wxml-->
+<view class="content">
+	<view class="calendarItem" wx:for="{{list}}" wx:key="infodex" wx:for-item="info" wx:for-index="infodex">
+			<view class="calendarTitle"><view class="yearMo">{{info.year}}年{{info.month}}月</view></view>
+				<view>
+					<view class="flex-list" wx:for="{{info.list}}" wx:key="index" wx:item="item">
+						<view class="soloDay {{info.year === currentY && info.month === currentM &&  it.value === currentD && it.current ? 'active' : ''}} {{!it.current || (info.year === currentDate[0] && info.month === currentDate[1] &&  it.value < currentDate[2] && it.current ) ? 'noClose' : ''}}" wx:for="{{item}}" 
+						wx:for-index="idx" wx:key="idx" wx:for-item="it" data-date="{{[info.year,info.month,it]}}" bindtap="enterDate">
+							<!-- :class="['day',it.current?'active':'',it.isDay?'isDay':'']" -->
+							{{it.value}}
+							<view class="dayText"  wx:if="{{info.year === currentY && info.month === currentM && it.value === currentD && it.current}}">出发</view>
+						</view>
+				</view>
+			</view>
+	</view>
+
+  <!-- <view wx:for="{{cityList}}" wx:key="index">
+  <view bindtap="open" data-id="{{item.id}}" data-index="{{index}}">{{index+1}}-{{item.name}}</view>
+     <view wx:for="{{item.childList}}" wx:key="i" wx:for-item="it" wx:for-index="i">{{index+1}}.{{i+1}}{{it.name}}</view>
+  </view> -->
+</view>

@@ -1,19 +1,46 @@
 {
-  "pages":[
-    "pages/evaluate/index",
-    "pages/test/index",
-    "pages/recharge/index",
-    "pages/joinWe/index"
+  "pages": [ 
+    "pages/my/my",  
+    "pages/joinWe/index",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/my_sy/index",
+    "pages/enterTime/enterTime",
+    "pages/vipCard/index",
+    "pages/releaseWorks/releaseWorks",
+    "pages/personalInfo/personalInfo",
+    "pages/myEvaluate/myEvaluate",
+    "pages/myInfor/myInfor",
+    "pages/worksManagement/worksManagement",
+    "pages/myOrder/myOrder",
+    "pages/withdrawal/withdrawal",
+    "pages/myWallet/myWallet",
+    "pages/myUser/myUser",
+    "pages/photographer/photographer",
+    "pages/find/find"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
     "weui": true
-  }
+  },
+  "tabBar": 
+    {
+      "position":"bottom",
+      "color": "#B7C0CC",
+      "borderStyle":"white",
+      "selectedColor": "#ED2B2B",
+     "list":[
+        {"pagePath":"pages/index/index","text":"首页","iconPath": "./img/shouyeA.png","selectedIconPath": "img/shouye.png"},
+        {"pagePath":"pages/my_sy/index","text":"摄影师","iconPath": "./img/zhanshisheyingshiA.png","selectedIconPath": "img/zhanshisheyingshi.png"},
+        {"pagePath":"pages/find/find","text":"发现","iconPath": "./img/faxianA.png","selectedIconPath": "img/faxian.png"},
+        {"pagePath":"pages/my/my","text":"我的","iconPath": "./img/wodetianchongA.png","selectedIconPath": "img/wodetianchong.png"}
+      ]
+     },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
 }
