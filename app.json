@@ -17,7 +17,6 @@
     "pages/myWallet/myWallet",
     "pages/myUser/myUser",
     "pages/photographer/photographer",
-    "pages/logs/logs",
     "pages/find/find"
   ],
   "window": {
