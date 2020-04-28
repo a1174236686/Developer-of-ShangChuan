@@ -14,6 +14,37 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const switchWeek = date => {
+	let week = ''
+	switch (date) {
+		case 0:
+			week = '天';
+			break;
+		case 1:
+			week = '一';
+			break;
+		case 2:
+			week = '二';
+			break;
+		case 3:
+			week = '三';
+			break;
+		case 4:
+			week = '四';
+			break;
+		case 5:
+			week = '五';
+			break;
+		case 6:
+			week = '六';
+			break;
+		default:
+			week = 'error';
+			break;
+	}
+	return week
+}
+
 	// 工具方法 - start
 	// 1.为了获得每个月的日期有多少，我们需要判断 平年闰年[四年一闰，百年不闰，四百年再闰]
 	const isLeapYear = (year) => {
@@ -152,5 +183,6 @@ const formatNumber = n => {
 
 module.exports = {
   formatTime: formatTime,
-  updateCalendar:updateCalendar
+	updateCalendar:updateCalendar,
+	switchWeek: switchWeek
 }

@@ -1,10 +1,11 @@
 {
   "pages": [ 
+    "pages/my_sy/index",
+    "pages/yuyueInfo/yuyueInfo",
     "pages/my/my",  
     "pages/joinWe/index",
     "pages/login/login",
     "pages/index/index",
-    "pages/my_sy/index",
     "pages/enterTime/enterTime",
     "pages/vipCard/index",
     "pages/releaseWorks/releaseWorks",

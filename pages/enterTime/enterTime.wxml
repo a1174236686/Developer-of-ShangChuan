@@ -42,4 +42,6 @@
       </view>
     </view>
   </view>
+  <view style="height: 160rpx"></view>
+  <view class="nextBtn" bindtap="next">立即预约</view>
 </view>

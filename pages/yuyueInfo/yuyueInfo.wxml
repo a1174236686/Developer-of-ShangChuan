@@ -1,0 +1,17 @@
+<!--pages/myInfor/myInfor.wxml-->
+<view class="infoList">
+  <form bindsubmit="formSubmit">
+    <view class="infoItem {{index === 2 ? 'bordetBottom' : ''}}" wx:for="{{infoList}}" wx:key="index">
+      <view class='infoItemLeft'>
+        <icon type="success" size="20"></icon>
+        <label>{{item.name}}</label>
+      </view> 
+      <input name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' placeholder='请输入{{item.name}}'/>
+       <!-- disabled="{{noEdit}}" -->
+    </view>
+    <view class="btnPosition">
+      <button class="switchBtn" formType="submit" wx:if="{{noEdit}}">确认无误</button>
+      <button class="switchBtn" bindtap="switchBtn" wx:if="{{!noEdit}}">确认</button>
+    </view>
+  </form>
+</view>

@@ -28,23 +28,30 @@
 
 <!-- 摄影师列表开始 -->
 <view class="syList">
-  <view class="syItem" wx:for="{{[1,2]}}" wx:key="index">
-    <view class="syIcon"><image src="{{serverUrl}}/statics/image/toux.jpg"></image></view>
+  <view class="syItem" wx:for="{{sheying}}" wx:key="index">
+    <view class="syIcon"><image src="{{item.avatarUrl}}"></image></view>
     <view class="syInfo">
-      <view class="infoTtile">程潇潇摄影师 <view class="titleLabel">高级摄影师</view></view>
+      <view class="infoTtile">{{item.name}} <view class="titleLabel">{{item.levelName}}</view></view>
       <view style="font-size: 20rpx">星星组件</view>
       <view class="score">
-          <view>5.0</view>
+          <view>{{item.score ? item.score : 0}}</view>
           <view>评分</view>
       </view>
-      <view class="syLabel">
-        <view>美食云集</view>
-        <view>带娃精选</view>
-        <view>满减</view>
+      <wxs module="fn">
+        module.exports = {
+          switchLabel: function(str){
+            var arr = str.split(',');
+            return arr;
+          }
+        }
+      </wxs>
+      <view class="syLabel" wx:if="{{item.styleLabel}}">
+        <view wx:for="{{fn.switchLabel(item.styleLabel)}}" wx:for-item="it" wx:for-index="idx" wx:key="idx">{{it}}</view>
       </view>
+      <view wx:if="{{!item.styleLabel}}" style="color: #ccc;font-size: 22rpx">暂无标签</view>
       <view class="syAddress">
         <image src="{{serverUrl}}/statics/image/mapIcon.png"></image>
-        <view class="addressText">地址：这里是地址...</view>
+        <view class="addressText">地址：{{item.provinceName}}{{item.cityName}}{{item.areaName}}</view>
         <view class="makeBtn" bindtap="openDate">预约</view>
       </view>
     </view>

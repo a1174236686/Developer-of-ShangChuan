@@ -38,6 +38,10 @@ Component({
         return false;
       }
       this.setData({currentY: dateArr[0],currentM: dateArr[1],currentD: dateArr[2].value})
+      //console.log(dateArr[0] + '-' + dateArr[1] + '-' + dateArr[2].value)
+      wx.navigateTo({
+        url: '../enterTime/enterTime?day=' + dateArr[0] + '-' + dateArr[1] + '-' + dateArr[2].value,
+      })
     },
   },
 
