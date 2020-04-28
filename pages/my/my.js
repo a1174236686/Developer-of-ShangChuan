@@ -65,7 +65,6 @@ Page({
     //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
     // }
     if(wx.getStorageSync('sessionInfo')){
-      console.log(wx.getStorageSync('sessionInfo'))
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
     }
   },
