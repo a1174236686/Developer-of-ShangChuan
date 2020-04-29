@@ -8,16 +8,24 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    isHaveNum: true,
+    isHaveNum: '-1',
     phoneNum: '',
     wxUser: '',
     tokenInfo: null,
+    showSheyingshi: false,
     optionsList:[
       {label: '我的预约',id: 'myOrder/myOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
       {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
       {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'}
-    ]
+    ],
+    optionsUserList:[
+      {label: '我的评价',id: 'evaluate',src: '../../img/evaluate.png'},
+      {label: '邀请奖励',id: 'reward',src: '../../img/reward.png'},
+      {label: '作品管理',id: 'works',src: '../../img/works.png'},
+      {label: '我的资料',id: 'data',src: '../../img/data.png'}
+    ],
+    wxUserInfo: {videoWorkNum: 0,photoWorkNum: 0}
   },
 
   gotoView: function(e){
@@ -65,7 +73,19 @@ Page({
     //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
     // }
     if(wx.getStorageSync('sessionInfo')){
+      let that = this;
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
+      if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
+        this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer})
+        wx.request({
+          url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
+          header: {"token": wx.getStorageSync('tokenInfo').token},
+          method: 'GET',
+          success (res) {
+            that.setData({wxUserInfo: res.data.data});
+          }
+        })
+      }
     }
   },
 

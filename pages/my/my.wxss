@@ -105,3 +105,151 @@
   width: 100rpx;
   height: 100rpx;
 }
+
+
+
+
+
+/* pages/myUser/myUser.wxss */
+
+.userInfo{
+  position: relative;
+}
+
+.userInfo_bg{
+  width: 100%;
+  height: 400rpx;
+}
+
+.userCount{
+  position: absolute;
+  display: flex;
+  left: 110rpx;
+  top: 60%;
+  color: #fff;
+  align-items: center;
+}
+
+.userCount_line{
+  height: 30rpx;
+  width: 2rpx;
+  background-color: #fff;
+  margin: 0 30rpx
+}
+
+.userInfo_title{
+  position: absolute;
+  top: 0;
+  display: flex;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.userInfo_NameImg{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 120rpx;
+  top: 20%;
+}
+
+.userInfo_NameImg > image{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  margin: 0 40rpx 0 100rpx;
+}
+
+.userInfo_NameImg > view{
+  font-size: 50rpx;
+  color: #fff;
+}
+
+.userInfo_NameImg > icon{
+  position: relative;
+  top: -100rpx;
+  right: -240rpx;
+  z-index: 1;
+}
+
+.numInfo{
+  position: absolute;
+  bottom: -30px;
+  background-color: #fff;
+  width: 42%;
+  height: 126rpx;
+  left: 0;
+  display: flex;
+  box-shadow:0px 11px 26px 0px rgba(212,212,212,0.28);
+  border-radius:20px;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40rpx;
+}
+
+.numInfo:last-child{
+  right: 0;
+  left: auto;
+  margin-right: 40rpx;
+}
+
+.numInfo > image{
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.numInfo > .text{
+  display: flex;
+  flex-direction: column;
+  margin-right: 60rpx;
+  font-size: 30rpx;
+}
+
+.numInfo > .text view:first-child{
+  margin-bottom: 10rpx;
+  color: #B2B2B2;
+}
+
+.optionList{
+  padding: 0 30rpx;
+  margin-top: 100rpx;
+}
+
+.optionListItem{
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  color: #53545E;
+  margin-bottom: 30rpx;
+}
+
+.optionListItem > image{
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 30rpx;
+}
+
+.optionListItem > view{
+  flex: 1;
+}
+
+.switchBtn{
+  margin: 0 30rpx;
+  background-color: #FF6D77;
+  height: 88rpx;
+  border-radius: 20rpx;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 92%;
+  bottom: 30rpx;
+}
+
+.switchBtn > icon{
+  margin-right: 10rpx;
+  margin-top: 5rpx;
+}

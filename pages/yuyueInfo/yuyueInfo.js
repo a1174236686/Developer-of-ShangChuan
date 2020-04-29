@@ -51,8 +51,10 @@ Page({
       data: postData,
       success (res) {
         if(res.data.code === 0){
-          console.log(res.data)
           wx.hideNavigationBarLoading(); //完成停止加载
+          wx.switchTab({
+            url: '../my_sy/index',
+          })
         }
       }
     })

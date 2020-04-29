@@ -107,6 +107,7 @@ Page({
       Check: () => {
         const { rules } = formCheckObj;
         const map = this.data.formDataMap
+        console.log(rules)
         for (const key in rules) {
           const rule = rules[key];
           const mapValue = map[key];
