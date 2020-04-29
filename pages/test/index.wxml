@@ -1,0 +1,14 @@
+<view class="rateCtn">
+  <view class="rateItem" wx:for="{{[1,2,3,4,5]}}" wx:for-index="index" wx:key="index" bindtap="scoreChange" data-param="{{index+1}}">
+    <mp-icon icon="star" color="#FFCE0C" ext-class="floatingStars" size="{{45}}"
+    />
+    <mp-icon wx:if="{{scoreInteger>index}}" icon="star" color="#FFCE0C" type="field" size="{{45}}" ext-class="{{scoreInteger>=index+1&&scoreInteger<index+2?'width'+scoreDecimal:''}}"
+    />
+    <text>{{index+1}}</text>
+    <text>{{scoreInteger}}</text>
+     <text>{{scoreInteger>=index+1&&scoreInteger<index+2?'width'+scoreDecimal:''}}</text>
+  </view>
+  <view>
+    2.1
+  </view>
+</view>

@@ -11,14 +11,12 @@
     "pages/releaseWorks/releaseWorks",
     "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
-    "pages/myInfor/myInfor",
     "pages/worksManagement/worksManagement",
     "pages/myOrder/myOrder",
     "pages/withdrawal/withdrawal",
     "pages/myWallet/myWallet",
     "pages/myUser/myUser",
     "pages/photographer/photographer",
-    "pages/logs/logs",
     "pages/find/find"
   ],
   "window": {

@@ -9,7 +9,7 @@ Page({
   behaviors: [computedBehavior],
   data: {
     topImgData: {
-      src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill'
+      src: '../../img/joinMe.png', mode: 'scaleToFill'
     },
     /**
      * 表单数据绑定对象
@@ -30,7 +30,7 @@ Page({
       IDImgback: '',
       name: '',
       adrees: '',
-
+      sex:'',
 
     },
     adreesNumber: '',
@@ -40,20 +40,30 @@ Page({
      */
     formData: [
       { label: '姓名', placeholder: '请输入您的真实姓名', mapping: 'name' },
-      { label: '性别', placeholder: '请选择性别', mapping: 'Gender' },
+      { label: '性别', render: 'sex', mapping: 'sex', arr: [{ key: '男', map: { label: '男', key: '1' } }, { key: '女', map: { label: '女', key: '2' } }] },
       { label: '电话', placeholder: '请输入您的电话号码', mapping: 'PhoneNumber' },
       { label: '出身日期', render: 'pickerDate', mapping: 'birthday' },
       { label: '身份证号码', placeholder: '请输入您的身份证号码', mapping: 'id' },
       { label: '地址', render: 'adress', mapping: 'adrees' },
     ],
+
     IDImgData: [
-      { src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
-      { src: 'https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
+      { src: '../../img/idjoinMe.png', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
+      { src: '../../img/idjoinMetwo.png', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
     ],
   },
   onLoad: function () {
-    console.log(wx.getStorageSync('tokenInfo'))
+    // console.log(wx.getStorageSync('tokenInfo'))
+    console.log(wx.getStorageSync('sessionInfo'))
+    let formDataN = this.data.formDataMap
+    let userMsg = wx.getStorageSync('sessionInfo')
+    formDataN.name = userMsg.nickName
+    this.setData({
+      formDataMap: formDataN
+    })
+
   },
+
   computed: {
     getFormCardData: function (data) {
       const { formData } = data;
@@ -190,29 +200,33 @@ Page({
       }
     })
   },
+  //性别选择器
+  sexSelect:function(e){
+    let index = e.detail.value
+    const { target, detail } = e;
+    const obj = {};
+    obj[target.id] = this.data.formData[1].arr[index].map ;
+    this.setData({
+      formDataMap: { ...this.data.formDataMap, ...obj },
+    })
+  },
   // 地址选择
   open: function (e) {
     const { target, detail } = e;
     const obj = {};
     obj[target.id] = detail.value;
 
-    console.log(e.detail)
     this.setData({
       formDataMap: { ...this.data.formDataMap, ...obj },
       adreesNumber: e.detail.code
     })
-
+console.log(this.data.formData)
   },
   postMsg: function () {
-    console.log('来过')
     // console.log(this.data.formDataMap)
     let map = this.data.formDataMap
-    let sex = parseInt(map.Gender)
-    // let time = new Date(map.birthday)
-    console.log(this.data.adreesNumber)
+    let sex = parseInt(map.sex.key)
     let tokenInfo = wx.getStorageSync('tokenInfo')
-
-    // console.log('全部正确')
     wx.request({
       url: app.globalData.serverUrl + '/photographerapply/save',
       header: { 'token': tokenInfo.token },
@@ -233,7 +247,11 @@ Page({
 
       success: function (result) {
         console.log(result)
-
+        if (result.data.code == 0) {
+          wx.navigateBack({
+            delta: 1,
+          })
+        }
       }
     })
   },
@@ -242,5 +260,6 @@ Page({
     const res = Check();
     console.log('res', res);
     res && this.postMsg();
+    // this.postMsg()
   }
 })

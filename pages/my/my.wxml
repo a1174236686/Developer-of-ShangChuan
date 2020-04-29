@@ -13,7 +13,7 @@
           <mp-icon icon="pad" color="#fff" size="{{12}}"></mp-icon>
           <label bindtap="bangNum" wx:if="{{wxUser && wxUser.phone}}">{{wxUser.phone}}</label>
           <label wx:elif="{{tokenInfo}}" class="bindPhoneNum"><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">点击绑定手机号</button></label>
-          <label wx:else></label>
+          <label class="bindPhoneNum" wx:else><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">点击绑定手机号</button></label>
         </view>
       </view>
       <view class="moreWork" bindtap="gotoMyData"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>

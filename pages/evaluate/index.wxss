@@ -1,0 +1,140 @@
+/* pages/evaluate/index.wxss */
+.container{
+  padding: 30rpx;
+}
+
+.container .PhotographerInfoWrap{
+  display:flex;
+  align-items: center;
+  padding: 0 15rpx 56rpx 15rpx;
+  border-bottom: 1rpx solid rgba(231,231,231,1);
+}
+
+
+.container .PhotographerInfoWrap .profilePictureWrap image{
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 70rpx;
+}
+
+.container .PhotographerInfoWrap .infoContent{
+  margin-left: 40rpx;
+}
+
+.container .PhotographerInfoWrap .infoContent .name{
+  display: flex;
+  align-items: center;
+}
+
+.container .PhotographerInfoWrap .infoContent .name text{
+  font-size:32rpx;
+  font-weight:bold;
+  color:rgba(51,51,51,1);
+}
+
+.container .PhotographerInfoWrap .infoContent .name .levelTlele{
+  margin-left: 16rpx;
+  width: 135rpx;
+  height: 35rpx;
+  background:rgba(250,232,196,1);
+  border-radius:4px;
+  font-size:21rpx;
+  line-height: 35rpx;
+  text-align: center;
+  color:rgba(159,107,50,1);
+  font-weight:500;
+}
+
+.container .PhotographerInfoWrap .infoContent .score{
+  display: flex;
+  align-items: center;
+}
+
+.container .PhotographerInfoWrap .infoContent .score .value{
+  font-size:30rpx;
+  font-weight:bold;
+  color:rgba(246,32,32,1);
+}
+
+.container .PhotographerInfoWrap .infoContent .score .valueTlele{
+  font-size:22rpx;
+  font-weight:500;
+  color:rgba(44,44,44,1);
+  opacity:0.67;
+  margin-left: 22rpx;
+}
+
+.container .PhotographerInfoWrap .infoContent .totalScore{
+  display: flex;
+  align-items: center;
+}
+
+.container .PhotographerInfoWrap .infoContent .totalScore .tltle{
+  font-size:22rpx;
+  font-weight:500;
+  color:rgba(44,44,44,1);
+  opacity:0.67;
+  margin-right: 15rpx;
+}
+
+
+.container .evaluateForm .evaluateDimension{
+  padding:40rpx 7rpx;
+}
+
+.container .evaluateForm .evaluateDimension .dimensionItem{
+  display: flex;
+}
+
+.container .evaluateForm .evaluateDimension .dimensionItem+.dimensionItem{
+  margin-top: 40rpx;
+}
+
+.container .evaluateForm .evaluateDimension .dimensionItem .dimensionTlt{
+  font-size:30rpx;
+  font-weight:500;
+  color:rgba(51,51,51,1);
+}
+
+.container .evaluateForm .evaluateDimension .dimensionItem .showRate{
+  margin-left: auto;
+}
+
+.container .evaluateForm .OtherEvaluateWrap .title{
+  padding: 0 7rpx;
+  font-size:36rpx;
+  font-weight:bold;
+  color:rgba(51,51,51,1);
+}
+
+.container .evaluateForm .OtherEvaluateWrap .OtherEvaluate{
+  margin-top: 35rpx;
+}
+
+.container .evaluateForm .OtherEvaluateWrap .OtherEvaluate textarea{
+  display: block;
+  width: 660rpx;
+  padding-left: 25rpx;
+  padding-top: 25rpx;
+  height:175rpx;
+  background:rgba(245,246,247,1);
+  border-radius:10rpx;
+}
+
+.container .evaluateForm .OtherEvaluateWrap .OtherEvaluate .textareaPlaceholder{
+  font-size:24rpx;
+  font-weight:500;
+  color:rgba(182,194,206,1);
+}
+
+.container .evaluateForm .Submit{
+  margin-top: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.container .evaluateForm .Submit .btn{
+  border-radius: 24rpx;
+  background-color: pink;
+  color:white;
+  width: 690rpx;
+}

@@ -1,5 +1,15 @@
-<!-- 组件模板 -->
-<view class="wrapper">
-  <view>这里是组件的内部节点</view>
-  <slot></slot>
+<view class="rateCtn">
+  <view 
+  class="rateItem" 
+  wx:for="{{starsArr}}" 
+  wx:for-index="index" 
+  wx:key="index" 
+  bindtap="scoreChange" 
+  data-param="{{index+1}}"
+  style="{{'width:'+size+';height:'+size}}"
+  >
+    <text class="iconfont starsOff" style="{{'color:'+offColor+';font-size:'+size}}" />
+    <text wx:if="{{scoreInteger>index}}" class="{{scoreInteger>=index+1&&scoreInteger<index+2?'starsOn width'+scoreDecimal:'starsOn'}}"
+    style="{{'color:'+onColor+';font-size:'+size}}" />
+  </view>
 </view>

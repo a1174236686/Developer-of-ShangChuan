@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "rate": "/components/rate/index",
+    "mp-uploader": "/miniprogram_npm/weui-miniprogram/uploader/uploader"
+  }
+}
