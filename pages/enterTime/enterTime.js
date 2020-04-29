@@ -1,4 +1,5 @@
 // pages/enterTime/enterTime.js
+import {switchWeek} from '../../utils/util';
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -9,7 +10,7 @@ Page({
   data: {
     serverUrl: serverUrl,
     timeList: [],
-    dayList: [{year: '2020',moth:'4',dey: 25,week: '四'},{year: '2020',moth:'4',dey: 26,week: '五'}],
+    dayList: [],
     startTime: [],
     endTime: [],
     datas: [],
@@ -21,6 +22,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let dataTime = [];
+    dataTime.push(new Date(options.day).getTime());
+    dataTime.push(new Date(options.day).getTime() + 24*60*60*1000)
+    let arr = [];
+    for(let i = 0; i < dataTime.length; i++){
+      let date = new Date(dataTime[i]);
+      let json = {
+        year: date.getFullYear(),
+        moth: date.getMonth() + 1,
+        dey: date.getDate(),
+        week: switchWeek(date.getDay())
+      }
+      arr.push(json);
+    }
+    this.setData({dayList: arr});
     let rowLength = 30 * 6;
     let length = 24 * 60 / rowLength;
     let list = [];
@@ -37,15 +53,26 @@ Page({
     this.setData({timeList: list})
   },
 
+  next(){
+    if(this.data.startTime && this.data.endTime){
+      let json = {start: this.data.startTime,end: this.data.endTime}
+      wx.setStorageSync('enterTime', json);
+      wx.navigateTo({
+        url: '../yuyueInfo/yuyueInfo',
+      })
+    }
+  },
+
   selectTime:function(e){
     let dateArr = e.currentTarget.dataset.date;
+    console.log(dateArr)
     this.setData({datas: dateArr});
     console.log(dateArr)
-    if(this.data.startTime[3] === dateArr[3]){
+    if(this.data.startTime[3] == dateArr[3]){
       this.setData({startTime: []});
       return false;
     }
-    if(this.data.endTime[3] === dateArr[3]){
+    if(this.data.endTime[3] == dateArr[3]){
       this.setData({endTime: []});
       return false;
     }
