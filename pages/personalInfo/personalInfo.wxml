@@ -39,7 +39,7 @@
       </view>
       <view class="topBtn">管理</view>
     </view>
-    <view class="imgList">
+    <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
         <image class="video" src="{{biPhotographer.avatarUrl}}"></image>
         <view class="videoName">{{item.workName}}</view>
@@ -49,9 +49,15 @@
         </view>
       </view>
     </view>
+    <view class="imgList" hidden="{{currentType!=2}}">
+      <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
+        <image class="video" src="{{biPhotographer.avatarUrl}}"></image>
+        我是图片
+      </view>
+    </view>
   </view>
-  <view class="addWorks">+</view>
-  <view class="mask">
+  <view class="addWorks" bindtap="uploadWork">+</view>
+  <!-- <view class="mask">
     <view class="maskboX">
       <view>
         <image></image>
@@ -62,9 +68,6 @@
         <image>视频</image>
       </view>
     </view>
-  </view>
-  <view class="tui-content">
-  <view class="tui-menu-list" wx:for="{{dataList}}">Item -- {{item}}</view>
-</view>
+  </view> -->
 </view>
 

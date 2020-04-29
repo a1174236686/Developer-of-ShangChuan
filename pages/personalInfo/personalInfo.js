@@ -1,6 +1,6 @@
 // pages/personalInfo/personalInfo.js
 const app = getApp();
-const {	switchLevel } = require('../../utils/util')
+const { switchLevel } = require('../../utils/util')
 
 Page({
 
@@ -8,11 +8,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    videoList:[],
-    tarList: [{ name: '视频', type: 2 }, { name: '图片', type: 2 }],
-    currentType: 1,
-    dataList: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-    count : 0,
+    videoList: [],
+    imgList: [],
+    tarList: [{ name: '视频', type: 1 }, { name: '图片', type: 2 }],
+    currentType: 2,
   },
 
   switchBar: function (e) {
@@ -29,19 +28,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // this.getVideoList();
-    // const tokenInfo = wx.getStorageSync('tokenInfo')
-    // wx.request({
-    //   url: app.globalData.serverUrl + '/photographer/info/7838155c-90ec-44ed-99c3-0bde13cbf523',
-    //   header: { 'token': tokenInfo.token },
-    //   success: result => {
-    //     this.machiningRes(result.data.biPhotographer);
-    //     const biPhotographer = result.data.biPhotographer;
-    //     console.log('biPhotographer',biPhotographer);
-    //     // this.setData({ biPhotographer },()=>this.getVideoList())
-    //     this.setData({ biPhotographer })
-    //   }
-    // })
+    const tokenInfo = wx.getStorageSync('tokenInfo')
+    wx.request({
+      url: app.globalData.serverUrl + '/photographer/info/7838155c-90ec-44ed-99c3-0bde13cbf523',
+      header: { 'token': tokenInfo.token },
+      success: result => {
+        this.machiningRes(result.data.biPhotographer);
+        const biPhotographer = result.data.biPhotographer;
+        this.setData({ biPhotographer }, () => this.getVideoList())
+      }
+    })
   },
 
   /**
@@ -69,46 +65,22 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    console.log('11111111')
-    wx.showToast({
-        title:'加载中....',
-        icon:'loading'
-    });
-    setTimeout(() => {
-      // 模拟请求数据，并渲染
-      var arr = self.data.dataList, max = Math.max(...arr);
-      for (var i = max + 1; i <= max + 3; ++i) {
-        arr.unshift(i);
-      }
-      self.setData({ dataList: arr });
-      // 数据成功后，停止下拉刷新
-      wx.stopPullDownRefresh();
-    }, 1000);
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    console.log('22222222222')
-    // this.getVideoList();
-
-    var arr = this.data.dataList, max = Math.max(...arr);
-    if (this.data.count < 3) {
-      for (var i = max + 1; i <= max + 5; ++i) {
-        arr.push(i);
-      }
-      this.setData({
-        dataList: arr,
-        count: ++this.data.count
-      });
-    } else {
-      wx.showToast({
-        title: '没有更多数据了！',
-        image: '../../src/images/noData.png',
-      })
+    wx.showToast({ title: '加载中....', icon: 'loading' });
+    const { currentType } = this.data;
+    switch (currentType) {
+      case 1:
+        this.getVideoList();
+        break;
+      case 2:
+        this.getImgList();
+        break;
     }
-
   },
 
   /**
@@ -125,46 +97,144 @@ Page({
     res.level = switchLevel(res.level);
   },
 
+
+
+
   /**
    * 请求视频
    */
-  getVideoList: function(){
-    console.log('???????????????')
+  getVideoList: function () {
     const tokenInfo = this.getToken();
-    const videoList = this.getVideoList();
-    const {page, limit} = videoList;
-    console.log('??????',page)
-    if(page>5) return;
+    const videoPageinfo = this.getVideoPageinfo();
+    const { page, limit } = videoPageinfo;
+    if (page > 5) {
+      wx.showToast({ title: '我一滴也没有了', icon: 'none' });
+      return;
+    }
     wx.request({
       url: app.globalData.serverUrl + '/video/page',
       header: { 'token': tokenInfo.token },
-      data:{
-        page,
+      data: {
+        page: 1,
         limit,
-        userCode:this.data.biPhotographer.userCode
+        userCode: this.data.biPhotographer.userCode
       },
       success: result => {
-        console.log(result)
-        // const videoList = result.data.data;
-        // videoList.concat(this.data.videoList)
-        // this.setData({videoList},()=>videoList.page++)
-        // wx.stopPullDownRefresh()
-        // console.log('videoList',videoList);
+        const resVideoList = result.data.data;
+        const currentVideoList = this.data.videoList
+        // const videoList = currentVideoList.concat(resVideoList);
+        let videoList = this.data.videoList;
+        for (let i = 0; i < 5; i++) {
+          videoList = videoList.concat(resVideoList);
+        }
+        this.setData({ videoList }, () => videoPageinfo.page++)
       }
     })
   },
 
-  getToken:function(){
+  /**
+   * 请求图片
+   */
+  getImgList: function () {
+    const tokenInfo = this.getToken();
+    const imgPageinfo = this.getImgPageinfo();
+    const { page, limit } = imgPageinfo;
+    const { userCode } = this.data.biPhotographer;
+    if (page > 5) {
+      wx.showToast({ title: '我一滴也没有了', icon: 'none' });
+      return;
+    }
+    wx.request({
+      url: app.globalData.serverUrl + '/video/photo',
+      header: { 
+        'token': tokenInfo.token ,
+      },
+      data: {
+        page: 1,
+        limit,
+        userCode
+      },
+      success: result => {
+        const resImgList = result.data.data;
+        const currentImgList = this.data.videoList
+        // const videoList = currentVideoList.concat(resVideoList);
+        let imgList = [];
+        for (let i = 0; i < 5; i++) {
+          imgList = imgList.concat(imgList);
+        }
+        this.setData({ imgList }, () => imgPageinfo.page++)
+      }
+    })
+  },
+
+  getToken: function () {
     return wx.getStorageSync('tokenInfo')
   },
 
-  getVideoPageinfo:function(){
-    const VideoPageinfo={
-      page:1,
-      limit:5,
+  /**
+   * 视频分页信息
+   */
+  getVideoPageinfo: function () {
+    const VideoPageinfo = {
+      page: 1,
+      limit: 5,
     }
-    this.getVideoPageinfo=()=>VideoPageinfo;
+    this.getVideoPageinfo = () => VideoPageinfo;
     return VideoPageinfo;
+  },
+
+  /**
+   * 图片分页信息
+   */
+  getImgPageinfo: function () {
+    const imgPageinfo = {
+      page: 1,
+      limit: 5,
+    }
+    this.getImgPageinfo = () => imgPageinfo;
+    return imgPageinfo;
+  },
+
+  /**
+   * 上传作品
+   */
+  uploadWork: function () {
+    const { currentType } = this.data;
+    switch (currentType) {
+      case 1:
+        // this.getVideoList();
+        break;
+      case 2:
+        this.uploadImg();
+        break;
+    }
+  },
+
+  /**
+   * 上传图片
+   */
+  uploadImg:function(){
+    console.log('')
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: (res) => {
+        console.log('我选择了图片',res)
+        const {xx} = res;
+        wx.uploadFile({
+          // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
+          url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
+          header: { 'token': tokenInfo.token },
+          filePath: tempFilePaths[0],
+          method: 'post',
+          name: 'file',
+          success: (res) => {
+           console.log
+          }
+        })
+      }
+    })
   }
   
 })
