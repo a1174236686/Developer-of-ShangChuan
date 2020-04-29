@@ -214,14 +214,13 @@ Page({
    * 上传图片
    */
   uploadImg:function(){
-    console.log('')
+    const { tempFilePaths } = res
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
         console.log('我选择了图片',res)
-        const {xx} = res;
         wx.uploadFile({
           // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
           url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
@@ -230,7 +229,7 @@ Page({
           method: 'post',
           name: 'file',
           success: (res) => {
-           console.log
+           console.log(res)
           }
         })
       }
