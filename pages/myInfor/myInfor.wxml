@@ -1,16 +1,43 @@
 <!--pages/myInfor/myInfor.wxml-->
 <view class="infoList">
-  <form bindsubmit="formSubmit">
-    <view class="infoItem {{index === 2 ? 'bordetBottom' : ''}}" wx:for="{{infoList}}" wx:key="index">
-      <view class='infoItemLeft'>
-        <icon type="success" size="20"></icon>
-        <label>{{item.name}}</label>
-      </view> 
-      <input name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' placeholder='请输入{{item.name}}' disabled="{{noEdit}}"/>
-    </view>
-    <view class="btnPosition">
-      <button class="switchBtn" bindtap="switchBtn" wx:if="{{noEdit}}">修改资料</button>
-      <button class="switchBtn" wx:if="{{!noEdit}}" formType="submit">提交</button>
-    </view>
-  </form>
+	<form bindsubmit="formSubmit">
+		<view class="infoItem ">
+			<view class='infoItemLeft'>
+				<icon type="success" size="20"></icon>
+				<label>头像</label>
+			</view>
+			<view bindtap="postImg">
+				<image src="{{headerImg}}" class="headPhoto"></image>
+			</view>
+		</view>
+		<view class="infoItem {{index === 2 ? 'bordetBottom' : ''}}" wx:for="{{infoList}}" wx:key="index">
+			<view class='infoItemLeft'>
+				<icon type="success" size="20"></icon>
+				<label>{{item.name}}</label>
+			</view>
+			<input wx:if="{{item.type!='date' && item.type!='region'}}" name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' placeholder='请输入{{item.name}}' disabled="{{noEdit}}" />
+			<!-- 出生日期选择 -->
+			<view wx:if="{{item.type=='date'}}">
+				<picker id='{{value}}' mode="date"  bindchange="bindDataChange">
+					<view class="picker">
+						{{item.value}}
+						<image  wx:if="{{!noEdit}}" src="../../img/daySelect.png" class="img"></image>
+					</view>
+				</picker>
+			</view>
+			<!-- 地址选择 -->
+			<view wx:if="{{item.type=='region'}}">
+					<picker id='{{value}}' mode="region" bindchange="open">
+					<view class="picker">
+						{{item.value}}
+						<image  wx:if="{{!noEdit}}" src="../../img/adress.png" class="img"></image>
+					</view>
+				</picker>
+			</view>
+		</view>
+		<view class="btnPosition">
+			<button class="switchBtn" bindtap="switchBtn" wx:if="{{noEdit}}">修改资料</button>
+			<button class="switchBtn" wx:if="{{!noEdit}}" formType="submit">提交</button>
+		</view>
+	</form>
 </view>

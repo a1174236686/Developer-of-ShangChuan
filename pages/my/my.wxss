@@ -99,5 +99,9 @@
   padding: 0;
   margin: 0;
   text-align: left;
-  color: red;
+  color: #FFF;
+}
+.headPhoto{
+  width: 100rpx;
+  height: 100rpx;
 }

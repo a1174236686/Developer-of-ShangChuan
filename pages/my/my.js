@@ -10,7 +10,7 @@ Page({
     serverUrl: serverUrl,
     isHaveNum: true,
     phoneNum: '',
-    wxUser: null,
+    wxUser: '',
     tokenInfo: null,
     optionsList:[
       {label: '我的预约',id: 'myOrder/myOrder',src: serverUrl + '/statics/image/yuyue.png'},
@@ -70,6 +70,7 @@ Page({
   },
 
   getPhoneNumber:function(e){
+    let that = this
     if(e.detail){
       wx.login({
         success: (res) => {
@@ -89,6 +90,8 @@ Page({
                 method: 'GET',
                 success (sessionInfo) {
                   wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
+                  console.log(that.data.wxUser)
+                  that.setData({wxUser: sessionInfo.data.wxUser})
                 }
               })
             }
