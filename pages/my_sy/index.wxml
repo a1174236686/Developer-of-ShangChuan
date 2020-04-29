@@ -52,7 +52,7 @@
       <view class="syAddress">
         <image src="{{serverUrl}}/statics/image/mapIcon.png"></image>
         <view class="addressText">地址：{{item.provinceName}}{{item.cityName}}{{item.areaName}}</view>
-        <view class="makeBtn" bindtap="openDate">预约</view>
+        <view class="makeBtn" bindtap="openDate" data-item="{{item}}">预约</view>
       </view>
     </view>
   </view>

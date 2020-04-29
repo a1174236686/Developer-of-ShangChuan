@@ -37,9 +37,9 @@ Page({
     sheying: []
   },
 
-  openDate:function(item){
-    this.setData({showDate: true})
-    wx.setStorageSync('yuyueData',item);
+  openDate:function(e){
+    this.setData({showDate: true});
+    wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
   },
 
   closeDate:function(){
@@ -91,7 +91,7 @@ Page({
     let that = this;
     wx.request({
       url: app.globalData.serverUrl + '/photographer/page',
-      header: {"token": wx.getStorageSync('tokenInfo')},
+      // header: {"token": wx.getStorageSync('tokenInfo')},
       method: 'GET',
       data: {
         page: 1,
