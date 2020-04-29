@@ -10,7 +10,7 @@ Page({
     serverUrl: serverUrl,
     isHaveNum: true,
     phoneNum: '',
-    wxUser: null,
+    wxUser: '',
     tokenInfo: null,
     optionsList:[
       {label: '我的预约',id: 'myOrder/myOrder',src: serverUrl + '/statics/image/yuyue.png'},
@@ -65,12 +65,12 @@ Page({
     //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
     // }
     if(wx.getStorageSync('sessionInfo')){
-      console.log(wx.getStorageSync('sessionInfo'))
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
     }
   },
 
   getPhoneNumber:function(e){
+    let that = this
     if(e.detail){
       wx.login({
         success: (res) => {
@@ -90,6 +90,8 @@ Page({
                 method: 'GET',
                 success (sessionInfo) {
                   wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
+                  console.log(that.data.wxUser)
+                  that.setData({wxUser: sessionInfo.data.wxUser})
                 }
               })
             }

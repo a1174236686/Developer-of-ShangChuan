@@ -1,6 +1,7 @@
 {
   "pages": [ 
-    "pages/my/my",  
+    "pages/my/my",
+    "pages/myInfor/myInfor", 
     "pages/joinWe/index",
     "pages/login/login",
     "pages/index/index",
@@ -10,7 +11,6 @@
     "pages/releaseWorks/releaseWorks",
     "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
-    "pages/myInfor/myInfor",
     "pages/worksManagement/worksManagement",
     "pages/myOrder/myOrder",
     "pages/withdrawal/withdrawal",
