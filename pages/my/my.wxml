@@ -1,18 +1,26 @@
 <!--pages/my/my.wxml-->
 <view class="main">
   <view class="header">
-    <image class="headerIconText_img" src="../../img/toux.jpg"></image>
+    <image class="headerIconText_img" wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
+    <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/toux.jpg"></image>
     <view class="headerIconText">
-      <image src="../../img/toux.jpg"></image>
+      <image wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
+      <image wx:else src="{{serverUrl}}/statics/image/toux.jpg"></image>
       <view class="headerIconText_text">
-        <view class="headerIconText_name">Myson</view>
-        <view class="headerIconText_num"><mp-icon icon="pad" color="black" size="{{12}}"></mp-icon>15919961615</view>
+        <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}</view>
+        <view wx:else class="headerIconText_name">去登录</view>
+        <view class="headerIconText_num">
+          <mp-icon icon="pad" color="#fff" size="{{12}}"></mp-icon>
+          <label bindtap="bangNum" wx:if="{{wxUser && wxUser.phone}}">{{wxUser.phone}}</label>
+          <label wx:elif="{{tokenInfo}}" class="bindPhoneNum"><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">点击绑定手机号</button></label>
+          <label wx:else></label>
+        </view>
       </view>
-      <view class="moreWork"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>
+      <view class="moreWork" bindtap="gotoMyData"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>
     </view>
   </view>
   <view class="myFunctionList">
-    <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" bindtap="gotoView" data-view="{{item.id}}">
+    <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" bindtap="gotoView" data-view="{{item.id}}" data-detail="{{item}}" >
       <image src="{{item.src}}"></image>
       <view class="functionName">{{item.label}}<text class="news">•</text></view>
       <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon>

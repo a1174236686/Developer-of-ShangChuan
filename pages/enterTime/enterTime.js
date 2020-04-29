@@ -1,11 +1,20 @@
 // pages/enterTime/enterTime.js
+const app = getApp()
+const serverUrl = app.globalData.serverUrl;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    timeList: []
+    serverUrl: serverUrl,
+    timeList: [],
+    dayList: [{year: '2020',moth:'4',dey: 25,week: '四'},{year: '2020',moth:'4',dey: 26,week: '五'}],
+    startTime: [],
+    endTime: [],
+    datas: [],
+    errorMsg: false,
+    errorText: '开始时间不能大于结束时间'
   },
 
   /**
@@ -29,7 +38,51 @@ Page({
   },
 
   selectTime:function(e){
-    console.log(e.currentTarget.dataset.date)
+    let dateArr = e.currentTarget.dataset.date;
+    this.setData({datas: dateArr});
+    console.log(dateArr)
+    if(this.data.startTime[3] === dateArr[3]){
+      this.setData({startTime: []});
+      return false;
+    }
+    if(this.data.endTime[3] === dateArr[3]){
+      this.setData({endTime: []});
+      return false;
+    }
+    if(!this.data.startTime.length && this.data.endTime.length){
+      if(this.Transformation(dateArr) > this.Transformation(this.data.endTime)){
+        this.setData({errorMsg: true});
+        return false;
+      }
+      this.setData({startTime: dateArr});
+      return false;
+    }
+    if(!this.data.startTime.length){
+        this.setData({startTime: dateArr});
+        return false;
+    }
+    if(this.data.startTime.length && !this.data.endTime.length){
+      if(this.Transformation(dateArr) < this.Transformation(this.data.startTime)){
+        this.setData({errorMsg: true});
+        return false;
+      }
+      if(this.Transformation(dateArr) - this.Transformation(this.data.startTime) < (1000 * 60 * 60 *6)){
+        this.setData({endTime: dateArr});
+        return false;
+      }else{
+        this.setData({errorMsg: true,errorText: '预约时长不能大于6小时！'});
+      }
+    }
+  },
+
+  Transformation: function(dateArr){
+    return new Date(dateArr[0]+ '-' +dateArr[1]+ '-' +dateArr[2]+ '-' +dateArr[3]).getTime();
+  },
+
+  rentuTrue:function(e){
+    // let dateArr = e.currentTarget.dataset.date;
+    // new Date(dateArr[0]+ '-' +dateArr[1]+ '-' +dateArr[2]+ '-' +dateArr[3]).getTime();
+    return true;
   },
 
   /**

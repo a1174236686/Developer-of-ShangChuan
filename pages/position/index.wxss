@@ -6,54 +6,6 @@
   position: relative;
 }
 
-.weekTitle{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  z-index: 10;
-}
-
-.headTitle{
-  display: flex;
-  height: 90rpx;
-}
-
-.titleText{
-  font-size: 36rpx;
-  font-weight: bold;
-}
-
-.titleIcon{
-  position: absolute;
-  left: 40rpx;
-}
-
-.headTitle{
-  position: relative;
-}
-
-.titleText{
-  text-align: center;
-  flex: 1;
-}
-
-.week {
-  display: flex;
-  justify-content: center;
-  padding: 0 40rpx;
-}
-
-.week view {
-  flex: 1;
-  text-align: center;
-  height: 90rpx;
-  line-height: 90rpx;
-  color: #8B8A99;
-  font-weight: bold;
-}
-
 .calendarItem{
   padding: 40rpx 0;
 }

@@ -1,11 +1,13 @@
 // pages/find/find.js
+const app = getApp()
+const serverUrl = app.globalData.serverUrl
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    serverUrl: serverUrl,
   },
 
   /**

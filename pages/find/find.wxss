@@ -5,44 +5,37 @@
 
 .screen{
   position: fixed;
-  width: 94%;
+  width: 88%;
   z-index: 1;
-  background-color: #fff;
+  padding: 8px 10px;
+  background-color: white;
 }
 
-.weui-search-bar {
-  position: relative;
-  padding: 8px 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
+/* 输入框 */
+.input-box{
   display: flex;
-  box-sizing: border-box;
-}
-.weui-icon-search_in-box {
-  position: absolute;
-  right: 10px;
-  top: 4px;
-}
-.weui-search-bar__form {
-  position: relative;
-  -webkit-box-flex: 1;
-  -webkit-flex: auto;
-  flex: auto;
-  border-radius: 20px;
-}
-.weui-search-bar__box {
-  position: relative;
-  padding: 0 30px;
+  align-items: center;
   width: 100%;
-  box-sizing: border-box;
-  z-index: 1;
-  background-color: #F6F5F8;
-  border-radius: 20px;
+  background-color: #F5F5F6;
+  border-radius: 40rpx;
+  overflow:hidden;
+  font-size: 22rpx;
 }
-.weui-search-bar__input {
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
+
+
+.input-box input{
+   background-color: #F5F5F6;
+   width: 100%;
+   height: 60rpx;
+    padding-left: 32rpx;
+}
+
+/* icon */
+.input-icon{
+  width: 32rpx;
+  height: 28rpx;
+  margin-left: auto;
+  margin-right: 24rpx;
 }
 
 .miscellaneous{

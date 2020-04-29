@@ -24,8 +24,8 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.4",
-	"appid": "wx68950d9adb1451c1",
+	"libVersion": "2.11.0",
+	"appid": "wx321bef28f27ffe41",
 	"projectname": "my_watch",
 	"debugOptions": {
 		"hidedInDevtools": []

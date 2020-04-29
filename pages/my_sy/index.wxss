@@ -1,7 +1,4 @@
 /* 总榄 */
-.content{
-
-}
 
 .content .top-box{
   padding: 0  30rpx;
@@ -175,4 +172,69 @@
 .BecomeVip image{
   width: 120rpx;
   height: 120rpx;
+}
+
+.showDate{
+  position: fixed;
+  width: 100%;
+  top: 13%;
+  height: 87%;
+  overflow-y: auto;
+  padding-top: 100rpx;
+  background-color: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  padding-top: 230rpx;
+}
+
+
+.weekTitle{
+  position: fixed;
+  top: 13%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 10;
+  padding-top: 40rpx;
+  border-radius: 20rpx 20rpx 0 0;
+}
+
+.headTitle{
+  display: flex;
+  height: 90rpx;
+}
+
+.titleText{
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.titleIcon{
+  position: absolute;
+  left: 40rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.headTitle{
+  position: relative;
+}
+
+.titleText{
+  text-align: center;
+  flex: 1;
+}
+
+.week {
+  display: flex;
+  justify-content: center;
+  padding: 0 40rpx;
+}
+
+.week view {
+  flex: 1;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #8B8A99;
+  font-weight: bold;
 }
