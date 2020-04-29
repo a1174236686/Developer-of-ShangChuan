@@ -23,7 +23,7 @@ Page({
      */
     formDataMap: {
       id: '',
-      Gender: '',
+      // Gender: '',
       PhoneNumber: '',
       birthday: '',
       IDImgFront: '',
@@ -93,8 +93,8 @@ Page({
        * 支持配置两种校验规则 非空校验required和自定义校验validator
        */
       rules: {
-        id: { required: true, message: '需要错误信息可以配置我', validator: () => { console.log('需要自定义校验可以在这里写') } },
-        Gender: { required: true },
+        // id: { required: true, message: '需要错误信息可以配置我', validator: () => { console.log('需要自定义校验可以在这里写') } },
+        // Gender: { required: true },
         PhoneNumber: { required: true },
         birthday: { required: true },
         IDImgFront: { required: true },
