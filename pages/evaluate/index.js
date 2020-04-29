@@ -1,43 +1,37 @@
 // pages/evaluate/index.js
 Page({
   data: {
-      files: []
+      files: [{
+        url: 'http://mmbiz.qpic.cn/mmbiz_png/VUIF3v9blLsicfV8ysC76e9fZzWgy8YJ2bQO58p43Lib8ncGXmuyibLY7O3hia8sWv25KCibQb7MbJW3Q7xibNzfRN7A/0',
+    }],
+    formDataMap: {
+        professional: 3.7,
+        service: 0,
+        responseSpeed: 0,
+      },
+    evaluateDimensionArr: [
+        {title:'专业度',starsSize:'45rpx',mapping:'professional'},
+        {title:'服务态度',starsSize:'45rpx',mapping:'service'},
+        {title:'响应速度',starsSize:'45rpx',mapping:'responseSpeed'}
+    ]
   },
   onLoad() {
       this.setData({
           selectFile: this.selectFile.bind(this),
-          uplaodFile: this.uplaodFile.bind(this)
-      })
-  },
-  chooseImage: function (e) {
-      var that = this;
-      wx.chooseImage({
-          sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-              // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-              that.setData({
-                  files: that.data.files.concat(res.tempFilePaths)
-              });
-          }
-      })
-  },
-  previewImage: function(e){
-      wx.previewImage({
-          current: e.currentTarget.id, // 当前显示图片的http链接
-          urls: this.data.files // 需要预览的图片http链接列表
+          uplaodFile: this.uplaodFile.bind(this),
+          rateChangeCallBack:this.rateChangeCallBack.bind(this)
       })
   },
   selectFile(files) {
       console.log('files', files)
-      // 返回false可以阻止某次文件上传
+      return true;
   },
   uplaodFile(files) {
       console.log('upload files', files)
-      // 文件上传的函数，返回一个promise
+      const {tempFilePaths} = files; 
       return new Promise((resolve, reject) => {
           setTimeout(() => {
-            resolve('OK')
+            resolve({urls:tempFilePaths})
             //   reject('some error')
           }, 1000)
       })
@@ -47,5 +41,12 @@ Page({
   },
   uploadSuccess(e) {
       console.log('upload success', e.detail)
+  },
+  rateChangeCallBack({flag,e}){
+      const obj = {};
+      obj[flag] = e.currentTarget.dataset.param;
+      this.setData({
+        formDataMap: { ...this.data.formDataMap, ...obj }
+      })
   }
 });

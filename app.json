@@ -1,5 +1,4 @@
 {
-  "pages": [ 
     "pages/my/my",  
     "pages/joinWe/index",
     "pages/login/login",
@@ -24,6 +23,24 @@
     "pages/releaseWorks/releaseWorks",
     "pages/test/index",
     "pages/evaluate/index"
+    "pages/personalInfo/personalInfo",
+    "pages/my/my",  
+    "pages/joinWe/index",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/my_sy/index",
+    "pages/enterTime/enterTime",
+    "pages/vipCard/index",
+    "pages/releaseWorks/releaseWorks",
+    "pages/myEvaluate/myEvaluate",
+    "pages/myInfor/myInfor",
+    "pages/worksManagement/worksManagement",
+    "pages/myOrder/myOrder",
+    "pages/withdrawal/withdrawal",
+    "pages/myWallet/myWallet",
+    "pages/myUser/myUser",
+    "pages/photographer/photographer",
+    "pages/find/find"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,6 +48,8 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
     "weui": true
   },
@@ -48,8 +67,5 @@
       ]
      },
   "style": "v2",
-  "sitemapLocation": "sitemap.json",
-  "useExtendedLib": {
-    "weui": true
-  }
+  "sitemapLocation": "sitemap.json"
 }

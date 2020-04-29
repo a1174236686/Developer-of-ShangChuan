@@ -1,15 +1,9 @@
-page{
-  height: 100%;
-}
-
 .container{
   padding: 50rpx 30rpx 0 30rpx;
-  height: 100%;
 }
 
 .rechargeForm{
   display: block;
-  min-height: 100%;
 }
 
 .pickNumCtn .cardCtn{
@@ -76,7 +70,6 @@ page{
 
 .payModeCtn{
   margin-top: 88rpx;
-  padding-bottom: 201rpx;
 }
 
 
@@ -95,7 +88,7 @@ page{
 }
 
 .confirmPay {
-  margin-top: -151rpx;
+  margin-top: 250rpx;
 }
 
 .confirmPay .btn{
