@@ -2,55 +2,43 @@
 import {updateCalendar} from '../../utils/util';
 var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 var qqmapsdk;
-Page({
+Component({
+
+  properties: {
+    list: Array,
+    currentDate: Array
+  },
 
   /**
    * 页面的初始数据
    */
   data: {
-      list:[],
-      weekList:['日', '一', '二', '三', '四', '五', '六'],
       cityList:[],
       currentY: '',
       currentM: '',
       currentD: '',
-      currentDate: []
+      currentDate: [],
+      list: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //console.log(new Date().getMonth())
-    let list = [];
-    let nowDate = new Date();
-    this.setData({currentY: nowDate.getFullYear(),currentM: nowDate.getMonth() + 1,currentD: nowDate.getDate()});
-    this.setData({currentDate: [nowDate.getFullYear(),nowDate.getMonth() + 1,nowDate.getDate()]})
-    
-    let m = nowDate.getMonth();
-    let y = nowDate.getFullYear();
-    for(let i = 0; i < 6;i++){
-      let m = nowDate.getMonth() + i;
-      if(m > 11){
-        y += 1;
-        m = m % 11;
-      }
-      list.push(updateCalendar(y,m,null))
-    }
-    console.log(list)
-    this.setData({list:list});
     qqmapsdk = new QQMapWX({
       key: '2B2BZ-PBVRW-K6RR3-OB4HW-W6CJS-HWFBO'
   });
 
   },
 
-  enterDate:function(e){
-    let dateArr = e.currentTarget.dataset.date;
-    if(!dateArr[2].current || (dateArr[0] === this.data.currentDate[0] && dateArr[1] === this.data.currentDate[1] &&  dateArr[2].value < this.data.currentDate[2] && dateArr[2].current )){
-      return false;
-    }
-    this.setData({currentY: dateArr[0],currentM: dateArr[1],currentD: dateArr[2].value})
+  methods:{
+    enterDate:function(e){
+      let dateArr = e.currentTarget.dataset.date;
+      if(!dateArr[2].current || (dateArr[0] === this.data.currentDate[0] && dateArr[1] === this.data.currentDate[1] &&  dateArr[2].value < this.data.currentDate[2] && dateArr[2].current )){
+        return false;
+      }
+      this.setData({currentY: dateArr[0],currentM: dateArr[1],currentD: dateArr[2].value})
+    },
   },
 
   /**
@@ -64,13 +52,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
-
       this.getCityList();
-
-  
-
-
   },
 
   open(e){
