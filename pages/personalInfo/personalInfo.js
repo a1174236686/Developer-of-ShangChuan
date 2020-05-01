@@ -15,13 +15,7 @@ Page({
   },
 
   switchBar: function (e) {
-    this.setData({ currentType: e.currentTarget.dataset.type });
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+    this.setData({ currentType: e.currentTarget.dataset.type },() => this.getWork());
   },
 
   /**
@@ -36,59 +30,18 @@ Page({
       success: result => {
         this.machiningRes(result.data.biPhotographer);
         const biPhotographer = result.data.biPhotographer;
-        this.setData({ biPhotographer }, () => this.getVideoList())
+        this.setData({ biPhotographer }, () => this.getWork())
       }
     })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
     wx.showToast({ title: '加载中....', icon: 'loading' });
-    const { currentType } = this.data;
-    switch (currentType) {
-      case 1:
-        this.getVideoList();
-        break;
-      case 2:
-        this.getImgList();
-        break;
-    }
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    this.getWork()
   },
 
   /**
@@ -97,9 +50,6 @@ Page({
   machiningRes: function (res) {
     res.level = switchLevel(res.level);
   },
-
-
-
 
   /**
    * 请求视频
@@ -152,7 +102,7 @@ Page({
         'token': tokenInfo.token ,
       },
       data: {
-        page: 1,
+        page: page,
         limit,
         userCode
       },
@@ -205,6 +155,18 @@ Page({
         break;
       case 2:
         this.uploadImg();
+        break;
+    }
+  },
+
+  getWork:function(){
+    const { currentType } = this.data;
+    switch (currentType) {
+      case 1:
+        this.getVideoList();
+        break;
+      case 2:
+        this.getImgList();
         break;
     }
   },

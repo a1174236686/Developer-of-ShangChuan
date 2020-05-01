@@ -51,8 +51,7 @@
     </view>
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <image class="video" src="{{biPhotographer.avatarUrl}}"></image>
-        我是图片
+        <image class="video" src="http://106.12.205.91:9000/sheying/sys/file/previewImg?fileName={{item.fileName}}"></image>
       </view>
     </view>
   </view>
