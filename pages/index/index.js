@@ -9,6 +9,7 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     tabList: [{label: '精选'},{label: '美食'},{label: '人物'},{label: '风景'}],
+    indexList: [{name: '潘阳',src: '../../img/shouye1.png',time: '2020-04-30',icon: '../../img/toux.png'},{name: '麻子',src: '../../img/shouye2.png',time: '2020-04-30',icon: '../../img/toux.png'}],
     showTabActive: 0,
   },
   switchTab: function(e){

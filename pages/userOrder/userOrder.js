@@ -20,9 +20,46 @@ Page({
 
   switchTab:  function(e){
     let type = e.currentTarget.dataset.type;
-    this.setData({currentType: type,page: 1},() =>{
+    if(type == this.data.currentType){
+      return false
+    }
+    this.setData({currentType: type,page: 1,orderList: []},() =>{
       this.getData(type);
     })
+  },
+
+  cancelOrider:function(e) {
+    let item = e.currentTarget.dataset.item;
+    let index = e.currentTarget.dataset.index;
+    let that = this;
+    wx.showModal({
+      title: '提示',
+      content: '是否取消预约？',
+      showCancel: true,
+      confirmText: '确定取消',
+      cancelText: '点错了',
+      success: function(res) {
+        wx.showNavigationBarLoading();//在标题栏中显示加载
+        wx.request({
+          url: app.globalData.serverUrl + '/order/cancel',
+          header: {"token": wx.getStorageSync('tokenInfo').token},
+          method: 'POST',
+          data: {
+            orderId: item.orderId,
+            cancelReason: '取消'
+          },
+          success (res) {
+            wx.hideNavigationBarLoading() //完成停止加载
+            if(res.data.code == 0){
+              console.log('取消成功！')
+              let arr = that.data.orderList;
+              arr = arr.splice(1,index);
+              that.setData({orderList: arr});
+            }
+          }
+        })
+      }
+    });
   },
 
   /**
@@ -49,6 +86,7 @@ Page({
   getData(type=null){
     let that = this;
     type = type || this.data.currentType
+    wx.showNavigationBarLoading();//在标题栏中显示加载
     wx.request({
       url: app.globalData.serverUrl + '/order/customer/mine',
       header: {"token": wx.getStorageSync('tokenInfo').token},
@@ -59,6 +97,7 @@ Page({
         status: type
       },
       success (res) {
+        wx.hideNavigationBarLoading() //完成停止加载
         if(res.data.code == 0){
           if(res.data.data.length){
             let arr = that.data.orderList;
@@ -88,23 +127,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getData();
-    wx.showNavigationBarLoading();//在标题栏中显示加载
-    setTimeout(function(){
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500)
+    this.setData({page: 1,orderList: []},() =>{
+      this.getData();
+    })
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    wx.showNavigationBarLoading();//在标题栏中显示加载
-    setTimeout(function(){
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500)
+    this.setData({page: this.data.page + 1},() =>{
+      this.getData();
+    })
   },
 
   /**
