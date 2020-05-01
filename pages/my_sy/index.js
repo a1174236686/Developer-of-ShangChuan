@@ -34,7 +34,8 @@ Page({
     currentDate: [],
     weekList:['日', '一', '二', '三', '四', '五', '六'],
     showDate: false,
-    sheying: []
+    sheying: [],
+    page: 1
   },
 
   openDate:function(e){
@@ -88,17 +89,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getData();
+  },
+
+  getData(){
     let that = this;
     wx.request({
       url: app.globalData.serverUrl + '/photographer/page',
       // header: {"token": wx.getStorageSync('tokenInfo')},
       method: 'GET',
       data: {
-        page: 1,
+        page: this.data.page,
         limit: 15
       },
       success (res) {
-        that.setData({sheying: res.data.data})
+        if(res.data.data.length){
+          let arr = that.data.sheying;
+          arr = arr.concat(res.data.data);
+          that.setData({sheying: arr});
+        }
       }
     })
   },
@@ -107,7 +116,6 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
   },
 
   /**
@@ -128,7 +136,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({page: this.data.page += 1})
+    this.getData();
   },
 
   /**

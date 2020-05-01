@@ -1,5 +1,7 @@
 {
   "pages": [ 
+    "pages/myOrder/myOrder",
+    "pages/userOrder/userOrder",
     "pages/my/my",  
     "pages/my_sy/index",
     "pages/yuyueInfo/yuyueInfo",
@@ -12,7 +14,6 @@
     "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
     "pages/worksManagement/worksManagement",
-    "pages/myOrder/myOrder",
     "pages/withdrawal/withdrawal",
     "pages/myWallet/myWallet",
     "pages/myUser/myUser",

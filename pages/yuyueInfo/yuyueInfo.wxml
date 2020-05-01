@@ -3,22 +3,32 @@
   <form bindsubmit="formSubmit">
     <view class="infoItem {{index === 2 ? 'bordetBottom' : ''}}" wx:for="{{infoList}}" wx:key="index">
       <view class='infoItemLeft'>
-        <icon type="success" size="20"></icon>
+        <image src="{{item.icon}}"></image>
         <label>{{item.name}}</label>
       </view>
       <picker style="flex: 1;text-align: right;" wx:if="{{item.quyu}}" mode="region" bindchange="bindRegionChange" name="{{item.type}}" value="{{region}}" custom-item="{{customItem}}">
         <view class="picker {{!noEdit ? 'editInput' : ''}}">
           {{region[0]}}{{region[1]}}{{region[2]}}
-          <view wx:if="{{!region.length}}" style="color: #888;">请选择区域</view>
+          <!-- <view wx:if="{{!region.length}}" style="color: #888;">请选择区域</view> -->
+          <image src="../../img/adress.png"></image>
         </view>
       </picker>
-      <!-- <picker style="flex: 1;text-align: right;" wx:if="{{item.quyu}}" mode="region" bindchange="bindRegionChange" name="{{item.type}}" value="{{region}}" custom-item="{{customItem}}">
-        <view class="picker {{!noEdit ? 'editInput' : ''}}">
-          {{region[0]}}{{region[1]}}{{region[2]}}
-          <view wx:if="{{!region.length}}" style="color: #888;">请选择区域</view>
+      
+      <picker wx:elif="{{item.date}}" style="flex: 1;text-align: right;" mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+          <image src="../../img/daySelect.png"></image>
         </view>
-      </picker> -->
-      <input wx:else name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' placeholder='请输入{{item.name}}'/>
+      </picker>
+
+      <picker wx:elif="{{item.sex}}" range="{{sexArray}}" style="flex: 1;text-align: right;" value="{{sexText}}" bindchange="bindSexChange">
+        <view class="picker">
+          {{sexArray[sexIndex]}}
+          <image src="../../img/seximage.png" style="width: 24rpx;height: 18rpx"></image>
+        </view>
+      </picker>
+
+      <input wx:else name="{{item.type}}" type="{{item.status}}" style="{{item.type == 'start' || item.type == 'end' ? 'color: #777' : ''}}" class="{{!noEdit ? 'editInput' : ''}}" disabled="{{item.type === 'start' || item.type === 'start' == 'end'}}" value='{{item.value}}' placeholder='请输入{{item.name}}'/>
        <!-- disabled="{{noEdit}}" -->
     </view>
     <view class="btnPosition">
