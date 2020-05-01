@@ -1,6 +1,7 @@
 // pages/myOrder/myOrder.js
-const app = getApp()
-const serverUrl = app.globalData.serverUrl
+const app = getApp();
+import {http} from '../../utils/util'
+const serverUrl = app.globalData.serverUrl;
 Page({
 
   /**
@@ -29,7 +30,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({orderList: this.data.waitOrderList})
+    //this.setData({orderList: this.data.waitOrderList})
   },
 
   /**
@@ -61,7 +62,8 @@ Page({
       success (res) {
         if(res.data.code == 0){
           if(res.data.data.length){
-            let arr = that.data.tabList;
+            let arr = that.data.orderList;
+            console.log('array',that.data);
             arr = arr.concat(res.data.data);
             that.setData({orderList: arr});
           }
@@ -69,6 +71,87 @@ Page({
       }
     })
   },
+
+  /**
+   * 拒绝订单
+   */
+  refuseOrder(evt){
+    let self = this,orderList = self.data.orderList;
+    let item = evt.currentTarget.dataset.item;
+    wx.showModal({
+      title:"提示",
+      content:"是否拒绝",
+      success: async (res)=>{
+        if(res.confirm){
+          //拒绝
+         let res  = await  http.post("/order/reject",{data:{orderId:item.orderId,rejectReason:"拒绝"}});
+         if(res.code===0){
+           //拒绝之后 删除当前拒绝项
+           self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
+         }
+        }else{
+          //取消拒绝
+        }
+      }
+    })
+  },
+  //确认订单
+  determineOrder(evt){
+    let self = this,orderList = self.data.orderList;
+    let item = evt.currentTarget.dataset.item;
+    wx.showModal({
+      title:"提示",
+      content:"是否接单",
+      success: async (res)=>{
+        if(res.confirm){
+          //确认接单
+         let res  = await  http.post("/order/receive",{data:{orderId:item.orderId}});
+         if(res.code===0){
+           //确认之后 删除当前确认项
+           self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
+         }
+        }else{
+          //取消确认
+        }
+      }
+    })
+  },
+  //核销
+  writeOff(evt){
+    let self = this,orderList = self.data.orderList;
+    let item = evt.currentTarget.dataset.item;
+    wx.showModal({
+      title:"提示",
+      content:"是否核销",
+      success: async (res)=>{
+        if(res.confirm){
+          //确认核销
+         let res  = await  http.post("/order/writeoff",{data:{orderId:item.orderId}});
+         if(res.code===0){
+           //核销之后 删除当前核销项
+           self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
+         }
+        }else{
+          //取消核销
+        }
+      }
+    })
+
+  },
+  makePhoneCall(evt){
+    let item = evt.currentTarget.dataset.item;
+    wx.makePhoneCall({
+      phoneNumber: item.photographerPhone,
+      success(re){
+        //调用拨打电话成功
+      },
+      fail(error){
+        //调用拨打货失败
+      }
+    })
+  },
+
+
 
   /**
    * 生命周期函数--监听页面隐藏
