@@ -29,7 +29,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({orderList: this.data.waitOrderList})
+
   },
 
   /**
@@ -50,7 +50,7 @@ Page({
     let that = this;
     type = type || this.data.currentType
     wx.request({
-      url: app.globalData.serverUrl + '/order/photographer/mine',
+      url: app.globalData.serverUrl + '/order/customer/mine',
       header: {"token": wx.getStorageSync('tokenInfo').token},
       method: 'GET',
       data: {
@@ -61,8 +61,8 @@ Page({
       success (res) {
         if(res.data.code == 0){
           if(res.data.data.length){
-            let arr = that.data.tabList;
-            arr = arr.concat(res.data.data);
+            let arr = that.data.orderList;
+            arr = arr.concat(res.data.data)
             that.setData({orderList: arr});
           }
         }

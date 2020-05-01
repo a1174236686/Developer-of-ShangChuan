@@ -1,6 +1,7 @@
 // pages/myInfor/myInfor.js
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
+import {switchJSON} from '../../utils/util';
 Page({
 
   /**
@@ -9,41 +10,47 @@ Page({
   data: {
     serverUrl: serverUrl,
     infoList: [
-      {icon: '',name: '姓名', value: '', type: 'name'},
-      {icon: '',name: '性别', value: '', type: 'sex'},
-      {icon: '',name: '出生日期', value: '', type: 'date'},
-      {icon: '',name: '电话', value: '', type: 'phone'},
-      {icon: '',name: '区域', value: [], type: 'region',quyu: true},
-      {icon: '',name: '拍摄地点', value: '', type: 'address'},
-      {icon: '',name: '拍摄对象', value: '', type: 'target'},
-      {icon: '',name: '拍摄时间', value: '', type: 'time'}],
+      {icon: '../../img/xingming.png',name: '姓名', value: '', type: 'name'},
+      {icon: '../../img/nvx.png',name: '性别', value: '', type: 'sex',sex: true},
+      {icon: '../../img/riqi.png',name: '出生日期', value: '', type: 'date',date: true},
+      {icon: '../../img/shouji.png',name: '电话', value: '', type: 'phone',status: 'number'},
+      {icon: '../../img/quyu.png',name: '区域', value: [], type: 'region',quyu: true},
+      {icon: '../../img/map.png',name: '拍摄地点', value: '', type: 'address'},
+      {icon: '../../img/paishe.png',name: '拍摄对象', value: '', type: 'target'},
+      {icon: '../../img/shijian.png',name: '拍摄开始时间', value: '', type: 'start'},
+      {icon: '../../img/shijian.png',name: '拍摄结束时间', value: '', type: 'end'}],
       noEdit: false,
       region: [],
-      regionCode: []
+      date: '',
+      regionCode: [],
+      sexArray: ['男','女'],
+      startTime: '',
+      endTime: '',
+      sexIndex: 0
   },
 
   formSubmit: function (e) {
     wx.showNavigationBarLoading();
-    let vm = this;
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
-    let enterDate = wx.getStorageSync('enterTime');
     let that = this;
-    let startTime = enterDate.start[0] + '-' + enterDate.start[1] + '-' + enterDate.start[2] + ' ' + enterDate.start[3] + ':00';
-    let endTime = enterDate.end[0] + '-' + enterDate.end[1] + '-' + enterDate.end[2] + ' ' + enterDate.end[3] + ':00';
     let postData = {
       photographerCode: wx.getStorageSync('yuyueData').userCode,
       customerName: e.detail.value.name,
-      sex: e.detail.value.sex,
-      birthDate: e.detail.value.date,
+      sex: this.data.sexArray[this.data.sexIndex] == '男' ? '1' : '2',
+      birthDate: this.data.date,
       customerPhone: e.detail.value.phone,
-      province: e.detail.value.name,
-      city: this.data.regionCode[0],
-      area: this.data.regionCode[1],
-      address: this.data.regionCode[2],
+      province: this.data.regionCode[0],
+      city: this.data.regionCode[1],
+      area: this.data.regionCode[2],
+      address: e.detail.value.address,
       target: e.detail.value.target,
-      appointStartTime: startTime,
-      appointEndTime: endTime,
+      appointStartTime: this.data.startTime,
+      appointEndTime: this.data.endTime,
     };
+    if(!switchJSON(postData)){
+      console.log('请完善数据！');
+      return false;
+    }
     wx.request({
       url: app.globalData.serverUrl + '/order/save',
       header: {"token": wx.getStorageSync('tokenInfo').token},
@@ -65,8 +72,15 @@ Page({
   },
 
   bindRegionChange: function(e){
-    console.log(e.detail)
     this.setData({region: e.detail.value,regionCode: e.detail.code})
+  },
+
+  bindSexChange: function(e){
+    this.setData({sexIndex: e.detail.value})
+  },
+
+  bindDateChange: function(e){
+    this.setData({date: e.detail.value})
   },
 
   /**
@@ -86,7 +100,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log()
+    let enterDate = wx.getStorageSync('enterTime');
+    let startTime = enterDate.start[0] + '-' + enterDate.start[1] + '-' + enterDate.start[2] + ' ' + enterDate.start[3] + ':00';
+    let endTime = enterDate.end[0] + '-' + enterDate.end[1] + '-' + enterDate.end[2] + ' ' + enterDate.end[3] + ':00';
+    let arr = this.data.infoList;
+    arr[arr.length - 1].value = endTime;
+    arr[arr.length - 2].value = startTime;
+    this.setData({startTime: startTime,endTime:endTime,infoList: arr})
   },
 
   /**
