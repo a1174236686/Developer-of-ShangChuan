@@ -1,0 +1,128 @@
+
+<view class="main">
+  <view class='item'>
+    <view class='head'>
+      <image class='img' src='../../img/1.jpg'></image>
+      <view class="name">巫欢</view>
+      <view class='starContainer '>
+        <view class='starBox '>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+        </view>
+      </view>
+     
+    </view>
+
+ <view class="line"></view>
+    <view class='body '>
+      <view class='contentText'>拍的实在是太棒了~~下次还找你拍！！！</view>
+      <view class='contentImgs'>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      </view>
+      <view class='Datetime'>2020-08-21 22:30:59</view>
+    </view>
+  </view>
+<!------------------------item-------------------------->
+<view class='item'>
+    <view class='head'>
+      <image class='img' src='../../img/1.jpg'></image>
+      <view class="name">巫欢</view>
+      <view class='starContainer '>
+        <view class='starBox '>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+        </view>
+      </view>
+     
+    </view>
+
+ <view class="line"></view>
+    <view class='body '>
+      <view class='contentText'>拍的实在是太棒了~~下次还找你拍！！！</view>
+      <view class='contentImgs'>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      </view>
+      <view class='Datetime'>2020-08-21 22:30:59</view>
+    </view>
+  </view>
+
+  <!------------------------item-------------------------->
+<view class='item'>
+    <view class='head'>
+      <image class='img' src='../../img/1.jpg'></image>
+      <view class="name">巫欢</view>
+      <view class='starContainer '>
+        <view class='starBox '>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+        </view>
+      </view>
+     
+    </view>
+
+ <view class="line"></view>
+    <view class='body '>
+      <view class='contentText'>拍的实在是太棒了~~下次还找你拍！！！</view>
+      <view class='contentImgs'>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      </view>
+      <view class='Datetime'>2020-08-21 22:30:59</view>
+    </view>
+  </view>
+
+  <!------------------------item-------------------------->
+<view class='item'>
+    <view class='head'>
+      <image class='img' src='../../img/1.jpg'></image>
+      <view class="name">巫欢</view>
+      <view class='starContainer '>
+        <view class='starBox '>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+          <view class='starItem designerBorder'></view>
+        </view>
+      </view>
+     
+    </view>
+
+ <view class="line"></view>
+    <view class='body '>
+      <view class='contentText'>拍的实在是太棒了~~下次还找你拍！！！</view>
+      <view class='contentImgs'>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      <image class='contentImg' src='../../img/1.jpg'></image>
+      </view>
+      <view class='Datetime'>2020-08-21 22:30:59</view>
+    </view>
+  </view>
+  <!------------------------item-------------------------->
+
+
+
+</view>

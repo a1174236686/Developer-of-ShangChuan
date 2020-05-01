@@ -191,6 +191,7 @@ const switchJSON= json => {
 	};
 
 
+
 	const http = {
 	
 		init(obj){
@@ -226,6 +227,7 @@ const switchJSON= json => {
 			return this.init({url:url,method:"GET",data:data})
 		}
 	}
+
 
 	const switchLevel = level =>{
 		let levelLabel = '';
@@ -283,6 +285,7 @@ const switchJSON= json => {
 
 
 	
+
 
 module.exports = {
   formatTime: formatTime,

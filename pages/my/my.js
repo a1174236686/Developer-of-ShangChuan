@@ -83,6 +83,7 @@ Page({
 
   onLoad:function(){
     if(wx.getStorageSync('sessionInfo')){
+
       let that = this;
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
       this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer})
