@@ -56,3 +56,11 @@
   padding: 0;
   margin: 0;
 }
+.headPhoto{
+  width: 100rpx;
+  height: 100rpx;
+}
+.img {
+  width: 32rpx;
+  height: 32rpx;
+}

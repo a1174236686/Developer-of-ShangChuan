@@ -2,11 +2,11 @@
 <view class="main">
   <mp-toptips msg="{{errorText}}" type="error" show="{{errorMsg}}"></mp-toptips>
   <view class="syItem">
-    <view class="syIcon"><image src="{{serverUrl}}/statics/image/toux.jpg"></image></view>
+    <view class="syIcon"><image src="{{yuyueData.avatarUrl}}"></image></view>
     <view class="syInfo">
-      <view class="infoTtile">程潇潇摄影师 <view class="titleLabel">高级摄影师</view></view>
+      <view class="infoTtile">{{yuyueData.name}} <view class="titleLabel">{{yuyueData.levelName}}</view></view>
       <view class="score">
-          <view>5.0</view>
+          <view>{{yuyueData.score ? yuyueData.score : 0}}</view>
           <view>评分</view>
       </view>
       <view class="countScore" style="font-size: 22rpx">
@@ -42,4 +42,6 @@
       </view>
     </view>
   </view>
+  <view style="height: 160rpx"></view>
+  <view class="nextBtn" bindtap="next">立即预约</view>
 </view>

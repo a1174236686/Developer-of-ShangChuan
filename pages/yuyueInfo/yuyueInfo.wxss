@@ -1,0 +1,68 @@
+/* pages/myInfor/myInfor.wxss */
+.infoList{
+  padding: 30rpx 0;
+}
+
+.infoItem{
+  padding: 0 30rpx;
+  display: flex;
+  font-size: 28rpx;
+  align-items: center;
+  font-weight: bold;
+  justify-content: space-between;
+  height: 88rpx;
+  border-bottom: 1rpx solid #f8f8f8;
+}
+
+.infoItemLeft{
+  display: flex;
+  align-items: center;
+}
+
+.infoItem label{
+  margin-left: 22rpx;
+}
+
+.infoItem .editInput{
+  color: #333;
+}
+
+.infoItem input{
+  color: #999999;
+  text-align: right;
+}
+
+.bordetBottom{
+  border-bottom: 10rpx solid #f5f5f5;
+}
+
+.btnPosition{
+  margin: 0 30rpx;
+  height:88rpx;
+  width: 92%;
+  position: fixed;
+  bottom: 40rpx;
+}
+
+.switchBtn{
+  width: 100% !important;
+  height: 88rpx;
+  background:rgba(255,109,119,1);
+  border-radius:20rpx;
+  line-height: 88rpx;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+
+.picker image{
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.infoItemLeft image{
+  width: 40rpx;
+  height: 40rpx;
+}

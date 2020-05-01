@@ -9,31 +9,31 @@
     <view style="height: 44px;"></view>
     <view class="imgsList">
       <view class="travel box">
-        <image src="{{serverUrl}}/statics/image/1.jpg"></image>
+        <image src="../../img/lipai.png"></image>
         <view class="text"># 旅拍 #</view>
       </view>
       <view class="miscellaneous">
         <view class="miscellaneousLeft">
           <view class="box">
-            <image style="height: 200px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 327rpx;" src="../../img/meishi.png"></image>
             <view class="text"># 美食 #</view>
           </view>
           <view class="box">
-            <image style="height: 150px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 214rpx;" src="../../img/renxiang.png"></image>
             <view class="text"># 人像 #</view>
           </view>
           <view class="box">
-            <image style="height: 220px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 247rpx;" src="../../img/mingjianzhu.png"></image>
             <view class="text"># 名建筑 #</view>
           </view>
         </view>
         <view class="miscellaneousRight">
           <view class="box">
-            <image style="height: 340px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 537rpx;" src="../../img/fengjing.png"></image>
             <view class="text"># 风景 #</view>
           </view>
           <view class="box">
-            <image style="height: 245px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 274rpx;" src="../../img/mengchong.png"></image>
             <view class="text"># 萌宠 #</view>
           </view>
         </view>

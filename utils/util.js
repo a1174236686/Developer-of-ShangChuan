@@ -1,3 +1,5 @@
+const app = getApp();
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -12,6 +14,46 @@ const formatTime = date => {
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
+}
+
+const switchWeek = date => {
+	let week = ''
+	switch (date) {
+		case 0:
+			week = '天';
+			break;
+		case 1:
+			week = '一';
+			break;
+		case 2:
+			week = '二';
+			break;
+		case 3:
+			week = '三';
+			break;
+		case 4:
+			week = '四';
+			break;
+		case 5:
+			week = '五';
+			break;
+		case 6:
+			week = '六';
+			break;
+		default:
+			week = 'error';
+			break;
+	}
+	return week
+}
+
+const switchJSON= json => {
+	for (let key in json){
+		if(!json[key] && !json[key].length){
+			return false
+		}
+	}
+  return true; 
 }
 
 	// 工具方法 - start
@@ -148,6 +190,45 @@ const formatNumber = n => {
 	
 	};
 
+
+
+	const http = {
+	
+		init(obj){
+			return new Promise((re,rj)=>{
+
+				wx.request({
+					...obj,
+					url: app.globalData.serverUrl + obj.url,
+					header: {"token": wx.getStorageSync('tokenInfo').token},
+					method: obj.method,
+					data: obj.data,
+					success (res) {
+						if(res.data.code == 0){
+								re(res.data);
+						}else{
+							rj();
+						}
+					},
+					fail(){
+						rj()
+					}
+				})
+
+			})
+
+
+		},
+		post(url,obj){
+			return this.init({method:"POST",url,...obj})
+
+		},
+		get(url,data){
+			return this.init({url:url,method:"GET",data:data})
+		}
+	}
+
+
 	const switchLevel = level =>{
 		let levelLabel = '';
 		switch (level) {
@@ -177,9 +258,41 @@ const formatNumber = n => {
 		return sexLabel
 	}
 
+
+	//根据id去重合并
+	Array.prototype.qcConcat = function(array,key){
+		 let list = this;
+		 if(list.length===0){
+			 return array;
+		 }
+		 for(let i = 0 ; i < array.length ; i ++){
+			 let item = array[i];
+			 let bool = false;
+			 if(key){
+				 //根据id
+				 bool =  list.findIndex(it=>it[key]===item[key])===-1; //不在里面
+			 }else{
+				 bool =  list.findIndex(it=>it===item)===-1; //不在里面
+			 }
+			 if(bool){
+				 list.push(item);
+			 }
+		 }
+		 return list;
+		  
+	}
+
+
+
+	
+
+
 module.exports = {
   formatTime: formatTime,
 	updateCalendar:updateCalendar,
+	switchWeek: switchWeek,
+	switchJSON: switchJSON,
+	http:http,
 	switchLevel,
 	switchSex
 }

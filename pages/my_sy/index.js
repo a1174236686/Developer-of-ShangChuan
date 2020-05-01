@@ -33,15 +33,17 @@ Page({
     }],
     currentDate: [],
     weekList:['日', '一', '二', '三', '四', '五', '六'],
-    showDate: false
+    showDate: false,
+    sheying: [],
+    page: 1
   },
 
-  openDate:function(){
-    this.setData({showDate: true})
+  openDate:function(e){
+    this.setData({showDate: true});
+    wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
   },
 
-  closeDate
-  :function(){
+  closeDate:function(){
     this.setData({showDate: false})
   },
 
@@ -65,12 +67,10 @@ Page({
       }
       list.push(updateCalendar(y,m,null))
     }
-    console.log(list)
     this.setData({list:list});
   },
 
   swiperChange(e){
-
     this.setData({
       currentIndex:e.detail.current
     })
@@ -83,30 +83,39 @@ Page({
 
   },
   
-  // onTabItemTap (item) {
-  //   console.log(item.index)
-  //   console.log(item.pagePath)
-  //   console.log(item.text)
-  //   console.log(app.globalData.userInfo)
-  //   if(!app.globalData.userInfo){
-  //     wx.navigateTo({
-  //       url: '../login/login'
-  //     })
-  //   }
-  // },
+
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.getData();
+  },
+
+  getData(){
+    let that = this;
+    wx.request({
+      url: app.globalData.serverUrl + '/photographer/page',
+      // header: {"token": wx.getStorageSync('tokenInfo')},
+      method: 'GET',
+      data: {
+        page: this.data.page,
+        limit: 15
+      },
+      success (res) {
+        if(res.data.data.length){
+          let arr = that.data.sheying;
+          arr = arr.concat(res.data.data);
+          that.setData({sheying: arr});
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
   },
 
   /**
@@ -127,7 +136,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({page: this.data.page += 1})
+    this.getData();
   },
 
   /**

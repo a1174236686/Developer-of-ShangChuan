@@ -111,3 +111,16 @@
   background-color: #FFC8CC;
   color: #fff;
 }
+
+.nextBtn{
+  position: fixed;
+  width: 92%;
+  bottom: 40rpx;
+  margin: 0 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  text-align: center;
+  background-color: #FF6D77;
+  border-radius: 40rpx;
+}
