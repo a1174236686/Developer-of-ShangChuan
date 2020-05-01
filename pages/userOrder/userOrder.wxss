@@ -47,6 +47,7 @@ page{
   margin-top: 10rpx;
   background-color: #fff;
   padding: 28rpx 32rpx;
+  position: relative;
 }
 
 .orderItem_name{
@@ -87,8 +88,12 @@ page{
 }
 
 .orderItem_Customer{
+  position: absolute;
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  bottom: 50rpx;
+  right: 30rpx;
+  justify-content: flex-end;
 }
 
 .orderItem_Customer_right{
@@ -112,4 +117,10 @@ page{
 
 .orderItem_Customer_right .orderItem_Customer_cancel{
   background-color: #FFCD6D;
+}
+
+.nodata{
+  padding-top: 100rpx;
+  display: flex;
+  justify-content: center;
 }

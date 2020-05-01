@@ -9,10 +9,10 @@ Page({
   data: {
     serverUrl: serverUrl,
     tabList: [{name: '待接单',type: '1'},{name: '待拍摄',type: '2'},{name: '已拍摄',type: '3'},{name: '已完成',type: '4'}],//tab
-    waitOrderList: [],//待接单
-    waitShotList:[],//待拍摄
-    alreadyCompleteList: [],//已拍摄
-    alreadyShotList: [],//已完成
+    // waitOrderList: [],//待接单
+    // waitShotList:[],//待拍摄
+    // alreadyCompleteList: [],//已拍摄
+    // alreadyShotList: [],//已完成
     orderList: [],
     currentType: '1',
     page: 1

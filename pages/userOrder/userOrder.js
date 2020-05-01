@@ -9,33 +9,27 @@ Page({
   data: {
     serverUrl: serverUrl,
     tabList: [{name: '待接单',type: '1'},{name: '待拍摄',type: '2'},{name: '已拍摄',type: '3'},{name: '已完成',type: '4'}],//tab
-    waitOrderList: [{name: '潘洋'},{name: '演叼'},{name: '演叼'},{name: '演叼'},{name: '演叼'}],//待接单
-    waitShotList:[{name: '潘洋'},{name: '鸡西'}],//待拍摄
-    alreadyCompleteList: [],//已拍摄
-    alreadyShotList: [],//已完成
+    // waitOrderList: [],//待接单
+    // waitShotList:[],//待拍摄
+    // alreadyCompleteList: [],//已拍摄
+    // alreadyShotList: [],//已完成
     orderList: [],
-    currentType: '1'
+    currentType: '1',
+    page: 1
   },
 
-  switchTab: function(e){
-    let type = e.currentTarget.dataset.type
-    if(type === '1'){
-      this.setData({orderList: this.data.waitOrderList})
-    }else if(type === '2'){
-      this.setData({orderList: this.data.waitShotList})
-    }else if(type === '3'){
-      this.setData({orderList: this.data.alreadyCompleteList})
-    }else if(type === '4'){
-      this.setData({orderList: this.data.alreadyShotList})
-    }
-    this.setData({currentType: type})
+  switchTab:  function(e){
+    let type = e.currentTarget.dataset.type;
+    this.setData({currentType: type,page: 1},() =>{
+      this.getData(type);
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({orderList: this.data.waitOrderList})
+
   },
 
   /**
@@ -49,7 +43,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getData();
+  },
 
+  getData(type=null){
+    let that = this;
+    type = type || this.data.currentType
+    wx.request({
+      url: app.globalData.serverUrl + '/order/customer/mine',
+      header: {"token": wx.getStorageSync('tokenInfo').token},
+      method: 'GET',
+      data: {
+        page: this.data.page,
+        limit: 15,
+        status: type
+      },
+      success (res) {
+        if(res.data.code == 0){
+          if(res.data.data.length){
+            let arr = that.data.orderList;
+            arr = arr.concat(res.data.data)
+            that.setData({orderList: arr});
+          }
+        }
+      }
+    })
   },
 
   /**
@@ -70,6 +88,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.getData();
     wx.showNavigationBarLoading();//在标题栏中显示加载
     setTimeout(function(){
       wx.hideNavigationBarLoading() //完成停止加载

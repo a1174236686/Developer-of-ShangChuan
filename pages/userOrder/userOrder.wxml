@@ -1,8 +1,8 @@
 <!--pages/myOrder/myOrder.wxml-->
 <view class="main">
   <view class="switchTab">
-    <view wx:for="{{tabList}}" wx:key='index' class="{{currentType === item.type ? 'colorActive' : ''}}" bindtap="switchTab" data-type="{{item.type}}">{{item.name}}
-      <label class="{{currentType === item.type ? 'active' : ''}}"></label>
+    <view wx:for="{{tabList}}" wx:for-item="it" wx:for-index="ids" wx:key='ids' class="{{currentType === it.type ? 'colorActive' : ''}}" bindtap="switchTab" data-type="{{it.type}}">{{it.name}}
+      <label class="{{currentType === it.type ? 'active' : ''}}"></label>
     </view>
   </view>
   <!-- <view style="height: 90rpx;"></view> -->
@@ -10,21 +10,21 @@
     <view class="orderItem" wx:for="{{orderList}}" wx:key="index">
       <view class="orderItem_name">
         <image class="orderItem_name_Head" src="{{serverUrl}}/statics/image/toux.jpg"></image>
-        <view class="orderItem_name_Text">{{item.name}}</view>
+        <view class="orderItem_name_Text">{{item.customerName}}</view>
         <image class="orderItem_name_Call" src="{{serverUrl}}/statics/image/toux.jpg"></image>
       </view>
       <view class="orderItem_Info">
         <view class="orderItem_Time">
-          <label>预约时间：</label><view>2018-12-12</view><view style="margin-left: 20rpx;">2018-08-12</view>
+          <label>预约时间：</label><view>{{item.appointStartTime}}</view><view style="margin-left: 20rpx;">{{item.appointEndTime}}</view>
+        </view>
+        <view class="orderItem_Time">
+          <label>拍摄地点：</label><view>{{item.province}}{{item.city}}{{item.area}}{{item.address}}</view>
+        </view>
+        <view class="orderItem_Time">
+          <label>拍摄对象：</label><view>{{item.target}}</view>
         </view>
         <view class="orderItem_Customer">
           <view class="orderItem_Customer_left">
-            <view class="orderItem_Time">
-              <label>拍摄地点：</label><view>公园</view>
-            </view>
-            <view class="orderItem_Time">
-              <label>拍摄对象：</label><view>对萌娃</view>
-            </view>
           </view>
           <view class="orderItem_Customer_right">
             <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_cancel">拒绝接单</view>
@@ -34,5 +34,9 @@
         </view>
       </view>
     </view>
+  </view>
+
+  <view class="nodata" wx:if="{{!orderList.length}}">
+    <image src="../../img/noData.png"></image>
   </view>
 </view>
