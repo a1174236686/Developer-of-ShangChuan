@@ -134,3 +134,33 @@ page{
   display: flex;
   justify-content: center;
 }
+
+
+/* 二维码 显示*/
+.modal-view{
+    position: absolute;
+    top: 0;
+   width: 100%;
+   height: 100vh;
+   background-color:rgba(0, 0, 0, 0.3);
+   z-index: 999;
+}
+.modal-view .modal{
+   width: 200px;
+   height: 200px;
+   background-color: #fff;
+   margin: 100px auto;
+   border: 1px solid #ccc;
+   border-radius: 15rpx;
+}
+.modal-view .modal .title{
+  height: 30px;
+  text-align: center;
+}
+.modal-view .canvas{
+  width: 150px;
+  background-color: #fff;
+  margin: 0 auto;
+  display: block;
+
+}
