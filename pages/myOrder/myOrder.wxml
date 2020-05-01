@@ -11,7 +11,7 @@
       <view class="orderItem_name">
         <image class="orderItem_name_Head" src="{{serverUrl}}/statics/image/toux.jpg"></image>
         <view class="orderItem_name_Text">{{item.customerName}}</view>
-        <image class="orderItem_name_Call" src="{{serverUrl}}/statics/image/toux.jpg"></image>
+        <image class="orderItem_name_Call" bindtap="makePhoneCall" data-item="{{item}}" src="{{serverUrl}}/statics/image/toux.jpg"></image>
       </view>
       <view class="orderItem_Info">
         <view class="orderItem_Time">
@@ -27,9 +27,9 @@
           <view class="orderItem_Customer_left">
           </view>
           <view class="orderItem_Customer_right">
-            <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_cancel">拒绝接单</view>
-            <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_enter">确认接单</view>
-            <view wx:if="{{currentType === '2'}}" class="orderItem_Customer_enter">核销</view>
+            <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_cancel" data-item="{{item}}" bindtap="refuseOrder">拒绝接单</view>
+            <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_enter" data-item="{{item}}" bindtap="determineOrder">确认接单</view>
+            <view wx:if="{{currentType === '2'}}" class="orderItem_Customer_enter" data-item="{{item}}" bindtap="writeOff">核销</view>
           </view>
         </view>
       </view>

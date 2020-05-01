@@ -1,3 +1,5 @@
+const app = getApp();
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -188,11 +190,51 @@ const switchJSON= json => {
 	
 	};
 
+
+	const http = {
+	
+		init(obj){
+			return new Promise((re,rj)=>{
+
+				wx.request({
+					...obj,
+					url: app.globalData.serverUrl + obj.url,
+					header: {"token": wx.getStorageSync('tokenInfo').token},
+					method: obj.method,
+					data: obj.data,
+					success (res) {
+						if(res.data.code == 0){
+								re(res.data);
+						}else{
+							rj();
+						}
+					},
+					fail(){
+						rj()
+					}
+				})
+
+			})
+
+
+		},
+		post(url,obj){
+			return this.init({method:"POST",url,...obj})
+
+		},
+		get(url,data){
+			return this.init({url:url,method:"GET",data:data})
+		}
+	}
+
+
+
 	
 
 module.exports = {
   formatTime: formatTime,
 	updateCalendar:updateCalendar,
 	switchWeek: switchWeek,
-	switchJSON: switchJSON
+	switchJSON: switchJSON,
+	http:http
 }
