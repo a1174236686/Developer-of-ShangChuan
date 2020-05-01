@@ -3,13 +3,15 @@
 
 const app = getApp();
 const computedBehavior = require('miniprogram-computed')
+const serverUrl = app.globalData.serverUrl
 
 
 Page({
   behaviors: [computedBehavior],
   data: {
+    serverUrl: serverUrl,
     topImgData: {
-      src: '../../img/joinMe.png', mode: 'scaleToFill'
+      src: serverUrl + '/statics/image/joinMe.png', mode: 'scaleToFill'
     },
     /**
      * 表单数据绑定对象
@@ -48,8 +50,8 @@ Page({
     ],
 
     IDImgData: [
-      { src: '../../img/idjoinMe.png', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
-      { src: '../../img/idjoinMetwo.png', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
+      { src: serverUrl + '/statics/image/idjoinMe.png', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
+      { src: serverUrl + '/statics/image/idjoinMetwo.png', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
     ],
   },
   onLoad: function () {
@@ -162,7 +164,7 @@ Page({
             IDImgData[i].src = tempFilePaths;
             wx.uploadFile({
               // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
-              url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
+              url: this.data.serverUrl + '/sys/file/upload?dir=-1',
               header: { 'token': tokenInfo.token },
               filePath: tempFilePaths[0],
               method: 'post',

@@ -1,11 +1,11 @@
 <view class="clubCard">
-  <image class="clubCardImg" src="../../img/card.png"></image>
+  <image class="clubCardImg" src="{{serverUrl}}/statics/image/card.png"></image>
   <view class="clubCardTwo">
-    <image class="cardText" src="../../img/cardText.png"></image>
+    <image class="cardText" src="{{serverUrl}}/statics/image/cardText.png"></image>
     <view class="numText">{{number}}</view>
-    <image class="recharge" src="../../img/recharge.png"></image>
-    <image class="medal" src="../../img/medal.png"></image>
-    <image class="Lv" src="../../img/Lv.png"></image>
+    <image class="recharge" src="{{serverUrl}}/statics/image/recharge.png"></image>
+    <image class="medal" src="{{serverUrl}}/statics/image/medal.png"></image>
+    <image class="Lv" src="{{serverUrl}}/statics/image/Lv.png"></image>
     <view class="grade">{{grade}}</view>
   </view>
 </view>
@@ -24,7 +24,7 @@
   </view>
 </view>
 <view class="text">
-  <view class="iconText"><image class="icon" src="../../img/icon.png"></image>使用须知：</view>
+  <view class="iconText"><image class="icon" src="{{serverUrl}}/statics/image/icon.png"></image>使用须知：</view>
   <view class="iconText">
     1. 这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字...
   </view>

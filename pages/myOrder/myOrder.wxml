@@ -37,6 +37,6 @@
   </view>
 
   <view class="nodata" wx:if="{{!orderList.length}}">
-    <image src="../../img/noData.png"></image>
+    <image src="{{serverUrl}}/statics/image/noData.png"></image>
   </view>
 </view>
