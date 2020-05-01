@@ -1,9 +1,9 @@
 {
   "pages": [ 
-    "pages/find/find",
     "pages/my/my",  
-    "pages/userOrder/userOrder",
     "pages/myOrder/myOrder",
+    "pages/find/find",
+    "pages/userOrder/userOrder",
     "pages/my_sy/index",
     "pages/yuyueInfo/yuyueInfo",
     "pages/joinWe/index",
