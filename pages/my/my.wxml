@@ -3,10 +3,10 @@
   <view class="main" wx:if="{{showSheyingshi == '0'}}">
     <view class="header">
       <image class="headerIconText_img" wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
-      <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/toux.jpg"></image>
+      <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
       <view class="headerIconText">
         <image wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
-        <image wx:else src="{{serverUrl}}/statics/image/toux.jpg"></image>
+        <image wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
         <view class="headerIconText_text">
           <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}</view>
           <view wx:else class="headerIconText_name">去登录</view>
@@ -49,14 +49,14 @@
             <view>订单</view>
             <view>20</view>
           </view>
-          <image src="{{serverUrl}}/statics/image/toux.jpg"></image>
+          <image src="{{serverUrl}}/statics/image/dingdan.png"></image>
         </view>
         <view class="numInfo">
           <view class="text">
             <view>收入</view>
-            <view>2650</view>
+            <view>0</view>
           </view>
-          <image src="{{serverUrl}}/statics/image/toux.jpg"></image>
+          <image src="{{serverUrl}}/statics/image/qianbao.png"></image>
         </view>
       </view>
     </view>
