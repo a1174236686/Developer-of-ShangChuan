@@ -227,6 +227,35 @@ const switchJSON= json => {
 		}
 	}
 
+	const switchLevel = level =>{
+		let levelLabel = '';
+		switch (level) {
+			case 1:
+				levelLabel = '初级摄影师';
+				break;
+			case 2:
+				levelLabel = '中级摄影师';
+				break;
+			case 3:
+				levelLabel = '高级摄影师';
+				break;
+		}
+		return levelLabel
+	} 
+
+	const switchSex = sex => {
+		let sexLabel = '';
+		switch (sex) {
+			case 1:
+				sexLabel = '男';
+				break;
+			case 2:
+				sexLabel = '女';
+				break;
+		}
+		return sexLabel
+	}
+
 
 
 	
@@ -236,5 +265,7 @@ module.exports = {
 	updateCalendar:updateCalendar,
 	switchWeek: switchWeek,
 	switchJSON: switchJSON,
-	http:http
+	http:http,
+	switchLevel,
+	switchSex
 }
