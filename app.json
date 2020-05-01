@@ -1,6 +1,7 @@
 {
   "pages": [ 
     "pages/my/my",  
+    "pages/personalInfo/personalInfo",
     "pages/myOrder/myOrder",
     "pages/find/find",
     "pages/userOrder/userOrder",
@@ -12,7 +13,6 @@
     "pages/enterTime/enterTime",
     "pages/vipCard/index",
     "pages/releaseWorks/releaseWorks",
-    "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
     "pages/worksManagement/worksManagement",
     "pages/withdrawal/withdrawal",
