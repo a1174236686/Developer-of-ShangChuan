@@ -1,3 +1,5 @@
 {
-  "usingComponents": {"mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips"}
+  "usingComponents": {"mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "rate": "/components/rate/index"},
+  "navigationBarTitleText": "确认时间"
 }

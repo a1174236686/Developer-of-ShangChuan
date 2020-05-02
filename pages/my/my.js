@@ -13,7 +13,7 @@ Page({
     tokenInfo: null,
     showSheyingshi: '0',
     optionsList:[
-      {label: '我的预约',id: 'myOrder/myOrder',src: serverUrl + '/statics/image/yuyue.png'},
+      {label: '我的预约',id: 'userOrder/userOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
       {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
       {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'}
@@ -79,6 +79,7 @@ Page({
     // if(wx.getStorageSync('userInfo') && wx.getStorageSync('tokenInfo') && wx.getStorageSync('tokenInfo').bindFlag && wx.getStorageSync('sessionInfo')){
     //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
     // }
+    
   },
 
   onLoad:function(){
@@ -92,6 +93,7 @@ Page({
           header: {"token": wx.getStorageSync('tokenInfo').token},
           method: 'GET',
           success (res) {
+            console.log('获取到登录信息')
             that.setData({wxUserInfo: res.data.data});
           }
         })
@@ -138,6 +140,12 @@ Page({
   gotoOrder: function() {
     wx.navigateTo({
       url: '../myOrder/myOrder'
+    })
+  },
+
+  gotoWallet: function() {
+    wx.navigateTo({
+      url: '../myWallet/myWallet'
     })
   },
 

@@ -1,12 +1,14 @@
 {
   "pages": [ 
+    "pages/yuyueInfo/yuyueInfo",
+    "pages/my_sy/index",
+    "pages/userOrder/userOrder",
+    "pages/myOrder/myOrder",
+    "pages/evaluate/index",
     "pages/my/my",  
     "pages/personalInfo/personalInfo",
-    "pages/myOrder/myOrder",
     "pages/find/find",
-    "pages/userOrder/userOrder",
-    "pages/my_sy/index",
-    "pages/yuyueInfo/yuyueInfo",
+    "pages/myInfor/myInfor",
     "pages/joinWe/index",
     "pages/login/login",
     "pages/index/index",

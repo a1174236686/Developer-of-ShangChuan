@@ -55,12 +55,15 @@ Page({
   },
 
   next(){
-    if(this.data.startTime && this.data.endTime){
+    if(this.data.startTime.length && this.data.endTime.length){
       let json = {start: this.data.startTime,end: this.data.endTime}
       wx.setStorageSync('enterTime', json);
       wx.navigateTo({
         url: '../yuyueInfo/yuyueInfo',
       })
+    }else{
+      wx.showToast({title: '开始时间或结束时间为空！',icon: 'none'});
+      return;
     }
   },
 

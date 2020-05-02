@@ -10,21 +10,21 @@
         <view class="picker {{!noEdit ? 'editInput' : ''}}">
           {{region[0]}}{{region[1]}}{{region[2]}}
           <!-- <view wx:if="{{!region.length}}" style="color: #888;">请选择区域</view> -->
-          <image src="../../img/adress.png"></image>
+          <image src="{{serverUrl}}/statics/image/adress.png"></image>
         </view>
       </picker>
       
       <picker wx:elif="{{item.date}}" style="flex: 1;text-align: right;" mode="date" value="{{date}}" bindchange="bindDateChange">
         <view class="picker">
           {{date}}
-          <image src="../../img/daySelect.png"></image>
+          <image src="{{serverUrl}}/statics/image/daySelect.png"></image>
         </view>
       </picker>
 
       <picker wx:elif="{{item.sex}}" range="{{sexArray}}" style="flex: 1;text-align: right;" value="{{sexText}}" bindchange="bindSexChange">
         <view class="picker">
           {{sexArray[sexIndex]}}
-          <image src="../../img/seximage.png" style="width: 24rpx;height: 18rpx"></image>
+          <image src="{{serverUrl}}/statics/image/seximage.png" style="width: 24rpx;height: 18rpx"></image>
         </view>
       </picker>
 

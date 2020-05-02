@@ -52,7 +52,8 @@ Page({
                   method: 'GET',
                   success (sessionInfo) {
                     wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
-                    wx.navigateBack({});
+                    wx.reLaunch({url:"/pages/my/my"}) //关闭所有页面 打开行页面
+                    //wx.navigateBack({}); // 关闭当前页面，返回上一页面或多级页面
                   }
                 })
               }

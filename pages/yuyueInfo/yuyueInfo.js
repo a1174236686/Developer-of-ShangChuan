@@ -10,15 +10,15 @@ Page({
   data: {
     serverUrl: serverUrl,
     infoList: [
-      {icon: '../../img/xingming.png',name: '姓名', value: '', type: 'name'},
-      {icon: '../../img/nvx.png',name: '性别', value: '', type: 'sex',sex: true},
-      {icon: '../../img/riqi.png',name: '出生日期', value: '', type: 'date',date: true},
-      {icon: '../../img/shouji.png',name: '电话', value: '', type: 'phone',status: 'number'},
-      {icon: '../../img/quyu.png',name: '区域', value: [], type: 'region',quyu: true},
-      {icon: '../../img/map.png',name: '拍摄地点', value: '', type: 'address'},
-      {icon: '../../img/paishe.png',name: '拍摄对象', value: '', type: 'target'},
-      {icon: '../../img/shijian.png',name: '拍摄开始时间', value: '', type: 'start'},
-      {icon: '../../img/shijian.png',name: '拍摄结束时间', value: '', type: 'end'}],
+      {icon: serverUrl + '/statics/image/xingming.png',name: '姓名', value: '', type: 'name',key: 'nickName'},
+      {icon: serverUrl + '/statics/image/nvx.png',name: '性别', value: '', type: 'sex',sex: true,key: 'gender'},
+      {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',date: true,key: 'birthDate'},
+      {icon: serverUrl + '/statics/image/shouji.png',name: '电话', value: '', type: 'phone',status: 'number',key: 'phone'},
+      {icon: serverUrl + '/statics/image/quyu.png',name: '区域', value: [], type: 'region',quyu: true},
+      {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address'},
+      {icon: serverUrl + '/statics/image/paishe.png',name: '拍摄对象', value: '', type: 'target'},
+      {icon: serverUrl + '/statics/image/shijian.png',name: '拍摄开始时间', value: '', type: 'start'},
+      {icon: serverUrl + '/statics/image/shijian.png',name: '拍摄结束时间', value: '', type: 'end'}],
       noEdit: false,
       region: [],
       date: '',
@@ -106,7 +106,8 @@ Page({
     let arr = this.data.infoList;
     arr[arr.length - 1].value = endTime;
     arr[arr.length - 2].value = startTime;
-    this.setData({startTime: startTime,endTime:endTime,infoList: arr})
+    this.setData({startTime: startTime,endTime:endTime,infoList: arr});
+    console.log(wx.getStorageSync('sessionInfo'))
   },
 
   /**
