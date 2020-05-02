@@ -10,6 +10,7 @@ Page({
     serverUrl: serverUrl,
     phoneNum: '',
     wxUser: '',
+    portraitUrl: '',
     tokenInfo: null,
     showSheyingshi: '0',
     optionsList:[
@@ -85,8 +86,14 @@ Page({
   onLoad:function(){
     if(wx.getStorageSync('sessionInfo')){
       let that = this;
+      let url = '';
+      if(wx.getStorageSync('sessionInfo').avatarUrl.indexOf('https') != -1){
+        url = wx.getStorageSync('sessionInfo').avatarUrl;
+      }else{
+        url = this.data.serverUrl + '/sys/file/previewImg?fileName=' + wx.getStorageSync('sessionInfo').avatarUrl
+      }
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
-      this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer})
+      this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer,portraitUrl: url})
       if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
         wx.request({
           url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,

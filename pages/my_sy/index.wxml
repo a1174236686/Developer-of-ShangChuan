@@ -56,7 +56,7 @@
       </view>
     </view>
   </view>
-  <view class="BecomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
+  <view class="BecomeVip" bindtap="becomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
 </view>
 <!-- 摄影师列表结束 -->
   <view class="weekTitle" wx:if="{{showDate}}">
@@ -70,6 +70,13 @@
   </view>
   <view class="showDate" wx:if="{{showDate}}">
     <Timer list="{{list}}" currentDate="{{currentDate}}"/>
+  </view>
+  <view class="yuyuechengg" wx:if="{{showChengg}}">
+    <view class="content-info">
+      <view class="close" bindtap="closeChengg"><mp-icon icon="close" color="#fff" size="{{25}}"></mp-icon></view>
+      <image src="../../img/yuyuegongg.png"></image>
+      <view class="enter" bindtap="closeChengg"></view>
+    </view>
   </view>
 </view>
 

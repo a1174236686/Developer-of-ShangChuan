@@ -46,12 +46,10 @@ Page({
           let myRes = await http.post('/order/cancel',{data:{ orderId: item.orderId,  cancelReason: '取消'  }});
           if(myRes.code===0){
             that.setData({orderList: arr.filter(it=>it.orderId!==item.orderId)});
+
           }
           wx.hideNavigationBarLoading() //完成停止加载
         }
-
-      
-      
       }
     });
   },
