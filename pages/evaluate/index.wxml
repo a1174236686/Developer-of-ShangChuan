@@ -2,16 +2,16 @@
 <view class="container">
 		<view class="PhotographerInfoWrap">
 				<view class="profilePictureWrap">
-						<image mode="scaleToFill" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+						<image mode="scaleToFill" src="{{info.avatarUrl}}"></image>
 				</view>
-				<template is="infoContent" />
+				<template is="infoContent" data="{{info}}" />
 		</view>
 		<form class="evaluateForm">
 			<template is="evaluateDimension" data="{{evaluateDimensionArr,rateChangeCallBack,formDataMap}}" />
 				<view class="OtherEvaluateWrap">
 						<view class="title">其他建议</view>
 						<view class="OtherEvaluate">
-								<textarea placeholder="请填写内容建议" placeholder-class="textareaPlaceholder" />
+								<textarea placeholder="请填写内容建议" value="{{remark}}" bindinput="remarkInput" placeholder-class="textareaPlaceholder" />
 						</view>
 				</view>
 				<!-- <view class="uploaderWrap">
@@ -27,16 +27,16 @@
 <template name="infoContent">
 		<view class="infoContent">
 				<view class="name">
-						<text>陈潇潇</text>
-						<view class="levelTlele">高级摄影师</view>
+						<text>{{info.name}}</text>
+						<view class="levelTlele">{{info.levelName}}</view>
 				</view>
 				<view class="score">
-						<text class="value">5.0</text>
+						<text class="value">{{info.score}}</text>
 						<text class="valueTlele">评分</text>
 				</view>
 				<view class="totalScore">
 						<text class="tltle">总评分:</text>
-						<rate disabled score="{{3}}" />
+						<rate disabled score="{{info.score}}" />
 				</view>
 		</view>
 </template>
