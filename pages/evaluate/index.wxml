@@ -31,12 +31,12 @@
 						<view class="levelTlele">{{info.levelName}}</view>
 				</view>
 				<view class="score">
-						<text class="value">{{info.score}}</text>
+						<text class="value">{{info.score || 0}}</text>
 						<text class="valueTlele">评分</text>
 				</view>
 				<view class="totalScore">
 						<text class="tltle">总评分:</text>
-						<rate disabled score="{{info.score}}" />
+						<rate disabled score="{{info.score || 0}}" />
 				</view>
 		</view>
 </template>

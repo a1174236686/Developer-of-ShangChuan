@@ -47,7 +47,7 @@
         <view class="numInfo" bindtap="gotoOrder">
           <view class="text">
             <view>订单</view>
-            <view>20</view>
+            <view>{{wxUserInfo.successOrderNums}}</view>
           </view>
           <image src="{{serverUrl}}/statics/image/dingdan.png"></image>
         </view>
