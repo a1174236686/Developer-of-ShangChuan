@@ -59,6 +59,7 @@
 .box image{
   width: 100%;
   border-radius: 20rpx;
+  height: 300rpx;
 }
 
 .box .text{

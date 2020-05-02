@@ -45,7 +45,7 @@
 			<view class="picker">
 				{{formDataMap[mapping].label}}
 				<!-- <icon type="success" size="20" /> -->
-				<image src="../../img/seximage.png" class="img"></image>
+				<image src="{{serverUrl}}/statics/image/seximage.png" class="img"></image>
 			</view>
 		</picker>
 	</view>
@@ -60,7 +60,7 @@
 			<view class="picker">
 				{{formDataMap[mapping]}}
 				<!-- <icon type="success" size="20" /> -->
-				<image src="../../img/daySelect.png" class="img"></image>
+				<image src="{{serverUrl}}/statics/image/daySelect.png" class="img"></image>
 			</view>
 		</picker>
 	</view>
@@ -77,7 +77,7 @@
 			<view class="picker">
 				{{formDataMap[mapping]}}
 				<!-- <icon type="success" size="20" /> -->
-				<image src="../../img/adress.png" class="img"></image>
+				<image src="{{serverUrl}}/statics/image/adress.png" class="img"></image>
 			</view>
 		</picker>
 	</view>

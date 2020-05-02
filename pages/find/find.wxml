@@ -3,37 +3,37 @@
   <view class='screen'>
       <view class="input-box">
         <input placeholder="请输入摄影师/摄影对象"></input>
-        <image class="input-icon" src="../../img/ssmax.png"></image>
+        <image class="input-icon" src="{{serverUrl}}/statics/image/ssmax.png"></image>
       </view>
     </view>
     <view style="height: 44px;"></view>
     <view class="imgsList">
       <view class="travel box">
-        <image src="{{serverUrl}}/statics/image/1.jpg"></image>
+        <image src="{{serverUrl}}/statics/image/lipai.png"></image>
         <view class="text"># 旅拍 #</view>
       </view>
       <view class="miscellaneous">
         <view class="miscellaneousLeft">
           <view class="box">
-            <image style="height: 200px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 327rpx;" src="{{serverUrl}}/statics/image/meishi.png"></image>
             <view class="text"># 美食 #</view>
           </view>
           <view class="box">
-            <image style="height: 150px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 214rpx;" src="{{serverUrl}}/statics/image/renxiang.png"></image>
             <view class="text"># 人像 #</view>
           </view>
           <view class="box">
-            <image style="height: 220px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 247rpx;" src="{{serverUrl}}/statics/image/mingjianzhu.png"></image>
             <view class="text"># 名建筑 #</view>
           </view>
         </view>
         <view class="miscellaneousRight">
           <view class="box">
-            <image style="height: 340px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 537rpx;" src="{{serverUrl}}/statics/image/fengjing.png"></image>
             <view class="text"># 风景 #</view>
           </view>
           <view class="box">
-            <image style="height: 245px;" src="{{serverUrl}}/statics/image/1.jpg"></image>
+            <image style="height: 274rpx;" src="{{serverUrl}}/statics/image/mengchong.png"></image>
             <view class="text"># 萌宠 #</view>
           </view>
         </view>

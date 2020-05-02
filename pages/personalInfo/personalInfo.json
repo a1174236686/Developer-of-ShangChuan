@@ -1,4 +1,4 @@
 {
-  "usingComponents": {},
+  "usingComponents": {"rate": "/components/rate/index"},
   "navigationBarTitleText": "摄影师主页"
 }

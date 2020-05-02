@@ -15,7 +15,8 @@ Page({
     endTime: [],
     datas: [],
     errorMsg: false,
-    errorText: '开始时间不能大于结束时间'
+    errorText: '开始时间不能大于结束时间',
+    yuyueData: {}
   },
 
   /**
@@ -122,7 +123,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({yuyueData: wx.getStorageSync('yuyueData')})
   },
 
   /**

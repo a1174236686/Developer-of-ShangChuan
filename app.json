@@ -1,23 +1,25 @@
 {
-  "pages": [
-    "pages/my/my",
-    "pages/yuyueInfo/yuyueInfo",
+
+  "pages": [ 
+    "pages/my/my",  
+    "pages/personalInfo/personalInfo",
+    "pages/myOrder/myOrder",
+    "pages/find/find",
+    "pages/userOrder/userOrder",
     "pages/my_sy/index",
+    "pages/yuyueInfo/yuyueInfo",
     "pages/joinWe/index",
     "pages/login/login",
     "pages/index/index",
     "pages/enterTime/enterTime",
     "pages/vipCard/index",
     "pages/releaseWorks/releaseWorks",
-    "pages/personalInfo/personalInfo",
     "pages/myEvaluate/myEvaluate",
     "pages/worksManagement/worksManagement",
-    "pages/myOrder/myOrder",
     "pages/withdrawal/withdrawal",
     "pages/myWallet/myWallet",
     "pages/myUser/myUser",
-    "pages/photographer/photographer",
-    "pages/find/find"
+    "pages/photographer/photographer"
   ],
   "window": {
     "backgroundTextStyle": "light",

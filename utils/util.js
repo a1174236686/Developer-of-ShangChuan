@@ -1,3 +1,5 @@
+const app = getApp();
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -43,6 +45,15 @@ const switchWeek = date => {
 			break;
 	}
 	return week
+}
+
+const switchJSON= json => {
+	for (let key in json){
+		if(!json[key] && !json[key].length){
+			return false
+		}
+	}
+  return true; 
 }
 
 	// 工具方法 - start
@@ -179,10 +190,82 @@ const switchWeek = date => {
 	
 	};
 
+
+	const http = {
+	
+		init(obj){
+			return new Promise((re,rj)=>{
+
+				wx.request({
+					...obj,
+					url: app.globalData.serverUrl + obj.url,
+					header: {"token": wx.getStorageSync('tokenInfo').token},
+					method: obj.method,
+					data: obj.data,
+					success (res) {
+						if(res.data.code == 0){
+								re(res.data);
+						}else{
+							rj();
+						}
+					},
+					fail(){
+						rj()
+					}
+				})
+
+			})
+
+
+		},
+		post(url,obj){
+			return this.init({method:"POST",url,...obj})
+
+		},
+		get(url,data){
+			return this.init({url:url,method:"GET",data:data})
+		}
+	}
+
+	const switchLevel = level =>{
+		let levelLabel = '';
+		switch (level) {
+			case 1:
+				levelLabel = '初级摄影师';
+				break;
+			case 2:
+				levelLabel = '中级摄影师';
+				break;
+			case 3:
+				levelLabel = '高级摄影师';
+				break;
+		}
+		return levelLabel
+	} 
+
+	const switchSex = sex => {
+		let sexLabel = '';
+		switch (sex) {
+			case 1:
+				sexLabel = '男';
+				break;
+			case 2:
+				sexLabel = '女';
+				break;
+		}
+		return sexLabel
+	}
+
+
+
 	
 
 module.exports = {
   formatTime: formatTime,
 	updateCalendar:updateCalendar,
-	switchWeek: switchWeek
+	switchWeek: switchWeek,
+	switchJSON: switchJSON,
+	http:http,
+	switchLevel,
+	switchSex
 }

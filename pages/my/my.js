@@ -8,19 +8,34 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    isHaveNum: true,
     phoneNum: '',
     wxUser: '',
     tokenInfo: null,
+    showSheyingshi: '0',
     optionsList:[
       {label: '我的预约',id: 'myOrder/myOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
       {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
       {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'}
-    ]
+    ],
+    optionsUserList:[
+      {label: '我的评价',id: 'myEvaluate/myEvaluate',src: serverUrl + '/statics/image/evaluate.png'},
+      {label: '邀请奖励',id: 'myWallet/myWallet',src: serverUrl + '/statics/image/reward.png'},
+      {label: '作品管理',id: 'personalInfo/personalInfo',src: serverUrl + '/statics/image/works.png'},
+      {label: '我的资料',id: 'myInfor/myInfor',src: serverUrl + '/statics/image/data.png'}
+    ],
+    wxUserInfo: {videoWorkNum: 0,photoWorkNum: 0}
   },
 
   gotoView: function(e){
+    if(this.isLogin()){
+      wx.navigateTo({
+        url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
+      })
+    }
+  },
+
+  gotoUserView: function(e){
     if(this.isLogin()){
       wx.navigateTo({
         url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
@@ -64,9 +79,28 @@ Page({
     // if(wx.getStorageSync('userInfo') && wx.getStorageSync('tokenInfo') && wx.getStorageSync('tokenInfo').bindFlag && wx.getStorageSync('sessionInfo')){
     //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
     // }
+  },
+
+  onLoad:function(){
     if(wx.getStorageSync('sessionInfo')){
+      let that = this;
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
+      this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer})
+      if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
+        wx.request({
+          url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
+          header: {"token": wx.getStorageSync('tokenInfo').token},
+          method: 'GET',
+          success (res) {
+            that.setData({wxUserInfo: res.data.data});
+          }
+        })
+      }
     }
+  },
+
+  switchMy: function(){
+    this.setData({showSheyingshi: this.data.showSheyingshi == '1' ? '0' : '1'})
   },
 
   getPhoneNumber:function(e){
@@ -99,6 +133,12 @@ Page({
         },
       })
     }
+  },
+
+  gotoOrder: function() {
+    wx.navigateTo({
+      url: '../myOrder/myOrder'
+    })
   },
 
   /**

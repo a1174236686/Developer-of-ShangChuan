@@ -3,13 +3,15 @@
 
 const app = getApp();
 const computedBehavior = require('miniprogram-computed')
+const serverUrl = app.globalData.serverUrl
 
 
 Page({
   behaviors: [computedBehavior],
   data: {
+    serverUrl: serverUrl,
     topImgData: {
-      src: '../../img/joinMe.png', mode: 'scaleToFill'
+      src: serverUrl + '/statics/image/joinMe.png', mode: 'scaleToFill'
     },
     /**
      * 表单数据绑定对象
@@ -23,7 +25,7 @@ Page({
      */
     formDataMap: {
       id: '',
-      // Gender: '',
+      //Gender: '',
       PhoneNumber: '',
       birthday: '',
       IDImgFront: '',
@@ -48,8 +50,8 @@ Page({
     ],
 
     IDImgData: [
-      { src: '../../img/idjoinMe.png', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
-      { src: '../../img/idjoinMetwo.png', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
+      { src: serverUrl + '/statics/image/idjoinMe.png', mode: 'scaleToFill', mapping: 'IDImgFront', baseSrc: '' },
+      { src: serverUrl + '/statics/image/idjoinMetwo.png', mode: 'scaleToFill', mapping: 'IDImgback', baseSrc: '' },
     ],
   },
   onLoad: function () {
@@ -107,6 +109,7 @@ Page({
       Check: () => {
         const { rules } = formCheckObj;
         const map = this.data.formDataMap
+        console.log(rules)
         for (const key in rules) {
           const rule = rules[key];
           const mapValue = map[key];
@@ -160,7 +163,6 @@ Page({
           if (IDImgData[i].mapping === target.id) {
             IDImgData[i].src = tempFilePaths;
             wx.uploadFile({
-              // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
               url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
               header: { 'token': tokenInfo.token },
               filePath: tempFilePaths[0],
