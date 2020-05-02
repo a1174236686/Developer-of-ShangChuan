@@ -1,5 +1,7 @@
 // pages/myOrder/myOrder.js
 const app = getApp()
+import {http} from '../../utils/util';
+import QRCode from '../../libs/weapp-qrcode'
 const serverUrl = app.globalData.serverUrl
 Page({
 
@@ -15,7 +17,8 @@ Page({
     // alreadyShotList: [],//已完成
     orderList: [],
     currentType: '1',
-    page: 1
+    page: 1,
+    cardNoVisible:true,//是否显示二维码
   },
 
   switchTab:  function(e){
@@ -28,46 +31,83 @@ Page({
     })
   },
 
+  //取消预约
   cancelOrider:function(e) {
     let item = e.currentTarget.dataset.item;
-    let index = e.currentTarget.dataset.index;
     let that = this;
+    let arr = that.data.orderList;
     wx.showModal({
       title: '提示',
-      content: '是否取消预约？',
+      content: '是否取消预约',
       showCancel: true,
-      confirmText: '确定取消',
-      cancelText: '点错了',
-      success: function(res) {
-        wx.showNavigationBarLoading();//在标题栏中显示加载
-        wx.request({
-          url: app.globalData.serverUrl + '/order/cancel',
-          header: {"token": wx.getStorageSync('tokenInfo').token},
-          method: 'POST',
-          data: {
-            orderId: item.orderId,
-            cancelReason: '取消'
-          },
-          success (res) {
-            wx.hideNavigationBarLoading() //完成停止加载
-            if(res.data.code == 0){
-              wx.showToast({ title: '取消成功！', icon: 'none' });
-              let arr = that.data.orderList;
-              arr = arr.splice(1,index);
-              that.setData({orderList: arr});
-            }
+      success: async function(res) {
+        if(res.confirm){
+          wx.showNavigationBarLoading();//在标题栏中显示加载
+          let myRes = await http.post('/order/cancel',{data:{ orderId: item.orderId,  cancelReason: '取消'  }});
+          if(myRes.code===0){
+            that.setData({orderList: arr.filter(it=>it.orderId!==item.orderId)});
+
           }
-        })
+          wx.hideNavigationBarLoading() //完成停止加载
+        }
       }
     });
   },
+
+//跳转到立即评价页面
+goToEvaluation(evt){
+  let item = evt.currentTarget.dataset.item;
+  let send = {
+    orderId:item.orderId,
+    photographerCode:item.photographerCode
+
+  }
+    wx.navigateTo({
+      url: "../evaluate/index?info="+JSON.stringify(send),
+    })
+},
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+      //this.createQrCode('ddddd');
 
   },
+  //生成二维码 text 需要生成二维码的值 
+  // text 有值:显示 无值:影藏
+  createQrCode(text=null){
+  let bool = text!=null;
+    this.setData({cardNoVisible:!bool})
+   //单位为px
+  new QRCode('canvas', {
+  // usingIn: this,
+  text: text,
+  width: 150,
+  height: 150,
+  colorDark: "#000000",
+  colorLight: "#ffffff",
+  correctLevel: QRCode.CorrectLevel.L,//辨识度
+  callback: (res) => {
+      // 生成二维码的临时文件
+     // console.log(res.path)
+  }
+
+ })
+},
+
+ //显示影藏二维码
+ showHidden(evt){
+   let dataset = evt.currentTarget.dataset;
+   if(dataset.item){
+     //显示二维码
+     this.createQrCode(dataset.item.orderId)
+   }else{
+     //关闭二维码
+     this.createQrCode(null);
+   }
+ },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -100,14 +140,32 @@ Page({
         wx.hideNavigationBarLoading() //完成停止加载
         if(res.data.code == 0){
           if(res.data.data.length){
-            let arr = that.data.orderList;
-            arr = arr.concat(res.data.data,'orderId')
-            that.setData({orderList: arr});
+              //之前的老数据
+              let arr = that.data.orderList;
+              //获取到的新数据
+              let newArray = res.data.data;
+              //根据id去重 qcConcat 见 util js
+              arr = arr.qcConcat(newArray,'orderId');
+              that.setData({orderList: arr});
           }
         }
       }
     })
   },
+    //打电话给摄影师
+    makePhoneCall(evt){
+      let item = evt.currentTarget.dataset.item;
+      wx.makePhoneCall({
+        phoneNumber: item.photographerPhone,
+        success(re){
+          //调用拨打电话成功
+        },
+        fail(error){
+          //调用拨打货失败
+        }
+      })
+    },
+  
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -127,18 +185,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.setData({page: 1,orderList: []},() =>{
-      this.getData();
-    })
+    this.getData();
+  
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({page: this.data.page + 1},() =>{
-      this.getData();
-    })
+    this.getData();
   },
 
   /**

@@ -1,6 +1,8 @@
 // pages/myOrder/myOrder.js
 const app = getApp();
-import {http} from '../../utils/util'
+import {
+  http
+} from '../../utils/util'
 const serverUrl = app.globalData.serverUrl;
 Page({
 
@@ -9,7 +11,19 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    tabList: [{name: '待接单',type: '1'},{name: '待拍摄',type: '2'},{name: '已拍摄',type: '3'},{name: '已完成',type: '4'}],//tab
+    tabList: [{
+      name: '待接单',
+      type: '1'
+    }, {
+      name: '待拍摄',
+      type: '2'
+    }, {
+      name: '已拍摄',
+      type: '3'
+    }, {
+      name: '已完成',
+      type: '4'
+    }], //tab
     // waitOrderList: [],//待接单
     // waitShotList:[],//待拍摄
     // alreadyCompleteList: [],//已拍摄
@@ -19,9 +33,13 @@ Page({
     page: 1
   },
 
-  switchTab:  function(e){
+  switchTab: function (e) {
     let type = e.currentTarget.dataset.type;
-    this.setData({currentType: type,page: 1},() =>{
+    this.setData({
+      currentType: type,
+      page: 1,
+      orderList:[],
+    }, () => {
       this.getData(type);
     })
   },
@@ -47,25 +65,32 @@ Page({
     this.getData();
   },
 
-  getData(type=null){
+  getData(type = null) {
     let that = this;
     type = type || this.data.currentType
     wx.request({
       url: app.globalData.serverUrl + '/order/photographer/mine',
-      header: {"token": wx.getStorageSync('tokenInfo').token},
+      header: {
+        "token": wx.getStorageSync('tokenInfo').token
+      },
       method: 'GET',
       data: {
         page: this.data.page,
         limit: 15,
         status: type
       },
-      success (res) {
-        if(res.data.code == 0){
-          if(res.data.data.length){
+      success(res) {
+        if (res.data.code == 0) {
+          if (res.data.data.length) {
+            //之前的老数据
             let arr = that.data.orderList;
-            console.log('array',that.data);
-            arr = arr.concat(res.data.data);
-            that.setData({orderList: arr});
+            //获取到的新数据
+            let newArray = res.data.data;
+            //根据id去重 qcConcat 见 util js
+            arr = arr.qcConcat(newArray, 'orderId');
+            that.setData({
+              orderList: arr
+            });
           }
         }
       }
@@ -75,80 +100,140 @@ Page({
   /**
    * 拒绝订单
    */
-  refuseOrder(evt){
-    let self = this,orderList = self.data.orderList;
+  refuseOrder(evt) {
+    let self = this,
+      orderList = self.data.orderList;
     let item = evt.currentTarget.dataset.item;
     wx.showModal({
-      title:"提示",
-      content:"是否拒绝",
-      success: async (res)=>{
-        if(res.confirm){
+      title: "提示",
+      content: "是否拒绝",
+      success: async (res) => {
+        if (res.confirm) {
           //拒绝
-         let res  = await  http.post("/order/reject",{data:{orderId:item.orderId,rejectReason:"拒绝"}});
-         if(res.code===0){
-           //拒绝之后 删除当前拒绝项
+          let res = await http.post("/order/reject", {
+            data: {
+              orderId: item.orderId,
+              rejectReason: "拒绝"
+            }
+          });
+          if (res.code === 0) {
+            //拒绝之后 删除当前拒绝项
             wx.showToast({ title: '拒绝成功！', icon: 'none' });
-           self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
-         }
-        }else{
+            self.setData({
+              orderList: orderList.filter(it => it.orderId !== item.orderId)
+            });
+          }
+        } else {
           //取消拒绝
         }
       }
     })
   },
   //确认订单
-  determineOrder(evt){
-    let self = this,orderList = self.data.orderList;
+  determineOrder(evt) {
+    let self = this,
+      orderList = self.data.orderList;
     let item = evt.currentTarget.dataset.item;
     wx.showModal({
-      title:"提示",
-      content:"是否接单",
-      success: async (res)=>{
-        if(res.confirm){
+      title: "提示",
+      content: "是否接单",
+      success: async (res) => {
+        if (res.confirm) {
           //确认接单
-         let res  = await  http.post("/order/receive",{data:{orderId:item.orderId}});
-         if(res.code===0){
-           //确认之后 删除当前确认项
+          let res = await http.post("/order/receive", {
+            data: {
+              orderId: item.orderId
+            }
+          });
+          if (res.code === 0) {
+            //确认之后 删除当前确认项
             wx.showToast({ title: '接单成功！', icon: 'none' });
-           self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
-         }
-        }else{
+            self.setData({
+              orderList: orderList.filter(it => it.orderId !== item.orderId)
+            });
+          }
+        } else {
           //取消确认
         }
       }
     })
   },
   //核销
-  writeOff(evt){
-    let self = this,orderList = self.data.orderList;
+  writeOff(evt) {
+    let self = this,
+      orderList = self.data.orderList;
     let item = evt.currentTarget.dataset.item;
-    wx.showModal({
-      title:"提示",
-      content:"是否核销",
-      success: async (res)=>{
-        if(res.confirm){
-          //确认核销
-         let res  = await  http.post("/order/writeoff",{data:{orderId:item.orderId}});
-         if(res.code===0){
-           //核销之后 删除当前核销项
-           wx.showToast({ title: '核销成功！', icon: 'none' });
-           self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
-         }
-        }else{
-          //取消核销
+    /**
+     *  核销
+     *  1 客户预约摄影师
+     *  2 摄影师接单
+     *  3 客户 出示二维码 
+     *  4 摄影师 扫描二维码
+     *  5 扫码成功 修改状态(是否需要把扫描结果发送后台)
+     *  6 该订单变成另一个状态 结束
+     * 
+     */
+    wx.scanCode({
+      success: async (cardNoInfo) => {
+        if (cardNoInfo.result) {
+          let orderId = cardNoInfo.result;
+          if (orderId === item.orderId) {
+            //判断扫码id 是否与 当前核销订单id是否 一致   
+            //cardNoInfo 二维码信息 二维码信息 
+            //扫码成功
+            let res = await http.post("/order/writeoff", {
+              data: {
+                orderId: cardNoInfo.result
+              }
+            });
+            if (res.code === 0) {
+              //核销之后 删除当前核销项
+              self.setData({
+                orderList: orderList.filter(it => it.orderId !== item.orderId)
+              });
+              wx.showToast({
+                title: '核销成功',
+                icon: "success"
+              })
+
+
+            } else {
+              //核销失败
+              wx.showToast({
+                title: '核销失败',
+                icon: "none"
+              })
+            }
+
+
+
+          } else {
+            //核销订单不一致
+            wx.showToast({
+              title: '核销订单不一致',
+              icon: "none"
+            })
+
+          }
         }
+      },
+      fail: (error) => {
+        //扫码失败
+        
       }
     })
 
   },
-  makePhoneCall(evt){
+  //打电话给客户
+  makePhoneCall(evt) {
     let item = evt.currentTarget.dataset.item;
+    console.log(item);
     wx.makePhoneCall({
-      phoneNumber: item.photographerPhone,
-      success(re){
+      phoneNumber: item.customerPhone, //客户电话
+      success(re) {
         //调用拨打电话成功
       },
-      fail(error){
+      fail(error) {
         //调用拨打货失败
       }
     })
@@ -174,6 +259,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+
   },
 
   /**
