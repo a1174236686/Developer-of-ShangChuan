@@ -90,6 +90,7 @@ Page({
    */
   onShow: function () {
     this.getData();
+    this.setData({showDate: false})
   },
 
   getData(){

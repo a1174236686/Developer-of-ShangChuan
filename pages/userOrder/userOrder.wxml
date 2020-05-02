@@ -20,7 +20,7 @@
           <label>预约时间：</label><view>{{item.appointStartTime}} 至</view><view style="margin-left: 10rpx;">{{item.appointEndTime}}</view>
         </view>
         <view class="orderItem_Time">
-          <label>拍摄地点：</label><view>{{item.province}}{{item.city}}{{item.area}}{{item.address}}</view>
+          <label>拍摄地点：</label><view>{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.address}}</view>
         </view>
         <view class="orderItem_Time">
           <label>拍摄对象：</label><view>{{item.target}}</view>

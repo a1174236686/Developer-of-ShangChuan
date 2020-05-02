@@ -14,11 +14,11 @@
 								<textarea placeholder="请填写内容建议" placeholder-class="textareaPlaceholder" />
 						</view>
 				</view>
-				<view class="uploaderWrap">
+				<!-- <view class="uploaderWrap">
 						<mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" title="" ext-class="" max-count="5" />
-				</view>
+				</view> -->
 				<view class="Submit">
-						<button class="btn" bindtap="submitForm">立即提交</button>
+						<button class="btn" bindtap="submitForm">发布</button>
 				</view>
 		</form>
 </view>
@@ -36,7 +36,7 @@
 				</view>
 				<view class="totalScore">
 						<text class="tltle">总评分:</text>
-						<rate disabled score="{{3.2}}" />
+						<rate disabled score="{{3}}" />
 				</view>
 		</view>
 </template>

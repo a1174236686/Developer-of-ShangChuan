@@ -32,7 +32,7 @@
     <view class="syIcon"><image src="{{item.avatarUrl}}"></image></view>
     <view class="syInfo">
       <view class="infoTtile">{{item.name}} <view class="titleLabel">{{item.levelName}}</view></view>
-      <view style="font-size: 20rpx">星星组件</view>
+      <view wx:if="{{!showDate}}"><rate disabled score="{{item.score}}" /></view>
       <view class="score">
           <view>{{item.score ? item.score : 0}}</view>
           <view>评分</view>

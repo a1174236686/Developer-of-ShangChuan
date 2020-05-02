@@ -21,10 +21,10 @@
       </view>
     </view>
     <view class="myFunctionList">
-      <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" data-detail="{{item}}" >
+      <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" bindtap="gotoView" data-view="{{item.id}}" data-detail="{{item}}" >
         <image src="{{item.src}}"></image>
         <view class="functionName">{{item.label}}<text class="news">•</text></view>
-        <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoView" data-view="{{item.id}}" size="{{15}}"></mp-icon>
+        <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon>
       </view>
     </view>
   </view>
@@ -37,7 +37,7 @@
         <view class="userInfo_NameImg">
           <image src="{{wxUser.avatarUrl}}"></image>
           <view>{{wxUser.nickName}}</view>
-          <icon type="success" size="20"></icon>
+          <!-- <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoUserView" data-view="{{item.id}}" size="{{15}}"></mp-icon> -->
         </view>
         <view class="userCount">
           <view>作品：{{wxUserInfo.photoWorkNum + wxUserInfo.videoWorkNum}}</view>
@@ -51,7 +51,7 @@
           </view>
           <image src="{{serverUrl}}/statics/image/dingdan.png"></image>
         </view>
-        <view class="numInfo">
+        <view class="numInfo" bindtap="gotoWallet">
           <view class="text">
             <view>收入</view>
             <view>0</view>
@@ -62,16 +62,18 @@
     </view>
 
     <view class="optionList">
-      <view class="optionListItem" wx:for="{{optionsUserList}}" wx:key="index">
+      <view class="optionListItem" wx:for="{{optionsUserList}}" bindtap="gotoUserView" data-view="{{item.id}}" wx:key="index">
         <image src="{{item.src}}"></image>
         <view>{{item.label}}</view>
-        <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoUserView" data-view="{{item.id}}" size="{{15}}"></mp-icon>
+        <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon>
       </view>
     </view>
   </view>
-    <view class="switchBtn" wx:if="{{wxUser.isPhotographer == '1'}}">
+    <view class="switchBtn" wx:if="{{wxUser.isPhotographer == '1'}}" bindtap="switchMy">
+        <image src="../../img/qiehuan.png"></image>
       <!-- <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon> -->
-      <view bindtap="switchMy">切换到个人中心</view>
+      <view wx:if="{{showSheyingshi == '0'}}">摄影师工作台</view>
+      <view wx:else>切换到个人中心</view>
     </view>
 </view>
 
