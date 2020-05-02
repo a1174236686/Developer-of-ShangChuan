@@ -307,6 +307,21 @@ const switchJSON= json => {
 	}
 
 
+	//返回图片地地址
+	const avatarUrlFn = (url)=>{
+	//	console.log('url',url);
+		const serverUrl = app.globalData.serverUrl;
+		try {
+			if(url.indexOf('https')!=-1){
+				return url
+			}else{
+				return serverUrl+'/sys/file/previewImg?fileName='+url;
+			}
+		} catch (error) {
+			return '';
+		}
+	}
+
 
 	
 
@@ -317,5 +332,6 @@ module.exports = {
 	switchJSON: switchJSON,
 	http:http,
 	switchLevel,
-	switchSex
+	switchSex,
+	avatarUrlFn
 }

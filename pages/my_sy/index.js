@@ -1,5 +1,5 @@
 // pages/my_sy/index.js
-import {updateCalendar} from '../../utils/util';
+import {updateCalendar,avatarUrlFn} from '../../utils/util';
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -55,6 +55,7 @@ Page({
     this.setData({name: app.globalData.userInfo});
     let list = [];
     let nowDate = new Date();
+   
     this.setData({currentY: nowDate.getFullYear(),currentM: nowDate.getMonth() + 1,currentD: nowDate.getDate()});
     this.setData({currentDate: [nowDate.getFullYear(),nowDate.getMonth() + 1,nowDate.getDate()]})
     
@@ -121,7 +122,12 @@ Page({
       success (res) {
         if(res.data.data.list.length){
           let arr = that.data.sheying;
-          arr = arr.concat(res.data.data.list);
+          arr = arr.qcConcat(res.data.data.list,'userCode');
+          //console.log(arr);
+          for(let i = 0 ; i < arr.length ; i ++){
+            let item = arr[i];
+            item.avatarUrl = avatarUrlFn(item.avatarUrl);
+          }
           that.setData({sheying: arr});
         }
       }
