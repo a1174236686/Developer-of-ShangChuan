@@ -41,7 +41,7 @@
 <template name="sex">
 	<view class="item">
 		<view class="itemLabel">{{label}}</view>
-		<picker id='{{mapping}}' range-key="key" range="{{arr}}" value="{{formDataMap[mapping]}}" bindchange="sexSelect">
+		<picker id='{{mapping}}' range-key="key" range="{{arr}}" value="{{formDataMap[mapping]}}" bindchange="sexSelect" >
 			<view class="picker">
 				{{formDataMap[mapping].label}}
 				<!-- <icon type="success" size="20" /> -->

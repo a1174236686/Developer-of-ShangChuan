@@ -95,8 +95,8 @@ Page({
        * 支持配置两种校验规则 非空校验required和自定义校验validator
        */
       rules: {
-        id: { required: true, message: '需要错误信息可以配置我', validator: () => { console.log('需要自定义校验可以在这里写') } },
-        //Gender: { required: true },
+        // id: { required: true, message: '需要错误信息可以配置我', validator: () => { console.log('需要自定义校验可以在这里写') } },
+        // Gender: { required: true },
         PhoneNumber: { required: true },
         birthday: { required: true },
         IDImgFront: { required: true },
@@ -163,8 +163,7 @@ Page({
           if (IDImgData[i].mapping === target.id) {
             IDImgData[i].src = tempFilePaths;
             wx.uploadFile({
-              // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
-              url: this.data.serverUrl + '/sys/file/upload?dir=-1',
+              url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
               header: { 'token': tokenInfo.token },
               filePath: tempFilePaths[0],
               method: 'post',

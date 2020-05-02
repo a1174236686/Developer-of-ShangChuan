@@ -1,4 +1,5 @@
 {
+
   "pages": [ 
     "pages/my/my",  
     "pages/personalInfo/personalInfo",
@@ -29,19 +30,38 @@
   "useExtendedLib": {
     "weui": true
   },
-  "tabBar": 
-    {
-      "position":"bottom",
-      "color": "#B7C0CC",
-      "borderStyle":"white",
-      "selectedColor": "#ED2B2B",
-     "list":[
-        {"pagePath":"pages/index/index","text":"首页","iconPath": "./img/shouyeA.png","selectedIconPath": "img/shouye.png"},
-        {"pagePath":"pages/my_sy/index","text":"摄影师","iconPath": "./img/zhanshisheyingshiA.png","selectedIconPath": "img/zhanshisheyingshi.png"},
-        {"pagePath":"pages/find/find","text":"发现","iconPath": "./img/faxianA.png","selectedIconPath": "img/faxian.png"},
-        {"pagePath":"pages/my/my","text":"我的","iconPath": "./img/wodetianchongA.png","selectedIconPath": "img/wodetianchong.png"}
-      ]
-     },
+  "tabBar": {
+    "position": "bottom",
+    "color": "#B7C0CC",
+    "borderStyle": "white",
+    "selectedColor": "#ED2B2B",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./img/shouyeA.png",
+        "selectedIconPath": "img/shouye.png"
+      },
+      {
+        "pagePath": "pages/my_sy/index",
+        "text": "摄影师",
+        "iconPath": "./img/zhanshisheyingshiA.png",
+        "selectedIconPath": "img/zhanshisheyingshi.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "text": "发现",
+        "iconPath": "./img/faxianA.png",
+        "selectedIconPath": "img/faxian.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "./img/wodetianchongA.png",
+        "selectedIconPath": "img/wodetianchong.png"
+      }
+    ]
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
