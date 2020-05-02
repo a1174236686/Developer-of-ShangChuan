@@ -66,18 +66,15 @@ Page({
       url: app.globalData.serverUrl + '/video/page',
       header: { 'token': tokenInfo.token },
       data: {
-        page: 1,
+        page,
         limit,
-        userCode: this.data.biPhotographer.userCode
+        photographerCode: this.data.biPhotographer.userCode
       },
       success: result => {
         const resVideoList = result.data.data;
         const currentVideoList = this.data.videoList
-        // const videoList = currentVideoList.concat(resVideoList);
-        let videoList = this.data.videoList;
-        for (let i = 0; i < 5; i++) {
-          videoList = videoList.concat(resVideoList);
-        }
+        const videoList = currentVideoList.concat(resVideoList);
+        console.log('videoList',videoList)
         this.setData({ videoList }, () => videoPageinfo.page++)
       }
     })
@@ -151,7 +148,7 @@ Page({
     const { currentType } = this.data;
     switch (currentType) {
       case 1:
-        // this.getVideoList();
+        this.uploadVideo();
         break;
       case 2:
         this.uploadImg();
@@ -197,6 +194,49 @@ Page({
             const { userCode } = this.data.biPhotographer;
             wx.request({
               url: app.globalData.serverUrl + '/photo/save',
+              header: {
+                'token': tokenInfo.token ,
+              },
+              data: {
+                workName:obj.fileName,
+                fileName:obj.fileName,
+                userCode
+              },
+              method:"POST",
+              success: result => {
+                console.log(33333333333333333)
+                console.log('result',result);
+              }
+            })
+          }
+        })
+      }
+    })
+  },
+
+   /**
+   * 上传视屏
+   */
+  uploadVideo:function(){
+    const tokenInfo = this.getToken();
+    wx.chooseVideo({
+      sourceType: ['album','camera'],
+      maxDuration: 60,
+      camera: 'back',
+      success: res => {
+        const { tempFilePath } = res
+        wx.uploadFile({
+          url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
+          header: { 'token': tokenInfo.token },
+          filePath: tempFilePath,
+          method: 'post',
+          name: 'file',
+          success: res => {
+            console.log('是这个res吗',res);
+            const obj = JSON.parse(res.data);
+            const { userCode } = this.data.biPhotographer;
+            wx.request({
+              url: app.globalData.serverUrl + '/video/save',
               header: {
                 'token': tokenInfo.token ,
               },
