@@ -228,6 +228,33 @@ const switchJSON= json => {
 		}
 	}
 
+	//上传文件
+	const uploadFile = (path)=>{
+		 return new Promise((re,rj)=>{
+			let tokenInfo = wx.getStorageSync('tokenInfo')
+			wx.uploadFile({
+					url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
+					header: { 'token': tokenInfo.token },
+					filePath: path,
+					method: 'post',
+					name: 'file',
+					success:(res)=>{
+							let resInfo = JSON.parse(res.data);		
+							if(resInfo.code===0){
+									re(resInfo);
+							}else{
+								rj()
+							}
+						 
+					},
+					fail(error){
+						rj();
+					}
+			})
+
+		 })
+	}
+
 
 	const switchLevel = level =>{
 		let levelLabel = '';
@@ -294,5 +321,6 @@ module.exports = {
 	switchJSON: switchJSON,
 	http:http,
 	switchLevel,
-	switchSex
+	switchSex,
+	uploadFile
 }

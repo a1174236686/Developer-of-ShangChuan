@@ -73,10 +73,11 @@ Page({
   },
 //跳转到立即评价页面
 goToEvaluation(evt){
- // let item = evt.currentTarget.dataset.item;
-  wx.navigateTo({
-    url: "../evaluate/index",
-  })
+  let item = evt.currentTarget.dataset.item;
+  console.log(item);
+  //  wx.navigateTo({
+  //    url: "../evaluate/index?info="+JSON.stringify(item),
+  //  })
 },
 
 

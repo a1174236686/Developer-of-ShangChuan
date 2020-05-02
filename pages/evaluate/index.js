@@ -13,9 +13,12 @@ Page({
         {title:'专业度',starsSize:'45rpx',mapping:'professional'},
         {title:'服务态度',starsSize:'45rpx',mapping:'service'},
         {title:'响应速度',starsSize:'45rpx',mapping:'responseSpeed'}
-    ]
+    ],
+    
   },
-  onLoad() {
+  
+  onLoad(option) {
+     // console.log(option);
       this.setData({
           selectFile: this.selectFile.bind(this),
           uplaodFile: this.uplaodFile.bind(this),
