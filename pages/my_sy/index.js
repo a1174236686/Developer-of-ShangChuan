@@ -14,6 +14,7 @@ Page({
       {url:"../../static/l1.png",id:"2",mode:"aspectFill"},
       {url:"../../static/l1.png",id:"3",mode:"scaleToFill"}
     ],
+    showChengg: false,
     name: {},
     imgUrls: [
       "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=231620273,2622968107&fm=27&gp=0.jpg",
@@ -76,6 +77,10 @@ Page({
     })
   },
 
+  closeChengg(){
+    this.setData({showChengg: false})
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -88,9 +93,19 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (e) {
+    if(wx.getStorageSync('yuyuechenggong')){
+      this.setData({showChengg: true});
+      wx.removeStorageSync('yuyuechenggong');
+    }
     this.getData();
     this.setData({showDate: false})
+  },
+
+  becomeVip(){
+    wx.navigateTo({
+      url: '../recharge/index',
+    })
   },
 
   getData(){
@@ -104,9 +119,9 @@ Page({
         limit: 15
       },
       success (res) {
-        if(res.data.data.length){
+        if(res.data.data.list.length){
           let arr = that.data.sheying;
-          arr = arr.concat(res.data.data);
+          arr = arr.concat(res.data.data.list);
           that.setData({sheying: arr});
         }
       }

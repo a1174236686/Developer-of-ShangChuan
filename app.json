@@ -1,12 +1,12 @@
 {
 
   "pages": [ 
-    "pages/yuyueInfo/yuyueInfo",
-    "pages/my_sy/index",
+    "pages/my/my",  
     "pages/userOrder/userOrder",
+    "pages/my_sy/index",
+    "pages/yuyueInfo/yuyueInfo",
     "pages/myOrder/myOrder",
     "pages/evaluate/index",
-    "pages/my/my",  
     "pages/personalInfo/personalInfo",
     "pages/find/find",
     "pages/myInfor/myInfor",
