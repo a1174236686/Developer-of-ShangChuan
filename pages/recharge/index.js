@@ -29,8 +29,6 @@ Page({
        */
       payModeArr:[
         {text:"微信支付",value:'微信支付'},
-        {text:"支付宝",value:'支付宝'},
-        {text:"银联",value:'银联'},
       ],
     },
   },

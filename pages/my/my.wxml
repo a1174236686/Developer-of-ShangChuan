@@ -2,10 +2,10 @@
 <view>
   <view class="main" wx:if="{{showSheyingshi == '0'}}">
     <view class="header">
-      <image class="headerIconText_img" wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
+      <image class="headerIconText_img" wx:if="{{portraitUrl}}" src="{{portraitUrl}}"></image>
       <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
       <view class="headerIconText">
-        <image wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
+        <image wx:if="{{portraitUrl}}" src="{{portraitUrl}}"></image>
         <image wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
         <view class="headerIconText_text">
           <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}</view>
@@ -35,7 +35,7 @@
       <image class="userInfo_bg" src="{{serverUrl}}/statics/image/myBg.png"></image>
       <view class="userInfo_title">
         <view class="userInfo_NameImg">
-          <image src="{{wxUser.avatarUrl}}"></image>
+          <image src="{{portraitUrl}}"></image>
           <view>{{wxUser.nickName}}</view>
           <!-- <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoUserView" data-view="{{item.id}}" size="{{15}}"></mp-icon> -->
         </view>

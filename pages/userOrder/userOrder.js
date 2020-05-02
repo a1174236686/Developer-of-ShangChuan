@@ -51,7 +51,7 @@ Page({
           success (res) {
             wx.hideNavigationBarLoading() //完成停止加载
             if(res.data.code == 0){
-              console.log('取消成功！')
+              wx.showToast({ title: '取消成功！', icon: 'none' });
               let arr = that.data.orderList;
               arr = arr.splice(1,index);
               that.setData({orderList: arr});
@@ -101,7 +101,7 @@ Page({
         if(res.data.code == 0){
           if(res.data.data.length){
             let arr = that.data.orderList;
-            arr = arr.concat(res.data.data)
+            arr = arr.concat(res.data.data,'orderId')
             that.setData({orderList: arr});
           }
         }

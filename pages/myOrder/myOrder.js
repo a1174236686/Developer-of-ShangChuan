@@ -87,6 +87,7 @@ Page({
          let res  = await  http.post("/order/reject",{data:{orderId:item.orderId,rejectReason:"拒绝"}});
          if(res.code===0){
            //拒绝之后 删除当前拒绝项
+            wx.showToast({ title: '拒绝成功！', icon: 'none' });
            self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
          }
         }else{
@@ -108,6 +109,7 @@ Page({
          let res  = await  http.post("/order/receive",{data:{orderId:item.orderId}});
          if(res.code===0){
            //确认之后 删除当前确认项
+            wx.showToast({ title: '接单成功！', icon: 'none' });
            self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
          }
         }else{
@@ -129,6 +131,7 @@ Page({
          let res  = await  http.post("/order/writeoff",{data:{orderId:item.orderId}});
          if(res.code===0){
            //核销之后 删除当前核销项
+           wx.showToast({ title: '核销成功！', icon: 'none' });
            self.setData({orderList:orderList.filter(it=>it.orderId!==item.orderId)});
          }
         }else{
@@ -171,23 +174,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.getData();
-    wx.showNavigationBarLoading();//在标题栏中显示加载
-    setTimeout(function(){
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    wx.showNavigationBarLoading();//在标题栏中显示加载
-    setTimeout(function(){
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500)
+    this.getData();
   },
 
   /**

@@ -12,7 +12,7 @@ Page({
     infoList: [
       {icon: serverUrl + '/statics/image/xingming.png',name: '姓名', value: '', type: 'name',key: 'nickName'},
       {icon: serverUrl + '/statics/image/nvx.png',name: '性别', value: '', type: 'sex',sex: true,key: 'gender'},
-      {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',date: true,key: 'birthDate'},
+      {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',date: true},
       {icon: serverUrl + '/statics/image/shouji.png',name: '电话', value: '', type: 'phone',status: 'number',key: 'phone'},
       {icon: serverUrl + '/statics/image/quyu.png',name: '区域', value: [], type: 'region',quyu: true},
       {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address'},
@@ -30,8 +30,6 @@ Page({
   },
 
   formSubmit: function (e) {
-    wx.showNavigationBarLoading();
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
     let that = this;
     let postData = {
       photographerCode: wx.getStorageSync('yuyueData').userCode,
@@ -39,18 +37,19 @@ Page({
       sex: this.data.sexArray[this.data.sexIndex] == '男' ? '1' : '2',
       birthDate: this.data.date,
       customerPhone: e.detail.value.phone,
-      province: this.data.regionCode[0],
-      city: this.data.regionCode[1],
-      area: this.data.regionCode[2],
+      province: this.data.regionCode[0] || '',
+      city: this.data.regionCode[1] || '',
+      area: this.data.regionCode[2] || '',
       address: e.detail.value.address,
       target: e.detail.value.target,
       appointStartTime: this.data.startTime,
       appointEndTime: this.data.endTime,
     };
     if(!switchJSON(postData)){
-      console.log('请完善数据！');
+      wx.showToast({ title: '请完善数据!', icon: 'none' });
       return false;
     }
+    wx.showLoading({ title: '加载中',})
     wx.request({
       url: app.globalData.serverUrl + '/order/save',
       header: {"token": wx.getStorageSync('tokenInfo').token},
@@ -58,10 +57,14 @@ Page({
       data: postData,
       success (res) {
         if(res.data.code === 0){
-          wx.hideNavigationBarLoading(); //完成停止加载
+          wx.hideLoading(); //完成停止加载
+          wx.setStorageSync('yuyuechenggong','1')
           wx.switchTab({
             url: '../my_sy/index',
           })
+        }else{
+          wx.hideLoading(); //完成停止加载
+          wx.showToast({ title: res.data.msg, icon: 'none' });
         }
       }
     })
@@ -104,10 +107,14 @@ Page({
     let startTime = enterDate.start[0] + '-' + enterDate.start[1] + '-' + enterDate.start[2] + ' ' + enterDate.start[3] + ':00';
     let endTime = enterDate.end[0] + '-' + enterDate.end[1] + '-' + enterDate.end[2] + ' ' + enterDate.end[3] + ':00';
     let arr = this.data.infoList;
+    let obj =  wx.getStorageSync('sessionInfo')
+    for(let i = 0;i < arr.length;i++){
+      let item = arr[i];
+      item.value =  obj[item.key] || ''
+    }
     arr[arr.length - 1].value = endTime;
     arr[arr.length - 2].value = startTime;
-    this.setData({startTime: startTime,endTime:endTime,infoList: arr});
-    console.log(wx.getStorageSync('sessionInfo'))
+    this.setData({startTime: startTime,endTime:endTime,infoList: arr,date: obj.birthDate,sexIndex: obj.gender == 1 ? 0 : 1});
   },
 
   /**
