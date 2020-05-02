@@ -161,7 +161,7 @@ Page({
             IDImgData[i].src = tempFilePaths;
             wx.uploadFile({
               // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
-              url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
+              url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
               header: { 'token': tokenInfo.token },
               filePath: tempFilePaths[0],
               method: 'post',

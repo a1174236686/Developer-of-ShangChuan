@@ -1,4 +1,3 @@
-<!--pages/myInfor/myInfor.wxml-->
 <view class="infoList">
 	<form bindsubmit="formSubmit">
 		<view class="infoItem ">
@@ -15,10 +14,19 @@
 				<icon type="success" size="20"></icon>
 				<label>{{item.name}}</label>
 			</view>
-			<input wx:if="{{item.type!='date' && item.type!='region'}}" name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' placeholder='请输入{{item.name}}' disabled="{{noEdit}}" />
+			<input wx:if="{{item.type!='date' && item.type!='region' && item.type!='sex'}}" name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' data-value="{{item.type}}" placeholder='请输入{{item.name}}' disabled="{{noEdit}}" bindinput="inputValue"/>
+				<!-- 性别 -->
+			<view wx:if="{{item.type=='sex'}}">
+			<picker id='{{mapping}}' range-key="key" range="{{sexArr}}" value="{{formDataMap[mapping]}}" bindchange="sexSelect" disabled ="{{noEdit}}">
+					<view class="picker">
+						{{item.value}}
+						<image  wx:if="{{!noEdit}}" src="../../img/seximage.png" class="img"></image>
+					</view>
+				</picker>
+			</view>
 			<!-- 出生日期选择 -->
 			<view wx:if="{{item.type=='date'}}">
-				<picker id='{{value}}' mode="date"  bindchange="bindDataChange">
+				<picker id='{{value}}' mode="date"  bindchange="bindDataChange" disabled ="{{noEdit}}">
 					<view class="picker">
 						{{item.value}}
 						<image  wx:if="{{!noEdit}}" src="../../img/daySelect.png" class="img"></image>
@@ -27,9 +35,9 @@
 			</view>
 			<!-- 地址选择 -->
 			<view wx:if="{{item.type=='region'}}">
-					<picker id='{{value}}' mode="region" bindchange="open">
+					<picker id='{{value}}' mode="region" bindchange="open" disabled ="{{noEdit}}">
 					<view class="picker">
-						{{item.value}}
+						{{item.value.value}}
 						<image  wx:if="{{!noEdit}}" src="../../img/adress.png" class="img"></image>
 					</view>
 				</picker>
