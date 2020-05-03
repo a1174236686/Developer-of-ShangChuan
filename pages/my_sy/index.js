@@ -179,5 +179,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  goToPersonalInfo: function (e){
+    wx.navigateTo({
+      url: '/pages/personalInfo/personalInfo',
+      success: function(res) {
+        res.eventChannel.emit('photographerCode', {
+            photographerCode: e.target.dataset.param
+          })
+      }
+    })
   }
 })

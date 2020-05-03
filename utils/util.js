@@ -290,7 +290,6 @@ const switchJSON= json => {
 		})
  }
 
-
 	const switchLevel = level =>{
 		let levelLabel = '';
 		switch (level) {
@@ -348,5 +347,6 @@ module.exports = {
 	http:http,
 	switchLevel,
 	switchSex,
-	avatarUrlFn
+	avatarUrlFn,
+	uploadFile
 }

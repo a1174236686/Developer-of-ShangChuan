@@ -1,6 +1,7 @@
 // pages/personalInfo/personalInfo.js
 const app = getApp();
 const { switchLevel } = require('../../utils/util')
+import { http } from '../../utils/util'
 
 Page({
 
@@ -11,11 +12,32 @@ Page({
     videoList: [],
     imgList: [],
     tarList: [{ name: '视频', type: 1 }, { name: '图片', type: 2 }],
-    currentType: 2,
+    currentType: 1,
+    isManage: false,
+    hiddenPickBox: true,
+    serverUrl:app.globalData.serverUrl
   },
 
   switchBar: function (e) {
-    this.setData({ currentType: e.currentTarget.dataset.type },() => this.getWork());
+    this.setData({ currentType: e.currentTarget.dataset.type }, () => this.workListInit());
+  },
+
+  switchManage: function () {
+    this.setData({ isManage: !this.data.isManage });
+  },
+
+  /**
+  * 生命周期函数--监听页面加载
+  */
+  onLoad: function () {
+    const sessionInfo = wx.getStorageSync('sessionInfo');
+    const eventChannel = this.getOpenerEventChannel();
+    eventChannel.on('photographerCode', data => {
+      const { photographerCode } = data;
+      const { userCode } = sessionInfo;
+      const showAddBtn = userCode === photographerCode;
+      this.setData({ photographerCode, showAddBtn })
+    })
   },
 
   /**
@@ -23,14 +45,14 @@ Page({
    */
   onReady: function () {
     const tokenInfo = wx.getStorageSync('tokenInfo');
-    console.log('tokenInfo',tokenInfo)
+    const { photographerCode } = this.data;
     wx.request({
-      url: app.globalData.serverUrl + '/photographer/info/d6545779-7d94-4c83-926a-80f0368dd791',
+      url: app.globalData.serverUrl + '/photographer/info/' + photographerCode,
       header: { 'token': tokenInfo.token },
       success: result => {
         this.machiningRes(result.data.biPhotographer);
         const biPhotographer = result.data.biPhotographer;
-        this.setData({ biPhotographer }, () => this.getWork())
+        this.setData({ biPhotographer }, () => this.workListInit())
       }
     })
   },
@@ -49,6 +71,8 @@ Page({
    */
   machiningRes: function (res) {
     res.level = switchLevel(res.level);
+    console.log('res', res);
+    // res.workNum = res.
   },
 
   /**
@@ -58,27 +82,27 @@ Page({
     const tokenInfo = this.getToken();
     const videoPageinfo = this.getVideoPageinfo();
     const { page, limit } = videoPageinfo;
-    if (page > 5) {
-      wx.showToast({ title: '我一滴也没有了', icon: 'none' });
-      return;
-    }
+    const { photographerCode } = this.data;
     wx.request({
       url: app.globalData.serverUrl + '/video/page',
       header: { 'token': tokenInfo.token },
       data: {
-        page: 1,
+        page,
         limit,
-        userCode: this.data.biPhotographer.userCode
+        photographerCode
       },
       success: result => {
-        const resVideoList = result.data.data;
-        const currentVideoList = this.data.videoList
-        // const videoList = currentVideoList.concat(resVideoList);
-        let videoList = this.data.videoList;
-        for (let i = 0; i < 5; i++) {
-          videoList = videoList.concat(resVideoList);
+        const { total, list } = result.data.data;
+        const currentVideoList = this.data.videoList;
+        const index = currentVideoList.length;
+        const resLength = list.length;
+        if (index == total) {
+          wx.showToast({ title: '我是有底线的。。。', icon: 'none' });
+          return;
         }
-        this.setData({ videoList }, () => videoPageinfo.page++)
+        const resVideoList = list;
+        const videoList = currentVideoList.qcConcat(resVideoList, 'id');
+        this.setData({ videoList }, () => resLength === limit && videoPageinfo.page++)
       }
     })
   },
@@ -88,30 +112,30 @@ Page({
    */
   getImgList: function () {
     const tokenInfo = this.getToken();
-    console.log('tokenInfo',tokenInfo)
     const imgPageinfo = this.getImgPageinfo();
     const { page, limit } = imgPageinfo;
-    const { userCode } = this.data.biPhotographer;
-    if (page > 5) {
-      wx.showToast({ title: '我一滴也没有了', icon: 'none' });
-      return;
-    }
+    const { photographerCode } = this.data;
     wx.request({
       url: app.globalData.serverUrl + '/photo/page',
-      header: { 
-        'token': tokenInfo.token ,
+      header: {
+        'token': tokenInfo.token,
       },
       data: {
         page: page,
         limit,
-        userCode
+        photographerCode
       },
       success: result => {
-        console.log('result',result)
-        const resImgList = result.data.data;
+        const { total, list } = result.data.data;
         const currentImgList = this.data.imgList;
-        const imgList = currentImgList.concat(resImgList);
-        this.setData({ imgList }, () => imgPageinfo.page++)
+        const index = currentImgList.length;
+        const resLength = list.length;
+        if (index == total) {
+          wx.showToast({ title: '我是有底线的。。。', icon: 'none' });
+          return;
+        }
+        const imgList = currentImgList.qcConcat(list, 'id');
+        this.setData({ imgList }, () => resLength === limit && imgPageinfo.page++)
       }
     })
   },
@@ -148,18 +172,21 @@ Page({
    * 上传作品
    */
   uploadWork: function () {
-    const { currentType } = this.data;
-    switch (currentType) {
-      case 1:
-        // this.getVideoList();
-        break;
-      case 2:
-        this.uploadImg();
-        break;
-    }
+    this.setData({ hiddenPickBox: !this.data.hiddenPickBox })
   },
 
-  getWork:function(){
+  pickWorkType: function (e) {
+    const { photographerCode } = this.data;
+    const currentType = parseInt(e.target.dataset.param);
+    wx.navigateTo({
+      url: '/pages/releaseWorks/releaseWorks',
+      success: function (res) {
+        res.eventChannel.emit('photographerCode', { photographerCode,currentType })
+      }
+    })
+  },
+
+  getWork: function () {
     const { currentType } = this.data;
     switch (currentType) {
       case 1:
@@ -171,50 +198,41 @@ Page({
     }
   },
 
-  /**
-   * 上传图片
-   */
-  uploadImg:function(){
-    const tokenInfo = this.getToken();
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success: (res) => {
-        console.log('11111111111111')
-        const { tempFilePaths } = res
-        wx.uploadFile({
-          // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
-          url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
-          header: { 'token': tokenInfo.token },
-          filePath: tempFilePaths[0],
-          method: 'post',
-          name: 'file',
-          success: (res) => {
-            console.log('22222222222222')
-            console.log('res',res);
-            const obj = JSON.parse(res.data);
-            const { userCode } = this.data.biPhotographer;
-            wx.request({
-              url: app.globalData.serverUrl + '/photo/save',
-              header: {
-                'token': tokenInfo.token ,
-              },
-              data: {
-                workName:obj.fileName,
-                fileName:obj.fileName,
-                userCode
-              },
-              method:"POST",
-              success: result => {
-                console.log(33333333333333333)
-                console.log('result',result);
-              }
-            })
-          }
-        })
-      }
-    })
+  workListInit: function () {
+    const { currentType } = this.data;
+    switch (currentType) {
+      case 1:
+        this.data.videoList.length<1&&this.getVideoList();
+        break;
+      case 2:
+        this.data.imgList.length<1&&this.getImgList();
+        break;
+    }
+  },
+
+
+  deleteWork: function (e) {
+    const { currentType } = this.data;
+    const id = e.target.dataset.param;
+    switch (currentType) {
+      case 1:
+        this.deleteVideo({ id });
+        break;
+      case 2:
+        this.deleteImg({ id });
+        break;
+    }
+  },
+
+  deleteVideo: async function ({ id }) {
+    const ids = [id]
+    await http.post("/video/delete", { data: ids });
+    this.setData({ videoList: this.data.videoList.filter(item => item.id != id) })
+  },
+
+  deleteImg: async function ({ id }) {
+    const ids = [id]
+    await http.post("/photo/delete", { data: ids });
+    this.setData({ imgList: this.data.imgList.filter(item => item.id != id) })
   }
-  
 })

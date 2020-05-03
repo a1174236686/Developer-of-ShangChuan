@@ -1,14 +1,16 @@
 <!--pages/releaseWorks/releaseWorks.wxml-->
 <view class="main">
     <view>
-      <textarea class="text" placeholder="请输入作评名称"></textarea>
+      <textarea class="text" placeholder="请输入作评名称" bindblur="bindDataChange" 
+      value="{{textareaValue}}" ></textarea>
     </view>
     <view class="imgbox">
-      <view class="clioneImg" wx:if='{{imgSrc}}'>
-        <image src="{{imgSrc}}"></image>
+      <view class="clioneImg" wx:if='{{imgSrc||videoSrc}}'>
+        <video wx:if='{{currentType===1}}' class="media" src="{{videoSrc}}" controls />
+         <image wx:if='{{currentType===2}}' class="media" src="{{imgSrc}}" />
         <view class="close" bindtap="clearSrc">+</view>
       </view>
-      <view wx:if='{{!imgSrc}}' class="addBth" bindtap="choice">+</view>
+      <view wx:if='{{!(imgSrc||videoSrc)}}' class="addBth" bindtap="choice">+</view>
     </view>
-    <view class="withdrawalBtn">发布</view>
+    <view class="withdrawalBtn" bindtap="submitForm" >发布</view>
 </view>

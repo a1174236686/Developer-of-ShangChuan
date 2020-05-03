@@ -43,9 +43,9 @@ Page({
     formData: [
       { label: '姓名', placeholder: '请输入您的真实姓名', mapping: 'name' },
       { label: '性别', render: 'sex', mapping: 'sex', arr: [{ key: '男', map: { label: '男', key: '1' } }, { key: '女', map: { label: '女', key: '2' } }],serverUrl },
-      { label: '电话', placeholder: '请输入您的电话号码', mapping: 'PhoneNumber' },
+      { label: '电话', placeholder: '请输入您的电话号码', mapping: 'PhoneNumber' ,type: 'number' },
       { label: '出身日期', render: 'pickerDate', mapping: 'birthday',serverUrl },
-      { label: '身份证号码', placeholder: '请输入您的身份证号码', mapping: 'id' },
+      { label: '身份证号码', placeholder: '请输入您的身份证号码', mapping: 'id',type: 'idcard' },
       { label: '地址', render: 'adress', mapping: 'adrees' ,serverUrl},
     ],
 
@@ -105,6 +105,7 @@ Page({
        * 校验器
        */
       Check: () => {
+        console.log(this.data.formDataMap)
         const { rules } = formCheckObj;
         const map = this.data.formDataMap
         console.log(rules)
@@ -115,7 +116,7 @@ Page({
 
           if (required) {
             if (!mapValue) {
-              console.log(message)
+              // console.log(message)
               return false;
             }
           } else if (validator) {
