@@ -10,6 +10,7 @@ App({
        wx.getSetting({
         success: function(res) {
             if (res.authSetting['scope.userInfo']) {
+              return 
                 wx.getUserInfo({
                     success: function(res_Info) {
                       // 登录
@@ -43,12 +44,12 @@ App({
                       })
                     }
                 });
-            } 
+            } W
         }
     });
   },
   globalData: {
-    serverUrl: 'http://106.12.205.91:9000/sheying',
-    //serverUrl: 'http://294k6r6236.qicp.vip:25802/sheying',
+    //serverUrl: 'http://106.12.205.91:9000/sheying',
+    serverUrl: 'https://sheying.youlintec.xin/sheying-test',
   }
 })

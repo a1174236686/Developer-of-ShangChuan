@@ -11,7 +11,7 @@
       <view class="orderItem_name">
         <image class="orderItem_name_Head" src="{{item.photographerPhoto}}"></image>
         <view class="orderItem_name_Text">{{item.photographerName}}</view>
-        <image class="orderItem_name_Call"  bindtap="makePhoneCall" data-item="{{item}}" src="{{serverUrl}}/statics/image/toux.jpg"></image>
+        <view class="orderItem_name_Call"><image bindtap="makePhoneCall" data-item="{{item}}" src="../../img/PhoneCall.png"></image></view>
         <view wx:if="{{currentType == 1 && item.status == 1}}" class="orderItem_name_wait">待摄影师确认</view>
         <!-- <view wx:if="{{currentType == 1}}" class="orderItem_name_wait">待摄影师确认</view> -->
       </view>
