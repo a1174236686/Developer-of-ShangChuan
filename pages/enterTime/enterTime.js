@@ -23,9 +23,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('体验版本',options)
     let dataTime = [];
-    dataTime.push(new Date(options.day).getTime());
-    dataTime.push(new Date(options.day).getTime() + 24*60*60*1000)
+    let day = options.day.replace(/-/g,'/')
+    dataTime.push(new Date(day).getTime());
+    dataTime.push(new Date(day).getTime() + 24*60*60*1000)
+    console.log('dataTime',dataTime)
     let arr = [];
     for(let i = 0; i < dataTime.length; i++){
       let date = new Date(dataTime[i]);
@@ -36,6 +39,7 @@ Page({
         week: switchWeek(date.getDay())
       }
       arr.push(json);
+      console.log('时间JSON',json)
     }
     this.setData({dayList: arr});
     let rowLength = 30 * 6;
@@ -97,6 +101,7 @@ Page({
         this.setData({errorMsg: true});
         return false;
       }
+      console.log(this.Transformation(dateArr),this.Transformation(this.data.startTime))
       if(this.Transformation(dateArr) - this.Transformation(this.data.startTime) < (1000 * 60 * 60 *6)){
         this.setData({endTime: dateArr});
         return false;
@@ -107,7 +112,10 @@ Page({
   },
 
   Transformation: function(dateArr){
-    return new Date(dateArr[0]+ '-' +dateArr[1]+ '-' +dateArr[2]+ '-' +dateArr[3]).getTime();
+    console.log('222222',dateArr)
+    console.log(new Date(dateArr[0]+ '/' +dateArr[1]+ '/' +dateArr[2]+ ' ' +dateArr[3]).getTime())
+    let data = dateArr[0]+ '/' +dateArr[1]+ '/' +dateArr[2]+ ' ' +dateArr[3];
+    return new Date(data).getTime();
   },
 
   rentuTrue:function(e){
