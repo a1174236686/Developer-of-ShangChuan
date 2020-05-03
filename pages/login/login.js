@@ -1,6 +1,7 @@
 // pages/login/login.js
 const app = getApp()
 const serverUrl = app.globalData.serverUrl
+import {loginSystem} from '../../utils/login'
 Page({
 
   /**
@@ -19,55 +20,16 @@ Page({
   },
 
   bindGetUserInfo: function(e) {
-    //1.判断是否允许授权
-    //2.存储微信数据userInfo
-    //3.调取wx.login得到一个code
-    //4.拿到微信的code之后在请求java后台的登录接口得到tokenInfo
-    //5.拿到token取session
-    console.log(e.detail.userInfo)
+    //用户按了同意按钮
     if (e.detail.userInfo) {
-        //用户按了允许授权按钮
-        var that = this;
-        // 获取到用户的信息了，打印到控制台上看下
-        console.log("用户的信息如下：");
-        console.log(e.detail);
-        wx.setStorageSync('userInfo',e.detail.userInfo)
-        // 登录
-        wx.login({
-          success: res => {
-            // 发送 res.code 到后台换取 openId, sessionKey, unionId
-             //wx.setStorageSync('tokenInfo',{}); //预览打开
-            //wx.navigateBack({}); //预览打开
-            wx.setStorageSync('temporaryCode',res.code);
-            wx.request({
-              url: app.globalData.serverUrl + '/wx/login',
-              method: 'POST',
-              data: {
-                code: res.code,
-                rawData: e.detail.rawData,
-                signature: e.detail.signature,
-                encryptedData: e.detail.encryptedData,
-                iv: e.detail.iv,
-              },
-              success (data) {
-                wx.setStorageSync('tokenInfo',data.data);
-                wx.request({
-                  url: app.globalData.serverUrl + '/wxuser/session',
-                  header: {"token": data.data.token},
-                  method: 'GET',
-                  success (sessionInfo) {
-                    if(sessionInfo.data.code == 0){
-                      wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
-                      //wx.reLaunch({url:"/pages/my/my"}) //关闭所有页面 打开行页面
-                      wx.navigateBack({}); // 关闭当前页面，返回上一页面或多级页面
-                    }
-                  }
-                })
-              }
-            })
-          }
-        })
-        //授权成功后,通过改变 isHide 的值，让实现页面显示出来，把授权页面隐藏起来
+      //同意获 用户信息
+      loginSystem(e.detail,()=>{
+        //登录成功
+        wx.navigateBack({}); // 关闭当前页面，返回上一页面或多级页面
+      },(error)=>{
+        //登录失败 执行此处
+          console.log(error)
+      })
     } else {
         //用户按了拒绝按钮
         wx.showModal({

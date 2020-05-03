@@ -1,5 +1,6 @@
 // pages/myEvaluate/myEvaluate.js
 const app = getApp()
+import {http} from '../../utils/util'
 const serverUrl = app.globalData.serverUrl;
 Page({
 
@@ -8,12 +9,22 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
+    suggestionList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad:  function (options) {
+    
+      this.getSuggestion();
+  },
+  //获取评价数据
+  async getSuggestion(){
+    let res = await http.get("/evaluate/page");
+    if(res.code==0){
+      this.setData({suggestionList:res.data})
+    }
 
   },
 

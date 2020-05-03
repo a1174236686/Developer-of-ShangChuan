@@ -105,6 +105,7 @@ Page({
        * 校验器
        */
       Check: () => {
+        console.log(this.data.formDataMap)
         const { rules } = formCheckObj;
         const map = this.data.formDataMap
         console.log(rules)
@@ -115,7 +116,7 @@ Page({
 
           if (required) {
             if (!mapValue) {
-              console.log(message)
+              // console.log(message)
               return false;
             }
           } else if (validator) {
