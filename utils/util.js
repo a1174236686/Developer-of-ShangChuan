@@ -196,15 +196,27 @@ const switchJSON= json => {
 		init(obj){
 			return new Promise((re,rj)=>{
 
+				let __url = app.globalData.serverUrl || null;
+				if(__url){
+						//有公共 url  请求地址 __url + obj.url 拼接
+					__url = __url+  obj.url;
+				}else{
+					//没有公共url 直接用传入的 url 
+					__url = obj.url;
+				}
+
 				wx.request({
-					...obj,
-					url: app.globalData.serverUrl + obj.url,
 					header: {"token": wx.getStorageSync('tokenInfo').token},
+					...obj,
+					url: __url,
 					method: obj.method,
 					data: obj.data,
 					success (res) {
 						if(res.data.code == 0){
 								re(res.data);
+						}else if(res.data.code==401){
+							//session 过期  TODO 过期了
+							console.log('需要重新登录');
 						}else{
 							rj();
 						}
@@ -224,7 +236,9 @@ const switchJSON= json => {
 		},
 		get(url,data){
 			return this.init({url:url,method:"GET",data:data})
-		}
+		},
+
+
 	}
 	//根据id去重合并
 	Array.prototype.qcConcat = function(array,key){
