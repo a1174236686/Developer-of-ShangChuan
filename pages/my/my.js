@@ -1,5 +1,6 @@
 // pages/my/my.js
-import {avatarUrlFn} from '../../utils/util'
+import {avatarUrlFn,http} from '../../utils/util';
+import {getSession,login} from '../../utils/login'
 const app = getApp()
 const serverUrl = app.globalData.serverUrl
 Page({
@@ -18,8 +19,9 @@ Page({
       {label: '我的预约',id: 'userOrder/userOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
       {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
-      {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'}
+     
     ],
+    sysObject: {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'},
     optionsUserList:[
       {label: '我的评价',id: 'myEvaluate/myEvaluate',src: serverUrl + '/statics/image/evaluate.png'},
       {label: '邀请奖励',id: 'myWallet/myWallet',src: serverUrl + '/statics/image/reward.png'},
@@ -98,6 +100,8 @@ Page({
       }
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag,portraitUrl: avatarUrlFn(avatarUrl)})
       if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
+        //摄影师 
+
         wx.request({
           url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
           header: {"token": wx.getStorageSync('tokenInfo').token},
@@ -106,6 +110,12 @@ Page({
             that.setData({wxUserInfo: res.data.biPhotographer});
           }
         })
+      }else{
+        //不是摄影师  需要添加加入我们
+        let optionsList = this.data.optionsList;
+        optionsList.qcConcat([this.data.sysObject],'id');
+        this.setData({optionsList});
+
       }
     }
   },
@@ -117,35 +127,28 @@ Page({
     this.setData({showSheyingshi: this.data.showSheyingshi == '1' ? '0' : '1'})
   },
 
-  getPhoneNumber:function(e){
+  getPhoneNumber: async function(e){
     let that = this
     if(e.detail){
-      wx.login({
-        success: (res) => {
-          wx.request({
-            url: app.globalData.serverUrl + '/wxuser/bindPhone',
-            method: 'POST',
-            header: {"token": wx.getStorageSync('tokenInfo').token},
-            data: {
-              code: res.code,
-              encryptedData: e.detail.encryptedData,
-              iv: e.detail.iv,
-            },
-            success (data) {
-              wx.request({
-                url: app.globalData.serverUrl + '/wxuser/session',
-                header: {"token": data.data.token},
-                method: 'GET',
-                success (sessionInfo) {
-                  wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
-                  console.log(that.data.wxUser)
-                  that.setData({wxUser: sessionInfo.data.wxUser})
-                }
-              })
-            }
-          })
-        },
-      })
+     //登录
+      let code = await login();
+      let send = {
+          code: code,
+          encryptedData: e.detail.encryptedData,
+          iv: e.detail.iv,
+       }
+       //绑定电话
+      let resData =  await http.post('/wxuser/bindPhone',{data:send});
+      if(resData.code===0){
+         //获取电话成功
+        let wxUser =  await getSession();//获取session
+        that.setData({wxUser:wxUser})
+        wx.setStorageSync('sessionInfo',wxUser);
+      }
+
+
+    }else{
+      //不允许获取电话号码
     }
   },
 
