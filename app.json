@@ -2,16 +2,15 @@
 
   "pages": [ 
     "pages/my/my",  
+    "pages/yuyueInfo/yuyueInfo",
+    "pages/joinWe/index",
     "pages/my_sy/index",
     "pages/recharge/index",
     "pages/userOrder/userOrder",
-    "pages/yuyueInfo/yuyueInfo",
     "pages/myOrder/myOrder",
     "pages/evaluate/index",
     "pages/personalInfo/personalInfo",
-    "pages/find/find",
     "pages/myInfor/myInfor",
-    "pages/joinWe/index",
     "pages/login/login",
     "pages/enterTime/enterTime",
     "pages/vipCard/index",

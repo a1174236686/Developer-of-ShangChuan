@@ -40,8 +40,14 @@ Page({
   },
 
   openDate:function(e){
-    this.setData({showDate: true});
-    wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
+    if(wx.getStorageSync('sessionInfo')){
+      this.setData({showDate: true});
+      wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
+    }else{
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
   },
 
   closeDate:function(){
@@ -104,9 +110,15 @@ Page({
   },
 
   becomeVip(){
-    wx.navigateTo({
-      url: '../recharge/index',
-    })
+    if(wx.getStorageSync('sessionInfo')){
+      wx.navigateTo({
+        url: '../recharge/index',
+      })
+    }else{
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
   },
 
   getData(){

@@ -70,7 +70,7 @@
 
 .form .Submit .btn {
   border-radius: 24rpx;
-  background-color: pink;
+  background-color: #FF6D77;
   color: white;
   width: 690rpx;
 }
