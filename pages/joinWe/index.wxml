@@ -31,7 +31,7 @@
 <template name="standard">
 	<view class="item">
 		<view class="itemLabel">{{label}}</view>
-		<input id='{{mapping}}' name="input" placeholder="{{placeholder}}" value="{{formDataMap[mapping]}}" placeholder-class="formItemInputPlaceholder" bindblur="bindDataChange" />
+		<input id='{{mapping}}' name="input" placeholder="{{placeholder}}" type="{{formDataMap[type]}}" value="{{formDataMap[mapping]}}" placeholder-class="formItemInputPlaceholder" bindblur="bindDataChange" />
 	</view>
 </template>
 

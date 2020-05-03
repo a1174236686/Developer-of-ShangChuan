@@ -11,8 +11,10 @@ App({
        wx.getSetting({
         success: function(res) {
             if (res.authSetting['scope.userInfo']) {
+              return
                 wx.getUserInfo({
                     success: function(res_Info) {
+                      wx.setStorageSync('userInfo',res_Info.userInfo)
                       // 登录
                       wx.login({
                         success: res => {
