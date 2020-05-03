@@ -29,7 +29,7 @@
 <!-- 摄影师列表开始 -->
 <view class="syList">
   <view class="syItem" wx:for="{{sheying}}" wx:key="index">
-    <view class="syIcon"><image src="{{item.avatarUrl}}"></image></view>
+    <view class="syIcon"><image src="{{item.avatarUrl}}" bindtap="goToPersonalInfo" data-param="{{item.userCode}}"></image></view>
     <view class="syInfo">
       <view class="infoTtile">{{item.name}} <view class="titleLabel">{{item.levelName}}</view></view>
       <view wx:if="{{!showDate}}"><rate disabled score="{{item.score}}" /></view>
