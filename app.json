@@ -1,8 +1,8 @@
 {
 
   "pages": [ 
-    "pages/personalInfo/personalInfo", 
     "pages/my/my", 
+    "pages/personalInfo/personalInfo", 
     "pages/yuyueInfo/yuyueInfo",
     "pages/my_sy/index",
     "pages/userOrder/userOrder",

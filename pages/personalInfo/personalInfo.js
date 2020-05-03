@@ -9,13 +9,13 @@ Page({
    */
   data: {
     videoList: [],
-    imgList: [],
+    imgList: [1],
     tarList: [{ name: '视频', type: 1 }, { name: '图片', type: 2 }],
     currentType: 2,
   },
 
   switchBar: function (e) {
-    this.setData({ currentType: e.currentTarget.dataset.type },() => this.getWork());
+    this.setData({ currentType: e.currentTarget.dataset.type }, () => this.getWork());
   },
 
   /**
@@ -23,7 +23,7 @@ Page({
    */
   onReady: function () {
     const tokenInfo = wx.getStorageSync('tokenInfo');
-    console.log('tokenInfo',tokenInfo)
+    console.log('tokenInfo', tokenInfo)
     wx.request({
       url: app.globalData.serverUrl + '/photographer/info/d6545779-7d94-4c83-926a-80f0368dd791',
       header: { 'token': tokenInfo.token },
@@ -58,10 +58,6 @@ Page({
     const tokenInfo = this.getToken();
     const videoPageinfo = this.getVideoPageinfo();
     const { page, limit } = videoPageinfo;
-    if (page > 5) {
-      wx.showToast({ title: '我一滴也没有了', icon: 'none' });
-      return;
-    }
     wx.request({
       url: app.globalData.serverUrl + '/video/page',
       header: { 'token': tokenInfo.token },
@@ -71,11 +67,16 @@ Page({
         photographerCode: this.data.biPhotographer.userCode
       },
       success: result => {
-        const resVideoList = result.data.data;
-        const currentVideoList = this.data.videoList
-        const videoList = currentVideoList.concat(resVideoList);
-        console.log('videoList',videoList)
-        this.setData({ videoList }, () => videoPageinfo.page++)
+        const {total,list} =  result.data.data;
+        const currentVideoList = this.data.videoList;
+        const index = currentVideoList.length;
+        if (index == total) {
+          wx.showToast({ title: '我一滴也没有了', icon: 'none' });
+          return;
+        }
+        const resVideoList = list;
+        const videoList = currentVideoList.qcConcat(resVideoList, 'createTime');
+        this.setData({ videoList }, () => index === limit&&videoPageinfo.page++)
       }
     })
   },
@@ -85,18 +86,14 @@ Page({
    */
   getImgList: function () {
     const tokenInfo = this.getToken();
-    console.log('tokenInfo',tokenInfo)
+    console.log('tokenInfo', tokenInfo)
     const imgPageinfo = this.getImgPageinfo();
     const { page, limit } = imgPageinfo;
     const { userCode } = this.data.biPhotographer;
-    if (page > 5) {
-      wx.showToast({ title: '我一滴也没有了', icon: 'none' });
-      return;
-    }
     wx.request({
       url: app.globalData.serverUrl + '/photo/page',
-      header: { 
-        'token': tokenInfo.token ,
+      header: {
+        'token': tokenInfo.token,
       },
       data: {
         page: page,
@@ -104,11 +101,15 @@ Page({
         userCode
       },
       success: result => {
-        console.log('result',result)
-        const resImgList = result.data.data;
+        const {total,list} =  result.data.data;
         const currentImgList = this.data.imgList;
-        const imgList = currentImgList.concat(resImgList);
-        this.setData({ imgList }, () => imgPageinfo.page++)
+        const index = currentImgList.length;
+        if (index == total) {
+          wx.showToast({ title: '我一滴也没有了', icon: 'none' });
+          return;
+        }
+        const imgList = currentImgList.qcConcat(list, 'createTime');
+        this.setData({ imgList }, () => index === limit&&imgPageinfo.page++)
       }
     })
   },
@@ -156,7 +157,7 @@ Page({
     }
   },
 
-  getWork:function(){
+  getWork: function () {
     const { currentType } = this.data;
     switch (currentType) {
       case 1:
@@ -171,7 +172,7 @@ Page({
   /**
    * 上传图片
    */
-  uploadImg:function(){
+  uploadImg: function () {
     const tokenInfo = this.getToken();
     wx.chooseImage({
       count: 1,
@@ -181,31 +182,31 @@ Page({
         console.log('11111111111111')
         const { tempFilePaths } = res
         wx.uploadFile({
-          // url: app.globalData.url + 'enquiryx/n3_reportfileupload.php',
-          url: 'http://106.12.205.91:9000/sheying/sys/file/upload?dir=-1',
+          url: app.globalData.serverUrl + '/sys/file/upload?dir=-1',
           header: { 'token': tokenInfo.token },
           filePath: tempFilePaths[0],
           method: 'post',
           name: 'file',
           success: (res) => {
             console.log('22222222222222')
-            console.log('res',res);
+            console.log('res', res);
             const obj = JSON.parse(res.data);
             const { userCode } = this.data.biPhotographer;
             wx.request({
               url: app.globalData.serverUrl + '/photo/save',
               header: {
-                'token': tokenInfo.token ,
+                'token': tokenInfo.token,
               },
               data: {
-                workName:obj.fileName,
-                fileName:obj.fileName,
+                workName: obj.fileName,
+                fileName: obj.fileName,
                 userCode
               },
-              method:"POST",
+              method: "POST",
               success: result => {
                 console.log(33333333333333333)
-                console.log('result',result);
+                console.log('result', result);
+                this.getImgList();
               }
             })
           }
@@ -214,41 +215,42 @@ Page({
     })
   },
 
-   /**
-   * 上传视屏
-   */
-  uploadVideo:function(){
+  /**
+  * 上传视屏
+  */
+  uploadVideo: function () {
     const tokenInfo = this.getToken();
     wx.chooseVideo({
-      sourceType: ['album','camera'],
+      sourceType: ['album', 'camera'],
       maxDuration: 60,
       camera: 'back',
       success: res => {
         const { tempFilePath } = res
         wx.uploadFile({
-          url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
+          url: app.globalData.serverUrl + '/sys/file/upload?dir=-1',
           header: { 'token': tokenInfo.token },
           filePath: tempFilePath,
           method: 'post',
           name: 'file',
           success: res => {
-            console.log('是这个res吗',res);
+            console.log('是这个res吗', res);
             const obj = JSON.parse(res.data);
             const { userCode } = this.data.biPhotographer;
             wx.request({
               url: app.globalData.serverUrl + '/video/save',
               header: {
-                'token': tokenInfo.token ,
+                'token': tokenInfo.token,
               },
               data: {
-                workName:obj.fileName,
-                fileName:obj.fileName,
+                workName: obj.fileName,
+                fileName: obj.fileName,
                 userCode
               },
-              method:"POST",
+              method: "POST",
               success: result => {
                 console.log(33333333333333333)
-                console.log('result',result);
+                console.log('result', result);
+                this.getVideoList();
               }
             })
           }
@@ -256,5 +258,5 @@ Page({
       }
     })
   }
-  
+
 })

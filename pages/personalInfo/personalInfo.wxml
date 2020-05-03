@@ -41,7 +41,6 @@
     </view>
     <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <!-- <image class="video" src="{{biPhotographer.avatarUrl}}"></image> -->
         <video class="video" src="http://106.12.205.91:9000/sheying/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
         <view class="videoName">{{item.workName}}</view>
         <view class="author">
@@ -53,21 +52,10 @@
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
         <image class="video" src="http://106.12.205.91:9000/sheying/sys/file/previewImg?fileName={{item.fileName}}"></image>
+        <image class="deleteIcon" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
       </view>
     </view>
   </view>
   <view class="addWorks" bindtap="uploadWork">+</view>
-  <!-- <view class="mask">
-    <view class="maskboX">
-      <view>
-        <image></image>
-        <image>视频</image>
-      </view>
-      <view>
-        <image></image>
-        <image>视频</image>
-      </view>
-    </view>
-  </view> -->
 </view>
 

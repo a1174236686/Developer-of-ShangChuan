@@ -48,7 +48,9 @@ App({
     // });
   },
   globalData: {
-    serverUrl: 'http://106.12.205.91:9000/sheying',
+    // serverUrl: 'http://106.12.205.91:9000/sheying',
+    //  serverUrl: 'https://sheying.youlintec.xin/sheying',
+     serverUrl: 'http://47.115.4.154/sheying',
     //serverUrl: 'http://294k6r6236.qicp.vip:25802/sheying',
   }
 })
