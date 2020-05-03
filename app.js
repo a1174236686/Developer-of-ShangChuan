@@ -1,4 +1,5 @@
 //app.js
+
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -10,7 +11,6 @@ App({
        wx.getSetting({
         success: function(res) {
             if (res.authSetting['scope.userInfo']) {
-              return 
                 wx.getUserInfo({
                     success: function(res_Info) {
                       // 登录

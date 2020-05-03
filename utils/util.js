@@ -276,30 +276,6 @@ const switchJSON= json => {
 		})
  }
 
-
-	//根据id去重合并
-	Array.prototype.qcConcat = function(array,key){
-		let list = this;
-		if(list.length===0){
-			return array;
-		}
-		for(let i = 0 ; i < array.length ; i ++){
-			let item = array[i];
-			let bool = false;
-			if(key){
-				//根据id
-				bool =  list.findIndex(it=>it[key]===item[key])===-1; //不在里面
-			}else{
-				bool =  list.findIndex(it=>it===item)===-1; //不在里面
-			}
-			if(bool){
-				list.push(item);
-			}
-		}
-		return list;
-		 
- }
-
 	const switchLevel = level =>{
 		let levelLabel = '';
 		switch (level) {

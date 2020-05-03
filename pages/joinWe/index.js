@@ -55,9 +55,6 @@ Page({
     ],
   },
   onLoad: function () {
-    console.log(serverUrl)
-    // console.log(wx.getStorageSync('tokenInfo'))
-    console.log(wx.getStorageSync('sessionInfo'))
     let formDataN = this.data.formDataMap
     let userMsg = wx.getStorageSync('sessionInfo')
     formDataN.name = userMsg.nickName
@@ -250,11 +247,13 @@ console.log(this.data.formData)
       },
 
       success: function (result) {
-        console.log(result)
         if (result.data.code == 0) {
-          wx.navigateBack({
-            delta: 1,
-          })
+          wx.showToast({ title: '提交成功！', icon: 'success'});
+          setTimeout(function() {
+            wx.navigateBack()
+          },1500)
+        }else{
+          wx.showToast({ title: result.data.msg, icon: 'none'});
         }
       }
     })

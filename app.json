@@ -1,9 +1,10 @@
 {
 
   "pages": [ 
-    "pages/my/my", 
-    "pages/personalInfo/personalInfo", 
     "pages/releaseWorks/releaseWorks",
+    "pages/my/my",  
+    "pages/yuyueInfo/yuyueInfo",
+    "pages/joinWe/index",
     "pages/my_sy/index",
     "pages/recharge/index",
     "pages/userOrder/userOrder",
@@ -11,8 +12,8 @@
     "pages/myOrder/myOrder",
     "pages/evaluate/index",
     "pages/find/find",
+    "pages/personalInfo/personalInfo",
     "pages/myInfor/myInfor",
-    "pages/joinWe/index",
     "pages/login/login",
     "pages/enterTime/enterTime",
     "pages/vipCard/index",

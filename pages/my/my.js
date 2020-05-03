@@ -31,8 +31,15 @@ Page({
 
   gotoView: function(e){
     if(this.isLogin()){
+      let type = e.currentTarget.dataset.view
+      if(type == 'vipCard/index' && !this.data.wxUser.isVip){
+        wx.navigateTo({
+          url: '../recharge/index'
+        })
+        return false;
+      }
       wx.navigateTo({
-        url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
+        url: '/pages/' + type　// 页面 B
       })
     }
   },
@@ -81,29 +88,29 @@ Page({
     // if(wx.getStorageSync('userInfo') && wx.getStorageSync('tokenInfo') && wx.getStorageSync('tokenInfo').bindFlag && wx.getStorageSync('sessionInfo')){
     //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
     // }
-    
-  },
-
-  onLoad:function(){
     if(wx.getStorageSync('sessionInfo')){
       let that = this;
       let url = '';
       let avatarUrl = wx.getStorageSync('sessionInfo').avatarUrl
-     
-      this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
-      this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer,portraitUrl: avatarUrlFn(avatarUrl)})
+      if(!this.data.wxUser){
+        let showSheyingshi = wx.getStorageSync('sessionInfo').isPhotographer
+        this.setData({showSheyingshi: showSheyingshi})
+      }
+      this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag,portraitUrl: avatarUrlFn(avatarUrl)})
       if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
         wx.request({
           url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
           header: {"token": wx.getStorageSync('tokenInfo').token},
           method: 'GET',
           success (res) {
-            console.log('获取到登录信息')
             that.setData({wxUserInfo: res.data.biPhotographer});
           }
         })
       }
     }
+  },
+
+  onLoad:function(){
   },
 
   switchMy: function(){
