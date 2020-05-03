@@ -10,7 +10,7 @@ App({
        wx.getSetting({
         success: function(res) {
             if (res.authSetting['scope.userInfo']) {
-              return 
+              return false;
                 wx.getUserInfo({
                     success: function(res_Info) {
                       // 登录
@@ -44,7 +44,7 @@ App({
                       })
                     }
                 });
-            } W
+            } 
         }
     });
   },

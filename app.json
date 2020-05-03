@@ -1,9 +1,9 @@
 {
 
   "pages": [ 
+    "pages/my/my",  
     "pages/my_sy/index",
     "pages/recharge/index",
-    "pages/my/my",  
     "pages/userOrder/userOrder",
     "pages/yuyueInfo/yuyueInfo",
     "pages/myOrder/myOrder",
