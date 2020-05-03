@@ -6,13 +6,11 @@
     <view class="userInfo_title">
       <view class="userInfo_NameImg">
         <image src="{{biPhotographer.avatarUrl}}"></image>
-        <view>sunny</view>
-        <icon type="success" size="20"></icon>
       </view>
       <view class="userCount">
         <view>作品：350</view>
         <view class="userCount_line"></view>
-        <view>点评：350</view>
+        <view>点评：{{biPhotographer.successOrderNums}}</view>
       </view>
       <view class="numInfo">
         <view class="numInfo_title">
@@ -37,25 +35,42 @@
           {{item.name}}<label></label>
         </view>
       </view>
-      <view class="topBtn">管理</view>
+      <view class="topBtn" bindtap="switchManage" wx:if="{{showAddBtn}}">管理</view>
     </view>
     <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <video class="video" src="http://106.12.205.91:9000/sheying/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
+        <video class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
+         <image hidden="{{!isManage}}" class="deleteIcon" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" bindtap="deleteWork" data-param="{{item.id}}" />
         <view class="videoName">{{item.workName}}</view>
         <view class="author">
-          <view>Wyman</view>
           <view>评分：{{item.score}}</view>
         </view>
       </view>
     </view>
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <image class="video" src="http://106.12.205.91:9000/sheying/sys/file/previewImg?fileName={{item.fileName}}"></image>
-        <image class="deleteIcon" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+        <image class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}"></image>
+        <image hidden="{{!isManage}}" class="deleteIcon" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" bindtap="deleteWork"
+        data-param="{{item.id}}" />
       </view>
     </view>
   </view>
-  <view class="addWorks" bindtap="uploadWork">+</view>
+  <view class="showXuanze" hidden="{{hiddenPickBox}}">
+    <view class="imgBox">
+      <view>
+        <view class="boxshiping" >
+          <image src="../../img/shangchuanship.png" bindtap="pickWorkType" data-param="1" ></image>
+        </view>
+        <label>视频</label>
+      </view>
+      <view>
+        <view class="boxshiping" style="background: #fdc62c;">
+          <image src="../../img/shangchuantu.png" bindtap="pickWorkType" data-param="2"></image>
+        </view>
+        <label>图片</label>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{showAddBtn}}" class="addWorks" bindtap="uploadWork">+</view>
 </view>
 

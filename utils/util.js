@@ -357,5 +357,6 @@ module.exports = {
 	http:http,
 	switchLevel,
 	switchSex,
-	avatarUrlFn
+	avatarUrlFn,
+	uploadFile
 }

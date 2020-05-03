@@ -198,6 +198,8 @@ page{
   width: 34rpx;
   height: 34rpx;
   position: absolute;
+  right: 18rpx;
+  top:18rpx;
 }
 
 .noMargin{
@@ -233,5 +235,59 @@ page{
   left: 42%;
   border-radius: 50%;
   font-size: 100rpx;
+}
+
+.showXuanze{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .3);
+  display: flex;
+  justify-content: center;
+  z-index: 999;
+}
+
+.imgBox{
+  background-color: #fff;
+  position: absolute;
+  border: 100rpx;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  width: 60%;
+  bottom: 180rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.imgBox > view{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgBox label{
+  font-size: 26rpx;
+  font-weight: bold;
+  padding-bottom: 30rpx;
+}
+
+.boxshiping{
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #2c76fd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25rpx 0;
+}
+
+.imgBox image{
+  width: 60rpx;
+  height: 60rpx;
 }
 
