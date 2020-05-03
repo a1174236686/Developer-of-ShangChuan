@@ -51,11 +51,10 @@ Page({
                   header: {"token": data.data.token},
                   method: 'GET',
                   success (sessionInfo) {
-                    console.log('11111',sessionInfo)
                     if(sessionInfo.data.code == 0){
                       wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
-                      wx.reLaunch({url:"/pages/my/my"}) //关闭所有页面 打开行页面
-                      //wx.navigateBack({}); // 关闭当前页面，返回上一页面或多级页面
+                      //wx.reLaunch({url:"/pages/my/my"}) //关闭所有页面 打开行页面
+                      wx.navigateBack({}); // 关闭当前页面，返回上一页面或多级页面
                     }
                   }
                 })

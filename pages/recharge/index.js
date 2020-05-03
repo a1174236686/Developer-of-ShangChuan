@@ -12,7 +12,7 @@ Page({
   data: {
     serverUrl: serverUrl,
     formDataMap:{
-      pickNum:'￥8800',
+      pickNum: {},
       payMode:'微信支付',
     },
     pickNumData:{
@@ -58,7 +58,7 @@ Page({
             signType: payargs.signType,
             paySign: payargs.paySign,
             success (res) {
-              wx.navigateBack();
+              wx.showToast({ title: '充值成功', icon: 'success' });
             }
           })
         }
@@ -68,15 +68,26 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function (options) {
-    let res = await http.get("/packagecard/page");
-    if (res.code === 0) {
-      let data = this.data.pickNumData;
-      data.pickNumArr = res.page;
-      let json = this.data.formDataMap;
-      json.pickNum = res.page[0];
-      this.setData({pickNumData: data,formDataMap: json})
-    }
+  onLoad: function (options) {
+    this.getData()
+  },
+
+  getData: function() {
+    let that = this;
+    wx.request({
+      url: app.globalData.serverUrl + '/packagecard/page',
+      // header: {"token": wx.getStorageSync('tokenInfo')},
+      method: 'GET',
+      success (res) {
+        if (res.data.code === 0) {
+          let data = that.data.pickNumData;
+          data.pickNumArr = res.data.page;
+          let json = that.data.formDataMap;
+          json.pickNum = res.data.page[0];
+          that.setData({pickNumData: data,formDataMap: json})
+        }
+      }
+    })
   },
 
   /**

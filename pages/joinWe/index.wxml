@@ -45,7 +45,7 @@
 			<view class="picker">
 				{{formDataMap[mapping].label}}
 				<!-- <icon type="success" size="20" /> -->
-				<image src="{{serverUrl}}/statics/image/seximage.png" class="img"></image>
+				<image src="{{serverUrl}}/statics/image/seximage.png" style="width: 24rpx;height: 20rpx" class="img"></image>
 			</view>
 		</picker>
 	</view>
