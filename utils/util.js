@@ -226,6 +226,56 @@ const switchJSON= json => {
 			return this.init({url:url,method:"GET",data:data})
 		}
 	}
+	//根据id去重合并
+	Array.prototype.qcConcat = function(array,key){
+		let list = this;
+		if(list.length===0){
+			return array;
+		}
+		for(let i = 0 ; i < array.length ; i ++){
+			let item = array[i];
+			let bool = false;
+			if(key){
+				//根据id
+				bool =  list.findIndex(it=>it[key]===item[key])===-1; //不在里面
+			}else{
+				bool =  list.findIndex(it=>it===item)===-1; //不在里面
+			}
+			if(bool){
+				list.push(item);
+			}
+		}
+		return list;
+		 
+ }
+
+	//上传文件
+	const uploadFile = (path)=>{
+		return new Promise((re,rj)=>{
+		 let tokenInfo = wx.getStorageSync('tokenInfo')
+		 wx.uploadFile({
+				 url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
+				 header: { 'token': tokenInfo.token },
+				 filePath: path,
+				 method: 'post',
+				 name: 'file',
+				 success:(res)=>{
+						 let resInfo = JSON.parse(res.data);		
+						 if(resInfo.code===0){
+								 re(resInfo);
+						 }else{
+							 rj()
+						 }
+						
+				 },
+				 fail(error){
+					 rj();
+				 }
+		 })
+
+		})
+ }
+
 
 	//根据id去重合并
 	Array.prototype.qcConcat = function(array,key){
@@ -280,6 +330,22 @@ const switchJSON= json => {
 	}
 
 
+	//返回图片地地址
+	const avatarUrlFn = (url)=>{
+	//	console.log('url',url);
+		const serverUrl = app.globalData.serverUrl;
+		console.log(serverUrl)
+		try {
+			if(url.indexOf('https') !=-1 || url.indexOf('http') !=-1){
+				return url
+			}else{
+				return serverUrl+'/sys/file/previewImg?fileName='+url;
+			}
+		} catch (error) {
+			return '';
+		}
+	}
+
 
 	
 
@@ -290,5 +356,6 @@ module.exports = {
 	switchJSON: switchJSON,
 	http:http,
 	switchLevel,
-	switchSex
+	switchSex,
+	avatarUrlFn
 }

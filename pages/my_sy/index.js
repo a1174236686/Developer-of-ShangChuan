@@ -1,5 +1,5 @@
 // pages/my_sy/index.js
-import {updateCalendar} from '../../utils/util';
+import {updateCalendar,avatarUrlFn} from '../../utils/util';
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -14,6 +14,7 @@ Page({
       {url:"../../static/l1.png",id:"2",mode:"aspectFill"},
       {url:"../../static/l1.png",id:"3",mode:"scaleToFill"}
     ],
+    showChengg: false,
     name: {},
     imgUrls: [
       "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=231620273,2622968107&fm=27&gp=0.jpg",
@@ -54,6 +55,7 @@ Page({
     this.setData({name: app.globalData.userInfo});
     let list = [];
     let nowDate = new Date();
+   
     this.setData({currentY: nowDate.getFullYear(),currentM: nowDate.getMonth() + 1,currentD: nowDate.getDate()});
     this.setData({currentDate: [nowDate.getFullYear(),nowDate.getMonth() + 1,nowDate.getDate()]})
     
@@ -76,6 +78,10 @@ Page({
     })
   },
 
+  closeChengg(){
+    this.setData({showChengg: false})
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -88,9 +94,19 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (e) {
+    if(wx.getStorageSync('yuyuechenggong')){
+      this.setData({showChengg: true});
+      wx.removeStorageSync('yuyuechenggong');
+    }
     this.getData();
     this.setData({showDate: false})
+  },
+
+  becomeVip(){
+    wx.navigateTo({
+      url: '../recharge/index',
+    })
   },
 
   getData(){
@@ -104,9 +120,14 @@ Page({
         limit: 15
       },
       success (res) {
-        if(res.data.data.length){
+        if(res.data.data.list.length){
           let arr = that.data.sheying;
-          arr = arr.concat(res.data.data);
+          arr = arr.qcConcat(res.data.data.list,'userCode');
+          //console.log(arr);
+          for(let i = 0 ; i < arr.length ; i ++){
+            let item = arr[i];
+            item.avatarUrl = avatarUrlFn(item.avatarUrl);
+          }
           that.setData({sheying: arr});
         }
       }

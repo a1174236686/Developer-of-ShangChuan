@@ -9,9 +9,9 @@
   <view class="orderList">
     <view class="orderItem" wx:for="{{orderList}}" wx:key="index">
       <view class="orderItem_name">
-        <image class="orderItem_name_Head" src="{{serverUrl}}/statics/image/toux.png"></image>
-        <view class="orderItem_name_Text">{{item.customerName}}</view>
-        <image class="orderItem_name_Call" src="{{serverUrl}}/statics/image/toux.png"></image>
+        <image class="orderItem_name_Head" src="{{item.photographerPhoto}}"></image>
+        <view class="orderItem_name_Text">{{item.photographerName}}</view>
+        <view class="orderItem_name_Call"><image bindtap="makePhoneCall" data-item="{{item}}" src="../../img/PhoneCall.png"></image></view>
         <view wx:if="{{currentType == 1 && item.status == 1}}" class="orderItem_name_wait">待摄影师确认</view>
         <!-- <view wx:if="{{currentType == 1}}" class="orderItem_name_wait">待摄影师确认</view> -->
       </view>
@@ -20,7 +20,7 @@
           <label>预约时间：</label><view>{{item.appointStartTime}} 至</view><view style="margin-left: 10rpx;">{{item.appointEndTime}}</view>
         </view>
         <view class="orderItem_Time">
-          <label>拍摄地点：</label><view>{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.address}}</view>
+          <label>拍摄地点：</label><view>{{item.province}}{{item.city}}{{item.area}}{{item.address}}</view>
         </view>
         <view class="orderItem_Time">
           <label>拍摄对象：</label><view>{{item.target}}</view>
@@ -30,8 +30,8 @@
           </view>
           <view class="orderItem_Customer_right">
             <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_cancel" bindtap="cancelOrider" data-item="{{item}}" data-index="{{index}}">取消预约</view>
-            <view wx:if="{{currentType === '3'}}" class="orderItem_Customer_cancel">立即评价</view>
-            <view wx:if="{{currentType === '2'}}" class="orderItem_Customer_enter">核销码</view>
+            <view wx:if="{{currentType === '3'}}" class="orderItem_Customer_cancel" data-item="{{item}}" bindtap="goToEvaluation">立即评价</view>
+            <view wx:if="{{currentType === '2'}}" class="orderItem_Customer_enter" data-item="{{item}}" bindtap="showHidden">核销码</view>
           </view>
         </view>
       </view>
@@ -39,6 +39,15 @@
   </view>
 
   <view class="nodata" wx:if="{{!orderList.length}}">
-    <image src="{{serverUrl}}/statics/image/noData.png"></image>
+    <image src="../../img/noData.png"></image>
   </view>
+
+ <!-- 二维码  -->
+  <view class="modal-view" hidden="{{cardNoVisible}}" bindtap="showHidden">
+    <view class="modal">
+        <view class="title">二维码</view>
+     <canvas class='canvas' canvas-id='canvas' bindlongtap='save'></canvas>
+    </view>
+  </view>
+
 </view>

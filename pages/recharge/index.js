@@ -1,13 +1,19 @@
 // pages/recharge/index.js
+const app = getApp()
+const serverUrl = app.globalData.serverUrl;
+import {
+  http
+} from '../../utils/util'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    serverUrl: serverUrl,
     formDataMap:{
-      pickNum:'￥30000',
-      payMode:'支付宝',
+      pickNum:'￥8800',
+      payMode:'微信支付',
     },
     pickNumData:{
       pickNumTit:"支付金额",
@@ -15,11 +21,7 @@ Page({
        * value映射formDataMap.pickNum
        * 选中意味着的formDataMap值为相应value属性的值
        */
-      pickNumArr:[
-        {frequency:'6次',Quota:'￥8800',value:'￥8800'},
-        {frequency:'12次',Quota:'￥15000',value:'￥15000'},
-        {frequency:'24次',Quota:'￥30000',value:'￥30000'},
-      ],
+      pickNumArr:[],
     },
     payModeData:{
       payModeTit:"支付方式",
@@ -29,17 +31,52 @@ Page({
        */
       payModeArr:[
         {text:"微信支付",value:'微信支付'},
-        {text:"支付宝",value:'支付宝'},
-        {text:"银联",value:'银联'},
       ],
     },
+  },
+
+  enterPlay: function() {
+    let that = this
+    const json = this.data.formDataMap.pickNum
+      wx.request({
+        url: that.data.serverUrl + "/wxuser/createOrder",
+        data: {
+          amount: json.price,
+          packageCardId: json.id
+        },
+        method: "POST",
+        header: {
+          'Content-Type': "application/json",
+          'token': wx.getStorageSync('tokenInfo').token
+        },
+        success: function (res) {
+          const payargs = res.data.order
+          wx.requestPayment({
+            timeStamp: payargs.timeStamp,
+            nonceStr: payargs.nonceStr,
+            package: payargs.packageValue,
+            signType: payargs.signType,
+            paySign: payargs.paySign,
+            success (res) {
+              wx.navigateBack();
+            }
+          })
+        }
+      })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: async function (options) {
+    let res = await http.get("/packagecard/page");
+    if (res.code === 0) {
+      let data = this.data.pickNumData;
+      data.pickNumArr = res.page;
+      let json = this.data.formDataMap;
+      json.pickNum = res.page[0];
+      this.setData({pickNumData: data,formDataMap: json})
+    }
   },
 
   /**
@@ -53,7 +90,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
@@ -97,5 +133,4 @@ Page({
     formDataMap.pickNum=param;
     this.setData({formDataMap})
   }
-  
 })

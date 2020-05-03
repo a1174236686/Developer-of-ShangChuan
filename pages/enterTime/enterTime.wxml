@@ -19,9 +19,9 @@
     module.exports = {
       isActive: function(start,end,item,newDate){
         if(start.length && end.length){
-          var startTime = getDate(start[0]+ '-' +start[1]+ '-' +start[2]+ '-' + start[3]).getTime();
-          var endTime = getDate(end[0]+ '-' +end[1]+ '-' +end[2]+ '-' + end[3]).getTime();
-          var itemTime = getDate(item[0]+ '-' +item[1]+ '-' +item[2]+ '-' + item[3]).getTime()
+          var startTime = getDate(start[0]+ '/' +start[1]+ '/' +start[2]+ ' ' + start[3]).getTime();
+          var endTime = getDate(end[0]+ '/' +end[1]+ '/' +end[2]+ ' ' + end[3]).getTime();
+          var itemTime = getDate(item[0]+ '/' +item[1]+ '/' +item[2]+ ' ' + item[3]).getTime()
           if(endTime > itemTime && itemTime > startTime){
             return true
           }

@@ -1,4 +1,5 @@
 // pages/my/my.js
+import {avatarUrlFn} from '../../utils/util'
 const app = getApp()
 const serverUrl = app.globalData.serverUrl
 Page({
@@ -10,6 +11,7 @@ Page({
     serverUrl: serverUrl,
     phoneNum: '',
     wxUser: '',
+    portraitUrl: '',
     tokenInfo: null,
     showSheyingshi: '0',
     optionsList:[
@@ -21,7 +23,7 @@ Page({
     optionsUserList:[
       {label: '我的评价',id: 'myEvaluate/myEvaluate',src: serverUrl + '/statics/image/evaluate.png'},
       {label: '邀请奖励',id: 'myWallet/myWallet',src: serverUrl + '/statics/image/reward.png'},
-      {label: '作品管理',id: 'personalInfo/personalInfo',src: serverUrl + '/statics/image/works.png'},
+      {label: '作品管理',id: 'personalInfo/aaa',src: serverUrl + '/statics/image/works.png'},
       {label: '我的资料',id: 'myInfor/myInfor',src: serverUrl + '/statics/image/data.png'}
     ],
     wxUserInfo: {videoWorkNum: 0,photoWorkNum: 0}
@@ -85,8 +87,11 @@ Page({
   onLoad:function(){
     if(wx.getStorageSync('sessionInfo')){
       let that = this;
+      let url = '';
+      let avatarUrl = wx.getStorageSync('sessionInfo').avatarUrl
+     
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag})
-      this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer})
+      this.setData({showSheyingshi: wx.getStorageSync('sessionInfo').isPhotographer,portraitUrl: avatarUrlFn(avatarUrl)})
       if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
         wx.request({
           url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
@@ -94,7 +99,7 @@ Page({
           method: 'GET',
           success (res) {
             console.log('获取到登录信息')
-            that.setData({wxUserInfo: res.data.data});
+            that.setData({wxUserInfo: res.data.biPhotographer});
           }
         })
       }

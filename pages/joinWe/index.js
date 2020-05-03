@@ -42,11 +42,11 @@ Page({
      */
     formData: [
       { label: '姓名', placeholder: '请输入您的真实姓名', mapping: 'name' },
-      { label: '性别', render: 'sex', mapping: 'sex', arr: [{ key: '男', map: { label: '男', key: '1' } }, { key: '女', map: { label: '女', key: '2' } }] },
+      { label: '性别', render: 'sex', mapping: 'sex', arr: [{ key: '男', map: { label: '男', key: '1' } }, { key: '女', map: { label: '女', key: '2' } }],serverUrl },
       { label: '电话', placeholder: '请输入您的电话号码', mapping: 'PhoneNumber' },
-      { label: '出身日期', render: 'pickerDate', mapping: 'birthday' },
+      { label: '出身日期', render: 'pickerDate', mapping: 'birthday',serverUrl },
       { label: '身份证号码', placeholder: '请输入您的身份证号码', mapping: 'id' },
-      { label: '地址', render: 'adress', mapping: 'adrees' },
+      { label: '地址', render: 'adress', mapping: 'adrees' ,serverUrl},
     ],
 
     IDImgData: [
@@ -55,6 +55,7 @@ Page({
     ],
   },
   onLoad: function () {
+    console.log(serverUrl)
     // console.log(wx.getStorageSync('tokenInfo'))
     console.log(wx.getStorageSync('sessionInfo'))
     let formDataN = this.data.formDataMap
