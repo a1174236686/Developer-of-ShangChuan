@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "rate": "/components/rate/index"
+  },
   "navigationBarTitleText": "我的评价"
 }
