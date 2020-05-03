@@ -3,7 +3,7 @@
   <view class="top-box">
   <!-- 地址 -->
     <view class="address">
-      <view>深圳</view>
+      <view>深圳</view>z
       <image src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
     </view>
     <!-- 输入 -->
