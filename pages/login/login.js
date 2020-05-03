@@ -19,6 +19,11 @@ Page({
   },
 
   bindGetUserInfo: function(e) {
+    //1.判断是否允许授权
+    //2.存储微信数据userInfo
+    //3.调取wx.login得到一个code
+    //4.拿到微信的code之后在请求java后台的登录接口得到tokenInfo
+    //5.拿到token取session
     console.log(e.detail.userInfo)
     if (e.detail.userInfo) {
         //用户按了允许授权按钮
@@ -67,7 +72,7 @@ Page({
         //用户按了拒绝按钮
         wx.showModal({
             title: '警告',
-            content: '您点击了拒绝授权，将无法进入小程序，请授权之后再进入!!!',
+            content: '您点击了拒绝授权，请授权之后再进入!!!',
             showCancel: false,
             confirmText: '返回授权',
             success: function(res) {

@@ -17,9 +17,9 @@ Page({
     optionsList:[
       {label: '我的预约',id: 'userOrder/userOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
-      {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
-      {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'}
+      {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'}
     ],
+    sysObject: {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'},
     optionsUserList:[
       {label: '我的评价',id: 'myEvaluate/myEvaluate',src: serverUrl + '/statics/image/evaluate.png'},
       {label: '邀请奖励',id: 'myWallet/myWallet',src: serverUrl + '/statics/image/reward.png'},
@@ -92,12 +92,12 @@ Page({
       let that = this;
       let url = '';
       let avatarUrl = wx.getStorageSync('sessionInfo').avatarUrl
-      if(!this.data.wxUser){
-        let showSheyingshi = wx.getStorageSync('sessionInfo').isPhotographer
-        this.setData({showSheyingshi: showSheyingshi})
-      }
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag,portraitUrl: avatarUrlFn(avatarUrl)})
-      if(wx.getStorageSync('sessionInfo').isPhotographer == '1'){
+      let showSheyingshi = wx.getStorageSync('sessionInfo').isPhotographer
+      if(showSheyingshi == '1'){
+        if(!wx.getStorageSync('sessionInfo')){
+          this.setData({showSheyingshi: showSheyingshi});
+        }
         wx.request({
           url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
           header: {"token": wx.getStorageSync('tokenInfo').token},
@@ -106,6 +106,10 @@ Page({
             that.setData({wxUserInfo: res.data.biPhotographer});
           }
         })
+      }else{
+         let optionsList = this.data.optionsList;
+          optionsList.qcConcat([this.data.sysObject],'id');
+          this.setData({optionsList});
       }
     }
   },

@@ -2,8 +2,8 @@
   <image class="clubCardImg" src="{{serverUrl}}/statics/image/card.png"></image>
   <view class="clubCardTwo">
     <image class="cardText" src="{{serverUrl}}/statics/image/cardText.png"></image>
-    <view class="numText">{{number}}</view>
-    <image class="recharge" src="{{serverUrl}}/statics/image/recharge.png"></image>
+    <view class="numText">NO.{{number}}</view>
+    <image class="recharge" bindtap="gotoRecharge" src="{{serverUrl}}/statics/image/recharge.png"></image>
     <image class="medal" src="{{serverUrl}}/statics/image/medal.png"></image>
     <image class="Lv" src="{{serverUrl}}/statics/image/Lv.png"></image>
     <view class="grade">{{grade}}</view>
@@ -11,27 +11,27 @@
 </view>
 <view class="bigBox">
   <view class="box">
-    <view class="boxNum boxNumOne">6</view>
+    <view class="boxNum boxNumOne">{{vipData.remainingTimes}}</view>
     <view class="boxNum boxNumTwo">剩余次数</view>
   </view>
   <view class="box" style="margin-left:18rpx;">
-    <view class="boxNum boxNumOne">3</view>
+    <view class="boxNum boxNumOne">{{vipData.usedTimes}}</view>
     <view class="boxNum boxNumTwo">累计使用</view>
   </view>
   <view class="box" style="margin-left:18rpx;">
-    <view class="boxNum boxNumOne">3</view>
+    <view class="boxNum boxNumOne">{{vipData.rechargeTimes}}</view>
     <view class="boxNum boxNumTwo">累计充值</view>
   </view>
 </view>
 <view class="text">
   <view class="iconText"><image class="icon" src="{{serverUrl}}/statics/image/icon.png"></image>使用须知：</view>
   <view class="iconText">
-    1. 这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字...
+    1. 本卡不兑换现金；不能透支；可退余额；不计息。
   </view>
   <view class="iconText">
-    2. 这里是文字这里是文字这里是文字这里是文字这里是文字
+    2. 网实行会员卡实名制，一人一卡，不得转借他人使用。
   </view>
   <view class="iconText">
-    3. 这里是文字这里是文字这里是文字这里是文字这里是文字 这里是文字这里是文字...
+    3. 网保留修改、变更、收回此卡的权利，并保留对此卡的最终解释权。
   </view>
 </view>
