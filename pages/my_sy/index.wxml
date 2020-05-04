@@ -3,8 +3,13 @@
   <view class="top-box">
   <!-- 地址 -->
     <view class="address">
-      <view>深圳</view>
-      <image src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
+      <picker style="flex: 1;text-align: right;" mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+        <view class="picker">
+          <label wx:if="{{region.length}}">{{region[1]}}</label>
+          <label wx:else>位置</label>
+          <image class="addressImage" src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
+        </view>
+      </picker>
     </view>
     <!-- 输入 -->
     <view class="input-box">
@@ -56,7 +61,7 @@
       </view>
     </view>
   </view>
-  <view class="BecomeVip" bindtap="becomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
+  <view wx:if="{{wxUser && !wxUser.isVip}}" class="BecomeVip" bindtap="becomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
 </view>
 <!-- 摄影师列表结束 -->
   <view class="weekTitle" wx:if="{{showDate}}">
@@ -74,7 +79,7 @@
   <view class="yuyuechengg" wx:if="{{showChengg}}">
     <view class="content-info">
       <view class="close" bindtap="closeChengg"><mp-icon icon="close" color="#fff" size="{{25}}"></mp-icon></view>
-      <image src="../../img/yuyuegongg.png"></image>
+      <image src="{{serverUrl}}/statics/image/yuyuegongg.png"></image>
       <view class="enter" bindtap="closeChengg"></view>
     </view>
   </view>

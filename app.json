@@ -1,21 +1,21 @@
 {
 
   "pages": [ 
-    "pages/releaseWorks/releaseWorks",
-    "pages/my/my",  
-    "pages/yuyueInfo/yuyueInfo",
-    "pages/joinWe/index",
     "pages/my_sy/index",
+    "pages/myInfor/myInfor",
+    "pages/enterTime/enterTime",
+    "pages/evaluate/index",
+    "pages/index/index",
+    "pages/my/my",  
+    "pages/releaseWorks/releaseWorks",
+    "pages/joinWe/index",
     "pages/recharge/index",
     "pages/userOrder/userOrder",
     "pages/yuyueInfo/yuyueInfo",
     "pages/myOrder/myOrder",
-    "pages/evaluate/index",
     "pages/find/find",
     "pages/personalInfo/personalInfo",
-    "pages/myInfor/myInfor",
     "pages/login/login",
-    "pages/enterTime/enterTime",
     "pages/vipCard/index",
     "pages/myEvaluate/myEvaluate",
     "pages/withdrawal/withdrawal",
@@ -38,12 +38,23 @@
     "borderStyle": "white",
     "selectedColor": "#ED2B2B",
     "list": [
-
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./img/shouyeA.png",
+        "selectedIconPath": "img/shouye.png"
+      },
       {
         "pagePath": "pages/my_sy/index",
         "text": "摄影师",
         "iconPath": "./img/zhanshisheyingshiA.png",
         "selectedIconPath": "img/zhanshisheyingshi.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "text": "发现",
+        "iconPath": "./img/faxianA.png",
+        "selectedIconPath": "img/faxian.png"
       },
       {
         "pagePath": "pages/my/my",

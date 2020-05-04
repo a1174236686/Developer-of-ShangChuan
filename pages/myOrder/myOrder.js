@@ -1,7 +1,8 @@
 // pages/myOrder/myOrder.js
 const app = getApp();
 import {
-  http
+  http,
+  avatarUrlFn
 } from '../../utils/util'
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -24,10 +25,6 @@ Page({
       name: '已完成',
       type: '4'
     }], //tab
-    // waitOrderList: [],//待接单
-    // waitShotList:[],//待拍摄
-    // alreadyCompleteList: [],//已拍摄
-    // alreadyShotList: [],//已完成
     orderList: [],
     currentType: '1',
     page: 1
@@ -88,6 +85,10 @@ Page({
             let newArray = res.data.data;
             //根据id去重 qcConcat 见 util js
             arr = arr.qcConcat(newArray, 'orderId');
+            for(let i = 0 ; i < arr.length ; i ++){
+              let item = arr[i];
+              item.customerPhoto = avatarUrlFn(item.customerPhoto);
+            }
             that.setData({
               orderList: arr
             });

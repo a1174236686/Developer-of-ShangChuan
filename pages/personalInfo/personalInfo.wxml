@@ -8,7 +8,7 @@
         <image src="{{biPhotographer.avatarUrl}}"></image>
       </view>
       <view class="userCount">
-        <view>作品：350</view>
+        <view>作品：{{biPhotographer.photoWorkNum + biPhotographer.videoWorkNum}}</view>
         <view class="userCount_line"></view>
         <view>点评：{{biPhotographer.successOrderNums}}</view>
       </view>
@@ -23,7 +23,7 @@
         </view>
         <view class="countScore">
           <view>总评分：</view>
-          <view><rate disabled score="{{biPhotographer.total_score}}" /></view>
+          <view style="line-height: 22rpx;"><rate disabled score="{{biPhotographer.score}}" /></view>
         </view>
       </view>
     </view>
@@ -40,7 +40,7 @@
     <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
         <video class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
-         <image hidden="{{!isManage}}" class="deleteIcon" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" bindtap="deleteWork" data-param="{{item.id}}" />
+         <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork" data-param="{{item.id}}" />
         <view class="videoName">{{item.workName}}</view>
         <view class="author">
           <view>评分：{{item.score}}</view>
@@ -50,13 +50,13 @@
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
         <image class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}"></image>
-        <image hidden="{{!isManage}}" class="deleteIcon" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" bindtap="deleteWork"
+        <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork"
         data-param="{{item.id}}" />
       </view>
     </view>
   </view>
-  <view class="showXuanze" hidden="{{hiddenPickBox}}">
-    <view class="imgBox">
+  <view class="showXuanze" hidden="{{hiddenPickBox}}" bindtap="closeAdd">
+    <view class="imgBox" catchtap="noClick">
       <view>
         <view class="boxshiping" >
           <image src="../../img/shangchuanship.png" bindtap="pickWorkType" data-param="1" ></image>

@@ -57,12 +57,20 @@ Page({
     })
   },
 
+  closeAdd:function(){
+    this.setData({hiddenPickBox: true});
+  },
+
+  noClick: function(){
+    return false
+  },
+
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    wx.showToast({ title: '加载中....', icon: 'loading' });
+    //wx.showToast({ title: '加载中....', icon: 'loading' });
     this.getWork()
   },
 
@@ -97,7 +105,7 @@ Page({
         const index = currentVideoList.length;
         const resLength = list.length;
         if (index == total) {
-          wx.showToast({ title: '我是有底线的。。。', icon: 'none' });
+          //wx.showToast({ title: '我是有底线的。。。', icon: 'none' });
           return;
         }
         const resVideoList = list;
@@ -131,7 +139,7 @@ Page({
         const index = currentImgList.length;
         const resLength = list.length;
         if (index == total) {
-          wx.showToast({ title: '我是有底线的。。。', icon: 'none' });
+          // wx.showToast({ title: '我是有底线的。。。', icon: 'none' });
           return;
         }
         const imgList = currentImgList.qcConcat(list, 'id');

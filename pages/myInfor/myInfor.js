@@ -1,23 +1,31 @@
 // pages/myInfor/myInfor.js
 const app = getApp();
+import {getSession} from '../../utils/login'
+const serverUrl = app.globalData.serverUrl;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    serverUrl: serverUrl,
     headerImg:'../../img/faxian.png',
     postImg:'',
     cameramanId:'',
     userMsg:'',//info信息
     infoList: [
-      {icon: '',name: '姓名', value: '张三', type: 'name'},
-      {icon: '',name: '性别', value: '李四', type: 'sex',sexType:''},
-      {icon: '',name: '出生日期', value: '王五', type: 'date'},
-      {icon: '',name: '电话', value: '六六', type: 'phone'},
-      {icon: '',name: '区域', value: {value:'DDD'}, type: 'region'}],
-      noEdit: true,
-      sexArr: [{ key: '男', map: { label: '男', key: '1' } }, { key: '女', map: { label: '女', key: '2' } }] 
+      {icon: serverUrl + '/statics/image/xingming.png',name: '姓名', value: '', type: 'name',key: 'nickName'},
+      {icon: serverUrl + '/statics/image/nvx.png',name: '性别', value: '', type: 'sex',sexType:'',key: 'gender'},
+      {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',key: 'birthDate'},
+      {icon: serverUrl + '/statics/image/shouji.png',name: '电话', value: '', type: 'phone',key: 'phone'},
+      {icon: serverUrl + '/statics/image/quyu.png',name: '区域', value: {value:'DDD'}, type: 'region'}],
+      noEdit: false, 
+      region: [],
+      date: '',
+      sexText: '',
+      regionCode: [],
+      sexArray: ['男','女'],
+      sexIndex: 0 
   },
 
   
@@ -28,10 +36,6 @@ Page({
   postImg:function(){
     let noEdit =this.data.noEdit
     let that = this
-    // if(noEdit){
-    //   console.log('我点击修改不能用')
-    // }else{
-      console.log('我要修改图片')
       if(!noEdit){
         wx.chooseImage({
           count: 1,
@@ -67,92 +71,49 @@ Page({
   },
   //修改出生日期
   bindDataChange:function(e){
-    console.log(e.detail.value)
-    let msgM = this.data.infoList
-    msgM[2].value = e.detail.value
-    this.setData({
-      infoList:msgM
-    })
+    this.setData({date: e.detail.value})
   },
   //修改地址
   open:function(e){
-    console.log(e)
-    let msgM = this.data.infoList
-    msgM[4].value = e.detail
-    this.setData({
-      infoList:msgM
-    })
+    this.setData({region: e.detail.value,regionCode: e.detail.code})
   },
   //修改性别
   sexSelect:function(e){
-    console.log(e)
-    let msgM = this.data.infoList
-    console.log(this.data.infoList)
-    msgM[1].value = this.data.sexArr[e.detail.value].map.label
-    msgM[1].sexType = this.data.sexArr[e.detail.value].map.key
-    this.setData({
-      infoList:msgM
-    })
-  },
-  inputValue:function(e){
-    console.log(e)
-    let msgM = this.data.infoList
-    console.log(this.data.infoList)
-    if(e.currentTarget.dataset.value == 'name'){
-      msgM[0].value = e.detail.value
-    }else if(e.currentTarget.dataset.value == 'phone'){
-      msgM[3].value = e.detail.value
-    }
-    // msgM[0].value = e.detail.value
-    this.setData({
-      infoList:msgM
-    })
+    this.setData({sexIndex: e.detail.value})
   },
   formSubmit: function (e) {
-    wx.showNavigationBarLoading();
     let vm = this;
-    setTimeout(function(){
-      vm.setData({noEdit: !vm.data.noEdit})
-      wx.hideNavigationBarLoading() //完成停止加载
-    },2000)
-    console.log(e)
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
-    console.log(this.data.infoList)
-    let upDate = [];
-    upDate.header = this.data.postImg
-    upDate.name = e.detail.value.name
-    upDate.sex = this.data.infoList[1].sexType
-    upDate.time = this.data.infoList[2].value
-    upDate.phone = e.detail.value.phone
-    upDate.adress = this.data.infoList[4].value.code
-    upDate.cameramanId = this.data.cameramanId
-    // upDate.isPhotographer = userMsg.isPhotographer
-    console.log(upDate)
-    for(let key in upDate){
-      if(!upDate[key] && !upDate[key].length){
+    let data = {
+      open_id: this.data.cameramanId,//用户ID
+      nick_name: e.detail.value.name,//姓名
+      avatar_url: this.data.postImg,//头像
+      province: this.data.regionCode[0] || '', //省编码
+      city: this.data.regionCode[1] || '',//市编码
+      area: this.data.regionCode[2] || '',//区编码
+      gender: this.data.sexArray[this.data.sexIndex] == '男' ? '1' : '2',//性别
+      phone: e.detail.value.phone,//手机号码
+      birth_date: this.data.date,//出生年月
+    }
+    if(this.data.userMsg.isPhotographer == 1){
+      data.address = e.detail.value.address;
+      data.target = e.detail.value.target;
+    }
+    for(let key in data){
+      if(!data[key] && !data[key].length){
+        wx.showToast({ title: '请完善数据！', icon: 'none' });
         return false
       }
     }
-    console.log('456')
     let tokenInfo = wx.getStorageSync('tokenInfo')
     wx.request({
       url: app.globalData.serverUrl + '/wxuser/update',
       header: { 'token': tokenInfo.token },
       method: 'post',
-      data: {
-        open_id:upDate.cameramanId,//用户ID
-        nick_name: upDate.name,//姓名
-        avatar_url:upDate.header,//头像
-        province:upDate.adress[0], //省编码
-        city: upDate.adress[1],//市编码
-        area:upDate.adress[2],//区编码
-        gender: upDate.sex,//性别
-        phone: upDate.phone,//手机号码
-        birth_date: upDate.time,//出生年月
-      },
-
-      success: function (result) {
-        console.log(result)
+      data: data,
+      success: async function (result) {
+        let wxUser =  await getSession();//获取session
+        wx.setStorageSync('sessionInfo',wxUser);
+        wx.navigateBack();
       }
     })
   },
@@ -160,23 +121,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(wx.getStorageSync('sessionInfo'))
-    let msg = wx.getStorageSync('sessionInfo')
-    let userMsg = wx.getStorageSync('sessionInfo')
-    let msgM = this.data.infoList
-    msgM[0].value = msg.nickName
-    msgM[1].value = msg.gender == 1 ? '男' : '女'
-    msgM[1].sexType = msg.gender
-    msgM[2].value = '1997-02-11'
-    msgM[3].value = msg.phone
-    msgM[4].value.value = msg.country
-    this.setData({
-      infoList:msgM,
-      headerImg:msg.avatarUrl,
-      postImg:msg.avatarUrl,
-      cameramanId:userMsg.openId,
-      userMsg:userMsg
-    })
   },
 
   /**
@@ -190,7 +134,31 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let arr = this.data.infoList;
+    let obj =  wx.getStorageSync('sessionInfo')
+    if(obj.isPhotographer == 1){
+      let arr = this.data.infoList;
+      let arr2 = [
+      {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address'},
+      {icon: serverUrl + '/statics/image/paishe.png',name: '拍摄对象', value: '', type: 'target'}]
+      arr.qcConcat(arr2,'type')
+      this.setData({infoList: arr})
+    }
+    for(let i = 0;i < arr.length;i++){
+      let item = arr[i];
+      item.value =  obj[item.key] || ''
+    }
+    let regionCode = obj.area ? [obj.province || '',obj.city || '',obj.area || ''] : []
+    this.setData({
+      infoList:arr,
+      headerImg: obj.avatarUrl,
+      postImg: obj.avatarUrl,
+      cameramanId: obj.openId,
+      userMsg: obj,
+      date: obj.birthDate,
+      sexIndex: obj.gender == 1 ? 0 : 1,
+      regionCode: regionCode
+    })
   },
 
   /**

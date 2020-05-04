@@ -11,7 +11,7 @@
       </view>
       <view class="countScore" style="font-size: 22rpx">
         <label>总评分：</label>
-        <view><rate disabled score="{{yuyueData.score}}" /></view>
+        <view style="line-height: 22rpx;"><rate disabled score="{{yuyueData.score}}" /></view>
       </view>
     </view>
   </view>
