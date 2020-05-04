@@ -1,6 +1,6 @@
-page{
+/* page{
   background-color: #fff;
-}
+} */
 .swiper-block {
   background: #fff;
   height: 410rpx;

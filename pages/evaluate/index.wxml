@@ -36,7 +36,7 @@
 				</view>
 				<view class="totalScore">
 						<text class="tltle">总评分:</text>
-						<rate disabled score="{{info.score || 0}}" />
+						<rate style="line-height: 22rpx;" disabled score="{{info.score || 0}}" />
 				</view>
 		</view>
 </template>

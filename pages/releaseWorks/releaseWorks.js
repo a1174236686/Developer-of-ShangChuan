@@ -57,10 +57,14 @@ Page({
    */
   uploadImg: function () {
     let vm = this;
-    wx.chooseImage({sourceType: 'album',
+    wx.chooseImage({
+    sourceType: ['album', 'camera'],
+    count: 1,
     success:async function(e){
       const Path = e.tempFilePaths[0];
+      wx.showLoading({title: '上传中...',})
       const res =  await uploadFile(Path);
+      wx.hideLoading();
       const fileName = res.fileName;
       const imgSrc = `${app.globalData.serverUrl}/sys/file/previewImg?fileName=${fileName}`;
       vm.setData({imgSrc,fileName})
@@ -79,8 +83,9 @@ Page({
       camera: 'back',
       success: async e => {
         const Path = e.tempFilePath;
-        wx.showToast({ title: '上传中...', icon: 'loading',mask:true});
+        wx.showLoading({title: '上传中...',})
         const res =  await uploadFile(Path);
+        wx.hideLoading();
         const videoFileName = res.fileName;
         const videoSrc = `${app.globalData.serverUrl}/sys/file/previewImg?fileName=${videoFileName}`;
         const formDataMap = {...this.data.formDataMap,videoFileName}
@@ -115,14 +120,7 @@ Page({
       fileName: fileName,
       photographerCode
     }});
-    wx.navigateTo({
-      url: '/pages/personalInfo/personalInfo',
-      success: function(res) {
-        res.eventChannel.emit('photographerCode', {
-            photographerCode
-          })
-      }
-    })
+    wx.navigateBack()
   },
 
   addVideo:async function (){
@@ -133,17 +131,14 @@ Page({
       fileName: videoFileName,
       photographerCode
     }});
-    wx.navigateTo({
-      url: '/pages/personalInfo/personalInfo',
-      success: function(res) {
-        res.eventChannel.emit('photographerCode', {
-            photographerCode
-          })
-      }
-    })
+    wx.navigateBack()
   },
 
   submitForm:async function (){
+    if(!this.data.textareaValue){
+      wx.showToast({ title: '请输入作品名称！', icon: 'none' });
+      return false;
+    }
     this.addWork();
   }
 })

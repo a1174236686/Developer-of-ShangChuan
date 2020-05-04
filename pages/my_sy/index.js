@@ -1,5 +1,5 @@
 // pages/my_sy/index.js
-import {updateCalendar,avatarUrlFn} from '../../utils/util';
+import {updateCalendar,avatarUrlFn,http} from '../../utils/util';
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -8,39 +8,30 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    //轮播图列表
-    branList:[
-      {url:"../../static/l1.png",id:"1",mode:"scaleToFill"},
-      {url:"../../static/l1.png",id:"2",mode:"aspectFill"},
-      {url:"../../static/l1.png",id:"3",mode:"scaleToFill"}
-    ],
+    region: [],
+    regionCode: [],
     showChengg: false,
     name: {},
-    imgUrls: [
-      "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=231620273,2622968107&fm=27&gp=0.jpg",
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=281531042,273318123&fm=27&gp=0.jpg",
-      "http://img4.imgtn.bdimg.com/it/u=2731345960,2613387946&fm=26&gp=0.jpg"
-    ],
+    //轮播图列表
+    imgUrls: [],
     currentIndex:0,
     //摄影师列表
-    photographerList:[
-      {
-        name:"潘洋摄影师", //名称
-        label:['美食云集'],//标签
-        address:"深圳",//地址
-        grade:4,//等级
-        score:5.0,//评分
-        image:"",
-    }],
+    photographerList:[],
     currentDate: [],
     weekList:['日', '一', '二', '三', '四', '五', '六'],
     showDate: false,
     sheying: [],
-    page: 1
+    page: 1,
+    wxUser: ''
   },
 
   openDate:function(e){
-    if(wx.getStorageSync('sessionInfo')){
+    let wxUser = wx.getStorageSync('sessionInfo');
+    if(wxUser){
+      if(e.currentTarget.dataset.item.userCode == wxUser.userCode){
+        wx.showToast({ title: '不可预约自己！', icon: 'none' });
+        return false;
+      }
       this.setData({showDate: true});
       wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
     }else{
@@ -48,6 +39,10 @@ Page({
         url: '../login/login',
       })
     }
+  },
+
+  bindRegionChange: function(e){
+    this.setData({region: e.detail.value,regionCode: e.detail.code})
   },
 
   closeDate:function(){
@@ -101,12 +96,32 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (e) {
+    let info = wx.getStorageSync('sessionInfo');
     if(wx.getStorageSync('yuyuechenggong')){
       this.setData({showChengg: true});
       wx.removeStorageSync('yuyuechenggong');
     }
+    this.getBannerList();
     this.getData();
-    this.setData({showDate: false})
+    this.setData({showDate: false,wxUser: info})
+  },
+
+  getBannerList: async function(){
+    let res = await http.get("/banner/list?showStatus=1");
+    if(res.code == 0){
+      let arr = res.data
+      for(let i = 0 ; i < arr.length ; i ++){
+        let item = arr[i];
+        item.picture = avatarUrlFn(item.picture);
+      }
+      this.setData({imgUrls: arr})
+    }
+    // wx.request({
+    //   url: app.globalData.serverUrl + '/banner/list?showStatus=1',
+    //   method: 'GET',
+    //   success (res) {
+    //   }
+    // })
   },
 
   becomeVip(){
@@ -186,7 +201,7 @@ Page({
       success: function(res) {
         res.eventChannel.emit('photographerCode', {
             photographerCode: e.target.dataset.param
-          })
+        })
       }
     })
   }

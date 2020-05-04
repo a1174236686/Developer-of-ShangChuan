@@ -24,7 +24,7 @@ Page({
     optionsUserList:[
       {label: '我的评价',id: 'myEvaluate/myEvaluate',src: serverUrl + '/statics/image/evaluate.png'},
       {label: '邀请奖励',id: 'myWallet/myWallet',src: serverUrl + '/statics/image/reward.png'},
-      {label: '作品管理',id: 'personalInfo/aaa',src: serverUrl + '/statics/image/works.png'},
+      {label: '作品管理',id: 'personalInfo/personalInfo',src: serverUrl + '/statics/image/works.png'},
       {label: '我的资料',id: 'myInfor/myInfor',src: serverUrl + '/statics/image/data.png'}
     ],
     wxUserInfo: {videoWorkNum: 0,photoWorkNum: 0}
@@ -40,15 +40,21 @@ Page({
         return false;
       }
       wx.navigateTo({
-        url: '/pages/' + type　// 页面 B
+        url: '/pages/' + type
       })
     }
   },
 
   gotoUserView: function(e){
+    let that = this;
     if(this.isLogin()){
       wx.navigateTo({
-        url: '/pages/' + e.currentTarget.dataset.view　// 页面 B
+        url: '/pages/' + e.currentTarget.dataset.view,
+        success: function(res) {
+          res.eventChannel.emit('photographerCode', {
+              photographerCode: that.data.wxUser.userCode
+          })
+        }
       })
     }
   },

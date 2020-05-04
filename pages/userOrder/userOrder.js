@@ -1,6 +1,6 @@
 // pages/myOrder/myOrder.js
 const app = getApp()
-import {http} from '../../utils/util';
+import {http,avatarUrlFn} from '../../utils/util';
 import QRCode from '../../libs/weapp-qrcode'
 const serverUrl = app.globalData.serverUrl
 Page({
@@ -146,6 +146,10 @@ goToEvaluation(evt){
               let newArray = res.data.data;
               //根据id去重 qcConcat 见 util js
               arr = arr.qcConcat(newArray,'orderId');
+              for(let i = 0 ; i < arr.length ; i ++){
+                let item = arr[i];
+                item.photographerPhoto = avatarUrlFn(item.photographerPhoto);
+              }
               that.setData({orderList: arr});
           }
         }

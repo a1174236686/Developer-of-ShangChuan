@@ -1,7 +1,7 @@
 /* 总榄 */
 
 .content .top-box{
-  padding: 0  30rpx;
+  padding: 20rpx 30rpx 10rpx;
   display: flex;    
   align-items: center;
   justify-content: space-between;
@@ -11,17 +11,23 @@
    display: flex;
    align-items: center;
 }
-.address >image{
+.addressImage{
   width:24rpx ;
   height: 12rpx;
   margin: 0 16rpx;
+  margin-top: 6rpx;
+}
+
+.picker{
+  display: flex;
+  align-items: center;
 }
 
 /* 输入框 */
 .input-box{
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 77%;
   background-color: #F5F5F6;
   border-radius: 40rpx;
   overflow:hidden;
@@ -172,8 +178,8 @@
 }
 
 .BecomeVip image{
-  width: 120rpx;
-  height: 120rpx;
+  width: 160rpx;
+  height: 160rpx;
 }
 
 .showDate{

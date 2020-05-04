@@ -1,6 +1,6 @@
 // pages/myEvaluate/myEvaluate.js
 const app = getApp()
-import {http} from '../../utils/util'
+import {http,avatarUrlFn} from '../../utils/util'
 const serverUrl = app.globalData.serverUrl;
 Page({
 
@@ -23,7 +23,12 @@ Page({
   async getSuggestion(){
     let res = await http.get("/evaluate/page");
     if(res.code==0){
-      this.setData({suggestionList:res.data})
+      let arr = res.data
+      for(let i = 0 ; i < arr.length ; i ++){
+        let item = arr[i];
+        item.photographerPhoto = avatarUrlFn(item.photographerPhoto);
+      }
+      this.setData({suggestionList: arr})
     }
 
   },

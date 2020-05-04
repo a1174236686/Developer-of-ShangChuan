@@ -3,8 +3,8 @@
   <view class="evaluateItem" wx:for="{{suggestionList}}" wx:key="index">
     <view class="itemHead">
       <view class="headLeft">
-        <image src="{{serverUrl}}/statics/image/toux.png"></image>
-        <label>{{item.customerName}}</label>
+        <image src="{{item.photographerPhoto}}"></image>
+        <label>{{item.photographerName}}</label>
       </view>
       <view class="headRight">
         	<rate disabled score="{{item.totalScore}}" />
