@@ -7,7 +7,7 @@
       <view class="infoMoney">
         <view class="infoMoney_money">{{info.total}}</view>
         <view class="infoMoney_option" bindtap="goWith">提现</view>
-           <mp-icon icon="arrow" color="#ffffff" size="{{15}}"></mp-icon>
+           <mp-icon icon="arrow" color="#ffffff" bindtap="goWith" size="{{12}}"></mp-icon>
         <!-- <icon type="success" size="20"></icon> -->
       </view>
       <view class="infoProfit">

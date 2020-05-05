@@ -112,6 +112,7 @@ Page({
           success: function(res) {
             let obj = res.data.biPhotographer;
             obj.avatarUrl = avatarUrlFn(obj.avatarUrl)
+            console.log(obj.avatarUrl)
             that.setData({wxUserInfo: obj});
             wx.setStorageSync('syDetails',obj)
           }
