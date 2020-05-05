@@ -1,12 +1,12 @@
 <!--pages/myWallet/myWallet.wxml-->
 <view class="main">
   <view class="cardInfo">
-    <image class="cardInfoBg" src="../../img/myWalletBg.png"></image>
+    <image class="cardInfoBg" src="{{serverUrl}}/statics/image/myWalletBg.png"></image>
     <view class="info">
       <view class="infoTitle">总资产(cny)</view>
       <view class="infoMoney">
         <view class="infoMoney_money">28,666.00</view>
-        <view class="infoMoney_option">提现</view>
+        <view class="infoMoney_option" bindtap="goWith">提现</view>
         <icon type="success" size="20"></icon>
       </view>
       <view class="infoProfit">

@@ -1,11 +1,14 @@
 // pages/myWallet/myWallet.js
+const app = getApp()
+import {http,avatarUrlFn} from '../../utils/util'
+const serverUrl = app.globalData.serverUrl;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    serverUrl:serverUrl
   },
 
   /**
@@ -13,6 +16,12 @@ Page({
    */
   onLoad: function (options) {
 
+  },
+  //跳转到提现
+  goWith(){
+    wx.navigateTo({
+      url: '../withdrawal/withdrawal',
+    })
   },
 
   /**

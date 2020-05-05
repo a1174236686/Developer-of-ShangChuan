@@ -66,14 +66,19 @@
 .withdrawalBtn{
   position: fixed;
   bottom: 200rpx;
-  margin: 0 40rpx;
+  right: 0;
+  left: 0;
   text-align: center;
   background-color: #FF6D77;
-  width: 90%;
   height: 88rpx;
   line-height: 88rpx;
   font-size: 30rpx;
   font-weight: bold;
   color: #fff;
   border-radius: 20rpx;
+  padding: 0;
+}
+button.withdrawalBtn:not([size='mini']){
+  width: 90%;
+
 }
