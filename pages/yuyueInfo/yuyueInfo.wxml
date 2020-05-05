@@ -6,9 +6,9 @@
         <image src="{{item.icon}}"></image>
         <label>{{item.name}}</label>
       </view>
-      <picker style="flex: 1;text-align: right;" wx:if="{{item.quyu}}" mode="region" bindchange="bindRegionChange" name="{{item.type}}" value="{{region}}" custom-item="{{customItem}}">
+      <picker style="flex: 1;text-align: right;" wx:if="{{item.quyu}}" mode="region" bindchange="bindRegionChange" name="{{item.type}}" value="{{regionData.code}}" custom-item="{{customItem}}">
         <view class="picker {{!noEdit ? 'editInput' : ''}}">
-          {{region[0]}}{{region[1]}}{{region[2]}}
+          {{regionData.value[0] || ''}}{{regionData.value[1] || ''}}{{regionData.value[2] || ''}}
           <!-- <view wx:if="{{!region.length}}" style="color: #888;">请选择区域</view> -->
           <image src="{{serverUrl}}/statics/image/adress.png"></image>
         </view>

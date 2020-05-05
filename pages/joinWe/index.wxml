@@ -41,11 +41,11 @@
 <template name="sex">
 	<view class="item">
 		<view class="itemLabel">{{label}}</view>
-		<picker id='{{mapping}}' range-key="key" range="{{arr}}" value="{{formDataMap[mapping]}}" bindchange="sexSelect" >
+		<picker id='{{mapping}}' style="flex: 1;text-align: right;" range-key="key" range="{{arr}}" value="{{formDataMap[mapping]}}" bindchange="sexSelect" >
 			<view class="picker">
 				{{formDataMap[mapping].label}}
 				<!-- <icon type="success" size="20" /> -->
-				<image src="{{serverUrl}}/statics/image/seximage.png" style="width: 24rpx;height: 20rpx" class="img"></image>
+				<image src="{{serverUrl}}/statics/image/down.png" style="width: 24rpx;height: 20rpx" class="img"></image>
 			</view>
 		</picker>
 	</view>
@@ -56,7 +56,7 @@
 <template name="pickerDate">
 	<view class="item">
 		<view class="itemLabel">{{label}}</view>
-		<picker id='{{mapping}}' mode="date" value="{{formDataMap[mapping]}}" bindchange="bindDataChange">
+		<picker id='{{mapping}}' style="flex: 1;text-align: right;" mode="date" value="{{formDataMap[mapping]}}" bindchange="bindDataChange">
 			<view class="picker">
 				{{formDataMap[mapping]}}
 				<!-- <icon type="success" size="20" /> -->
@@ -73,7 +73,7 @@
 <template name="adress">
 	<view class="item">
 		<view class="itemLabel">{{label}}</view>
-		<picker id='{{mapping}}' mode="region" value="{{formDataMap[mapping]}}" bindchange="open">
+		<picker id='{{mapping}}' style="flex: 1;text-align: right;" mode="region" value="{{formDataMap[mapping]}}" bindchange="open">
 			<view class="picker">
 				{{formDataMap[mapping]}}
 				<!-- <icon type="success" size="20" /> -->

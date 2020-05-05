@@ -9,19 +9,18 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    suggestionList:[]
+    suggestionList:[],
+    photographerCode: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad:  function (options) {
-    
-      this.getSuggestion();
   },
   //获取评价数据
   async getSuggestion(){
-    let res = await http.get("/evaluate/page");
+    let res = await http.get("/evaluate/page?photographerCode=" + this.data.photographerCode);
     if(res.code==0){
       let arr = res.data
       for(let i = 0 ; i < arr.length ; i ++){
@@ -44,7 +43,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    const sessionInfo = wx.getStorageSync('sessionInfo');
+    const eventChannel = this.getOpenerEventChannel();
+    eventChannel.on('photographerCode', data => {
+      const { photographerCode } = data;
+      this.setData({ photographerCode })
+      this.getSuggestion();
+    })
   },
 
   /**

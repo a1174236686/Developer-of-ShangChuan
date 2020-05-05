@@ -1,7 +1,7 @@
 // pages/personalInfo/personalInfo.js
 const app = getApp();
 const { switchLevel } = require('../../utils/util')
-import { http } from '../../utils/util'
+import { http,avatarUrlFn } from '../../utils/util'
 
 Page({
 
@@ -36,6 +36,7 @@ Page({
       const { photographerCode } = data;
       const { userCode } = sessionInfo;
       const showAddBtn = userCode === photographerCode;
+      console.log('11111',photographerCode)
       this.setData({ photographerCode, showAddBtn })
     })
   },
@@ -52,6 +53,7 @@ Page({
       success: result => {
         this.machiningRes(result.data.biPhotographer);
         const biPhotographer = result.data.biPhotographer;
+        biPhotographer.avatarUrl = avatarUrlFn(biPhotographer.avatarUrl)
         this.setData({ biPhotographer }, () => this.workListInit())
       }
     })
@@ -63,6 +65,18 @@ Page({
 
   noClick: function(){
     return false
+  },
+
+  goEvaluate: function(){
+    let that = this;
+    wx.navigateTo({
+      url: '../myEvaluate/myEvaluate',
+      success: function(res) {
+        res.eventChannel.emit('photographerCode', {
+            photographerCode: that.data.photographerCode
+        })
+      }
+    })
   },
 
 

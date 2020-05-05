@@ -1,5 +1,6 @@
 // pages/myInfor/myInfor.js
 const app = getApp()
+import {avatarUrlFn,http} from '../../utils/util';
 const serverUrl = app.globalData.serverUrl;
 import {switchJSON} from '../../utils/util';
 Page({
@@ -15,14 +16,13 @@ Page({
       {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',date: true},
       {icon: serverUrl + '/statics/image/shouji.png',name: '电话', value: '', type: 'phone',status: 'number',key: 'phone'},
       {icon: serverUrl + '/statics/image/quyu.png',name: '区域', value: [], type: 'region',quyu: true},
-      {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address'},
-      {icon: serverUrl + '/statics/image/paishe.png',name: '拍摄对象', value: '', type: 'target'},
+      {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address',key: 'address'},
+      {icon: serverUrl + '/statics/image/paishe.png',name: '拍摄对象', value: '', type: 'target',key: 'target'},
       {icon: serverUrl + '/statics/image/shijian.png',name: '拍摄开始时间', value: '', type: 'start'},
       {icon: serverUrl + '/statics/image/shijian.png',name: '拍摄结束时间', value: '', type: 'end'}],
       noEdit: false,
-      region: [],
       date: '',
-      regionCode: [],
+      regionData: {code: [],value: []},
       sexArray: ['男','女'],
       startTime: '',
       endTime: '',
@@ -37,9 +37,9 @@ Page({
       sex: this.data.sexArray[this.data.sexIndex] == '男' ? '1' : '2',
       birthDate: this.data.date,
       customerPhone: e.detail.value.phone,
-      province: this.data.regionCode[0] || '',
-      city: this.data.regionCode[1] || '',
-      area: this.data.regionCode[2] || '',
+      province:  this.data.regionData.code[0] || '', //省编码
+      city:  this.data.regionData.code[1] || '', //省编码
+      area:  this.data.regionData.code[2] || '', //省编码
       address: e.detail.value.address,
       target: e.detail.value.target,
       appointStartTime: this.data.startTime,
@@ -75,7 +75,7 @@ Page({
   },
 
   bindRegionChange: function(e){
-    this.setData({region: e.detail.value,regionCode: e.detail.code})
+    this.setData({regionData: e.detail})
   },
 
   bindSexChange: function(e){
@@ -108,13 +108,18 @@ Page({
     let endTime = enterDate.end[0] + '-' + enterDate.end[1] + '-' + enterDate.end[2] + ' ' + enterDate.end[3] + ':00';
     let arr = this.data.infoList;
     let obj =  wx.getStorageSync('sessionInfo')
+    let regionData = {
+      code: obj.area ? [obj.province || '',obj.city || '',obj.area || ''] : [],
+      value: obj.areaName ? [obj.provinceName + '省' || '',obj.cityName + '市' || '',obj.areaName || ''] : []
+    }
     for(let i = 0;i < arr.length;i++){
       let item = arr[i];
       item.value =  obj[item.key] || ''
     }
+    obj.avatarUrl = avatarUrlFn(obj.avatarUrl);
     arr[arr.length - 1].value = endTime;
     arr[arr.length - 2].value = startTime;
-    this.setData({startTime: startTime,endTime:endTime,infoList: arr,date: obj.birthDate,sexIndex: obj.gender == 1 ? 0 : 1});
+    this.setData({startTime: startTime,endTime:endTime,infoList: arr,date: obj.birthDate,sexIndex: obj.gender == 1 ? 0 : 1,regionData});
   },
 
   /**

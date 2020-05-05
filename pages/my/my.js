@@ -62,7 +62,7 @@ Page({
   gotoMyData(){
     if(this.isLogin()){
       wx.navigateTo({
-        url: '../myInfor/myInfor'
+        url: '../myInfo_sy/myInfo_sy'
       })
     }
   },
@@ -106,11 +106,14 @@ Page({
           this.setData({showSheyingshi: showSheyingshi});
         }
         wx.request({
-          url: app.globalData.serverUrl + '/photographer/info/' + wx.getStorageSync('sessionInfo').userCode,
+          url: app.globalData.serverUrl + '/photographer/mine',
           header: {"token": wx.getStorageSync('tokenInfo').token},
           method: 'GET',
-          success (res) {
-            that.setData({wxUserInfo: res.data.biPhotographer});
+          success: function(res) {
+            let obj = res.data.biPhotographer;
+            obj.avatarUrl = avatarUrlFn(obj.avatarUrl)
+            that.setData({wxUserInfo: obj});
+            wx.setStorageSync('syDetails',obj)
           }
         })
       }else{
