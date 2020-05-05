@@ -1,15 +1,15 @@
 {
 
   "pages": [ 
-  
-    "pages/my_sy/index",
+    "pages/my/my",  
     "pages/myInfor/myInfor",
+    "pages/myInfo_sy/myInfo_sy",
+    "pages/index/index",
+    "pages/joinWe/index",
+    "pages/my_sy/index",
     "pages/enterTime/enterTime",
     "pages/evaluate/index",
-    "pages/index/index",
-    "pages/my/my",  
     "pages/releaseWorks/releaseWorks",
-    "pages/joinWe/index",
     "pages/recharge/index",
     "pages/userOrder/userOrder",
     "pages/yuyueInfo/yuyueInfo",

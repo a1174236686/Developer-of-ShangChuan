@@ -37,8 +37,8 @@
       <image class="userInfo_bg" src="{{serverUrl}}/statics/image/myBg.png"></image>
       <view class="userInfo_title">
         <view class="userInfo_NameImg">
-          <image src="{{portraitUrl}}"></image>
-          <view>{{wxUser.nickName}}</view>
+          <image src="{{wxUserInfo.avatarUrl}}"></image>
+          <view>{{wxUserInfo.name}}</view>
           <!-- <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoUserView" data-view="{{item.id}}" size="{{15}}"></mp-icon> -->
         </view>
         <view class="userCount">
