@@ -1,6 +1,7 @@
 {
 
   "pages": [ 
+  
     "pages/my_sy/index",
     "pages/myInfor/myInfor",
     "pages/enterTime/enterTime",

@@ -216,10 +216,22 @@ const switchJSON= json => {
 								re(res.data);
 						}else if(res.data.code==401){
 							//session 过期  TODO 过期了
-							console.log('需要重新登录');
+							// wx.showToast({
+							// 	title: '401 需要重新登录',
+							// 	icon:"none"
+							// })
 						}else{
-							rj();
+							rj(res.data);
+						
+							
 						}
+						// if(res.data.code==500){
+						// 	wx.showToast({
+						// 		title: '返回500  '+ res.data.msg,
+						// 		icon:"none"
+						// 	})
+						// }
+
 					},
 					fail(){
 						rj()
@@ -335,6 +347,20 @@ const switchJSON= json => {
 			return '';
 		}
 	}
+
+	//解析钱的格式
+	  // defaults: (2, "$", ",", ".")
+Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+			places = !isNaN(places = Math.abs(places)) ? places : 2;
+			symbol = '';// 加前缀 symbol !== undefined ? symbol : "$";
+			thousand = thousand || ",";
+			decimal = decimal || ".";
+			let number = this,
+					negative = number < 0 ? "-" : "",
+					i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+					j = (j = i.length) > 3 ? j % 3 : 0;
+			return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+	};
 
 
 	
