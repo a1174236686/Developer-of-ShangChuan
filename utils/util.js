@@ -336,7 +336,6 @@ const switchJSON= json => {
 	const avatarUrlFn = (url)=>{
 	//	console.log('url',url);
 		const serverUrl = app.globalData.serverUrl;
-		console.log(serverUrl)
 		try {
 			if(url.indexOf('https') !=-1 || url.indexOf('http') !=-1){
 				return url

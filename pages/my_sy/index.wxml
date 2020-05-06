@@ -3,9 +3,12 @@
   <view class="top-box">
   <!-- 地址 -->
     <view class="address">
-      <picker style="flex: 1;text-align: right;" mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+    <view style="display: flex;align-items: center;" wx:if="{{!currentLocation}}" bindtap="getLocation">
+      位置<image class="addressImage" src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
+    </view>
+      <picker wx:if="{{currentLocation}}" style="flex: 1;text-align: right;" mode="region" bindchange="bindRegionChange" value="{{regionCode.code}}" custom-item="{{customItem}}">
         <view class="picker">
-          <label wx:if="{{region.length}}">{{region[1]}}</label>
+          <label wx:if="{{regionCode.value.length}}">{{regionCode.value[1]}}</label>
           <label wx:else>位置</label>
           <image class="addressImage" src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
         </view>
@@ -26,9 +29,9 @@
 <!-- 轮播图结束 -->
 
 <!-- 区域开始 -->
-<view class="region">
+<!-- <view class="region">
   <view>区域</view><image src="{{serverUrl}}/statics/image/down.png"></image>
-</view>
+</view> -->
 <!-- 区域结束 -->
 
 <!-- 摄影师列表开始 -->

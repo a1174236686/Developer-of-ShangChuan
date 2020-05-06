@@ -48,6 +48,7 @@ Page({
               headerImg:imgUrl
             })
             let tokenInfo = wx.getStorageSync('tokenInfo')
+            wx.showLoading({title: '上传中...',})
             wx.uploadFile({
               url: app.globalData.serverUrl + '/sys/file/upload?dir=-1',
               header: { 'token': tokenInfo.token },
@@ -55,7 +56,7 @@ Page({
               method: 'post',
               name: 'file',
               success: (res) => {
-                console.log(res)
+                wx.hideLoading();
                 let srcUrlTwo = JSON.parse(res.data)
                 that.setData({
                   postImg:srcUrlTwo.fileName

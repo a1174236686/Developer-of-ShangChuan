@@ -35,7 +35,8 @@
           {{item.name}}<label></label>
         </view>
       </view>
-      <view class="topBtn" bindtap="switchManage" wx:if="{{showAddBtn}}">管理</view>
+      <view class="topBtn" bindtap="switchManage" wx:if="{{showAddBtn && !isManage}}">管理</view>
+      <view class="topBtn" bindtap="switchManage" wx:if="{{showAddBtn && isManage}}">完成</view>
     </view>
     <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
