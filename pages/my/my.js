@@ -110,11 +110,12 @@ Page({
           header: {"token": wx.getStorageSync('tokenInfo').token},
           method: 'GET',
           success: function(res) {
-            let obj = res.data.biPhotographer;
-            obj.avatarUrl = avatarUrlFn(obj.avatarUrl)
-            console.log(obj.avatarUrl)
-            that.setData({wxUserInfo: obj});
-            wx.setStorageSync('syDetails',obj)
+            if(res.data.code == 0){
+              let obj = res.data.biPhotographer;
+              obj.avatarUrl = avatarUrlFn(obj.avatarUrl)
+              that.setData({wxUserInfo: obj});
+              wx.setStorageSync('syDetails',obj)
+            }
           }
         })
       }else{

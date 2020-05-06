@@ -147,7 +147,7 @@ Page({
       code: obj.area ? [obj.province || '',obj.city || '',obj.area || ''] : [],
       value: obj.areaName ? [obj.provinceName + '省' || '',obj.cityName + '市' || '',obj.areaName || ''] : []
     }
-    console.log(obj)
+    console.log(regionData)
     this.setData({
       infoList:arr,
       headerImg: avatarUrlFn(obj.avatarUrl),

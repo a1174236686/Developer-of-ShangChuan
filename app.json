@@ -1,12 +1,12 @@
 {
 
   "pages": [ 
+    "pages/my_sy/index",
+    "pages/index/index",
     "pages/my/my",  
     "pages/myInfor/myInfor",
     "pages/myInfo_sy/myInfo_sy",
-    "pages/index/index",
     "pages/joinWe/index",
-    "pages/my_sy/index",
     "pages/enterTime/enterTime",
     "pages/evaluate/index",
     "pages/releaseWorks/releaseWorks",
@@ -29,6 +29,11 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "小程序需要获取你当前的的位置"
+    }
   },
   "useExtendedLib": {
     "weui": true

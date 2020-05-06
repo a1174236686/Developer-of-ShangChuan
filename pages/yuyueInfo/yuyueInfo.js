@@ -13,7 +13,7 @@ Page({
     infoList: [
       {icon: serverUrl + '/statics/image/xingming.png',name: '姓名', value: '', type: 'name',key: 'nickName'},
       {icon: serverUrl + '/statics/image/nvx.png',name: '性别', value: '', type: 'sex',sex: true,key: 'gender'},
-      {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',date: true},
+      {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',date: true,key: 'birthDate'},
       {icon: serverUrl + '/statics/image/shouji.png',name: '电话', value: '', type: 'phone',status: 'number',key: 'phone'},
       {icon: serverUrl + '/statics/image/quyu.png',name: '区域', value: [], type: 'region',quyu: true},
       {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address',key: 'address'},

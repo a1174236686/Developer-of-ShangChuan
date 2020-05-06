@@ -23,6 +23,57 @@ Page({
     })
   },
   onLoad: function () {
-
+      this.getToken();
   },
+  getToken(){
+    var that = this;
+    // 查看是否授权
+    wx.getSetting({
+     success: function(res) {
+         if (res.authSetting['scope.userInfo']) {
+             wx.getUserInfo({
+                 success: function(res_Info) {
+                   // 登录
+                   wx.login({
+                     success: res => {
+                       // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                       //wx.setStorageSync('temporaryCode',res.code);
+                       wx.request({
+                         url: that.data.serverUrl + '/wx/login',
+                         method: 'POST',
+                         data: {
+                           code: res.code,
+                           rawData: res_Info.rawData,
+                           signature: res_Info.signature,
+                           encryptedData: res_Info.encryptedData,
+                           iv: res_Info.iv,
+                         },
+                         success (data) {
+                           if(data.data.code == 0){
+                            wx.setStorageSync('tokenInfo',data.data);
+                            wx.request({
+                              url: that.data.serverUrl + '/wxuser/session',
+                              header: {"token": data.data.token},
+                              method: 'GET',
+                              success (sessionInfo) {
+                                if(sessionInfo.code==0){
+                                  wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
+                                }else{
+                                  console.log('初始化获取session失败',sessionInfo)
+                                }
+                              }
+                            })
+                           }else{
+                             that.getToken();
+                           }
+                         }
+                       })
+                     }
+                   })
+                 }
+             });
+         } 
+     }
+    });
+  }
 })

@@ -8,8 +8,7 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    region: [],
-    regionCode: [],
+    regionCode: {code: [],value: []},
     showChengg: false,
     name: {},
     //轮播图列表
@@ -22,7 +21,10 @@ Page({
     showDate: false,
     sheying: [],
     page: 1,
-    wxUser: ''
+    wxUser: '',
+    currentLocation: '',
+    locationName: {province: '',city: ''},
+    listInfo: {}
   },
 
   openDate:function(e){
@@ -42,7 +44,44 @@ Page({
   },
 
   bindRegionChange: function(e){
-    this.setData({region: e.detail.value,regionCode: e.detail.code})
+    console.log(e.detail)
+    let data = e.detail;
+    let json = {
+      province: data.code[0],
+      city: data.code[1],
+    }
+    this.setData({regionCode: data,locationName: json},() =>{
+      this.getData();
+    })
+  },
+
+  getLocation:function(){
+    let that = this;
+    wx.getLocation({success: async (loca) =>{
+      that.setData({currentLocation: loca})
+      let res = await http.get("/wxuser/location",{lng: loca.longitude,lat: loca.latitude});
+      if(res.code == 0){
+        let json = {
+          code: [res.province+'',res.city + '','']
+        }
+        console.log(json)
+        that.setData({locationName: res,regionCode: json})
+        that.getData();
+      }
+    },
+    fail: function(mag){
+      that.getData();
+      wx.showModal({
+        title: '温馨提示',
+        content: '未授权定位请打开右上角→设置→定位服务开启',
+        showCancel: false,
+        success (res) {
+          if (res.confirm) {
+            //console.log('用户点击确定')
+          } 
+        }
+      })
+    }})
   },
 
   closeDate:function(){
@@ -53,6 +92,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getLocation();
     this.setData({name: app.globalData.userInfo});
     let list = [];
     let nowDate = new Date();
@@ -102,7 +142,6 @@ Page({
       wx.removeStorageSync('yuyuechenggong');
     }
     this.getBannerList();
-    this.getData();
     this.setData({showDate: false,wxUser: info})
   },
 
@@ -116,12 +155,6 @@ Page({
       }
       this.setData({imgUrls: arr})
     }
-    // wx.request({
-    //   url: app.globalData.serverUrl + '/banner/list?showStatus=1',
-    //   method: 'GET',
-    //   success (res) {
-    //   }
-    // })
   },
 
   becomeVip(){
@@ -136,29 +169,29 @@ Page({
     }
   },
 
-  getData(){
+  getData: async function(type){
+    type = type || '';
     let that = this;
-    wx.request({
-      url: app.globalData.serverUrl + '/photographer/page',
-      // header: {"token": wx.getStorageSync('tokenInfo')},
-      method: 'GET',
-      data: {
-        page: this.data.page,
-        limit: 15
-      },
-      success (res) {
-        if(res.data.data.list.length){
-          let arr = that.data.sheying;
-          arr = arr.qcConcat(res.data.data.list,'userCode');
-          //console.log(arr);
-          for(let i = 0 ; i < arr.length ; i ++){
-            let item = arr[i];
-            item.avatarUrl = avatarUrlFn(item.avatarUrl);
-          }
-          that.setData({sheying: arr});
-        }
+    let data = {
+      page: that.data.page,
+      limit: 15,
+      ...that.data.locationName
+    }
+    let res = await http.get("/photographer/page",data);
+    if(res.code == 0){
+      let arr = []
+      if(type){
+        arr = that.data.sheying;
+        arr = arr.qcConcat(res.data.list,'userCode');
+      }else{
+        arr = res.data.list;
       }
-    })
+      for(let i = 0 ; i < arr.length ; i ++){
+        let item = arr[i];
+        item.avatarUrl = avatarUrlFn(item.avatarUrl);
+      }
+      that.setData({sheying: arr,listInfo: res});
+    }
   },
 
   /**
@@ -178,15 +211,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({page: 1})
+    this.getData();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({page: this.data.page += 1})
-    this.getData();
+    if(this.data.listInfo.totalPage && this.data.page < this.data.listInfo.totalPage){
+      this.setData({page: this.data.page += 1})
+      this.getData('up');
+    }
   },
 
   /**
