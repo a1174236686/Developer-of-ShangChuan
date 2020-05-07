@@ -1,10 +1,11 @@
 // pages/personalInfo/personalInfo.js
 const app = getApp();
-const { switchLevel } = require('../../utils/util')
+const { switchLevel } = require('../../utils/util');
+const computedBehavior = require('miniprogram-computed');
 import { http,avatarUrlFn } from '../../utils/util'
 
 Page({
-
+  behaviors: [computedBehavior],
   /**
    * 页面的初始数据
    */
@@ -15,7 +16,21 @@ Page({
     currentType: 1,
     isManage: false,
     hiddenPickBox: true,
-    serverUrl:app.globalData.serverUrl
+    serverUrl:app.globalData.serverUrl,
+    showGallery: false
+  },
+
+  computed: {
+    gallerydData: function (data) {
+      const { imgList,serverUrl } = data;
+      const imgUrls = [];
+      imgList.map((item)=>{
+        const index = `${serverUrl}/sys/file/previewImg?fileName=${item.fileName}`;
+        imgUrls.push(index);
+      })
+      console.log('imgUrls',imgUrls)
+      return imgUrls;
+    },
   },
 
   switchBar: function (e) {
@@ -234,16 +249,25 @@ Page({
 
 
   deleteWork: function (e) {
-    const { currentType } = this.data;
-    const id = e.target.dataset.param;
-    switch (currentType) {
-      case 1:
-        this.deleteVideo({ id });
-        break;
-      case 2:
-        this.deleteImg({ id });
-        break;
-    }
+    const self = this;
+    wx.showModal({
+      title: '温馨提示',
+      content: '您确定删除吗？',
+      success : res => {
+        if (res.confirm) {
+          const { currentType } = self.data;
+          const id = e.target.dataset.param;
+          switch (currentType) {
+            case 1:
+              self.deleteVideo({ id });
+              break;
+            case 2:
+              self.deleteImg({ id });
+              break;
+          }
+        }
+      }
+    })
   },
 
   deleteVideo: async function ({ id }) {
@@ -256,5 +280,9 @@ Page({
     const ids = [id]
     await http.post("/photo/delete", { data: ids });
     this.setData({ imgList: this.data.imgList.filter(item => item.id != id) })
+  },
+
+  openGallery: function () {
+    this.setData({showGallery:!this.data.showGallery})
   }
 })
