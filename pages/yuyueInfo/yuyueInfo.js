@@ -119,7 +119,7 @@ Page({
     obj.avatarUrl = avatarUrlFn(obj.avatarUrl);
     arr[arr.length - 1].value = endTime;
     arr[arr.length - 2].value = startTime;
-    this.setData({startTime: startTime,endTime:endTime,infoList: arr,date: obj.birthDate,sexIndex: obj.gender == 1 ? 0 : 1,regionData});
+    this.setData({startTime: startTime,endTime:endTime,infoList: arr,date: obj.birthDate || '',sexIndex: obj.gender == 1 ? 0 : 1,regionData});
   },
 
   /**

@@ -12,7 +12,7 @@
    align-items: center;
 }
 .addressImage{
-  width:24rpx ;
+  width:28rpx ;
   height: 12rpx;
   margin: 0 16rpx;
   margin-top: 6rpx;
@@ -95,6 +95,16 @@
 
 .syInfo{
   flex: 1;
+  position: relative;
+}
+
+.syInfo_Mask{
+  position: absolute;
+  width: 300rpx;
+  height: 100%;
+  z-index: 9999;
+  top: 0;
+  left: 0;
 }
 
 .syInfo > view{
@@ -204,10 +214,9 @@
   left: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 10;
+  z-index: 99999;
   padding-top: 40rpx;
   border-radius: 20rpx 20rpx 0 0;
-  z-index: 1001;
 }
 
 .headTitle{

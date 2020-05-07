@@ -25,6 +25,7 @@ Page({
       let arr = res.data
       for(let i = 0 ; i < arr.length ; i ++){
         let item = arr[i];
+        item.customerPhoto = avatarUrlFn(item.customerPhoto);
         item.photographerPhoto = avatarUrlFn(item.photographerPhoto);
       }
       this.setData({suggestionList: arr})

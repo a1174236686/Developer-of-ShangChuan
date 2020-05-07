@@ -23,7 +23,7 @@ Page({
     page: 1,
     wxUser: '',
     currentLocation: '',
-    locationName: {province: '',city: ''},
+    locationName: {province: '',city: '',area: ''},
     listInfo: {}
   },
 
@@ -58,14 +58,20 @@ Page({
   getLocation:function(){
     let that = this;
     wx.getLocation({success: async (loca) =>{
+      console.log(loca)
       that.setData({currentLocation: loca})
       let res = await http.get("/wxuser/location",{lng: loca.longitude,lat: loca.latitude});
       if(res.code == 0){
         let json = {
-          code: [res.province+'',res.city + '','']
+          code: [res.data.province+'',res.data.city + '',res.data.area+''],
+          value: [res.data.provinceName,res.data.cityName,res.data.areaName]
         }
-        console.log(json)
-        that.setData({locationName: res,regionCode: json})
+        let locaName = {
+          province: res.data.province,
+          city: res.data.city,
+          area: res.data.area
+        }
+        that.setData({locationName: locaName,regionCode: json})
         that.getData();
       }
     },

@@ -39,6 +39,7 @@
   <view class="syItem" wx:for="{{sheying}}" wx:key="index">
     <view class="syIcon"><image src="{{item.avatarUrl}}" bindtap="goToPersonalInfo" data-param="{{item.userCode}}"></image></view>
     <view class="syInfo">
+      <view class="syInfo_Mask" bindtap="goToPersonalInfo" data-param="{{item.userCode}}"></view>
       <view class="infoTtile">{{item.name}} <view class="titleLabel">{{item.levelName}}</view></view>
       <view wx:if="{{!showDate}}"><rate disabled score="{{item.score}}" /></view>
       <view class="score">

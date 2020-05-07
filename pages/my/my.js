@@ -27,7 +27,8 @@ Page({
       {label: '作品管理',id: 'personalInfo/personalInfo',src: serverUrl + '/statics/image/works.png'},
       {label: '我的资料',id: 'myInfor/myInfor',src: serverUrl + '/statics/image/data.png'}
     ],
-    wxUserInfo: {videoWorkNum: 0,photoWorkNum: 0}
+    wxUserInfo: {videoWorkNum: 0,photoWorkNum: 0},
+    showVip: false
   },
 
   gotoView: function(e){
@@ -100,7 +101,10 @@ Page({
       let url = '';
       let avatarUrl = wx.getStorageSync('sessionInfo').avatarUrl
       this.setData({wxUser: wx.getStorageSync('sessionInfo'),tokenInfo: wx.getStorageSync('tokenInfo').bindFlag,portraitUrl: avatarUrlFn(avatarUrl)})
-      let showSheyingshi = wx.getStorageSync('sessionInfo').isPhotographer
+      let showSheyingshi = wx.getStorageSync('sessionInfo').isPhotographer;
+      if(wx.getStorageSync('sessionInfo').isVip == 1){
+        this.setData({showVip: true});
+      }
       if(showSheyingshi == '1'){
         if(!wx.getStorageSync('sessionInfo')){
           this.setData({showSheyingshi: showSheyingshi});

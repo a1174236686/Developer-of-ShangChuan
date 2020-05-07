@@ -146,7 +146,7 @@ Page({
       headerImg: avatarUrlFn(obj.avatarUrl),
       postImg: obj.avatarUrl,
       userMsg: obj,
-      date: obj.birthDate,
+      date: obj.birthDate || '',
       sexIndex: obj.sex == 1 ? 0 : 1,
       regionData: regionData
     })
