@@ -102,7 +102,7 @@ Page({
         return false;
       }
       console.log(this.Transformation(dateArr),this.Transformation(this.data.startTime))
-      if(this.Transformation(dateArr) - this.Transformation(this.data.startTime) < (1000 * 60 * 60 *6)){
+      if(this.Transformation(dateArr) - this.Transformation(this.data.startTime) <= (1000 * 60 * 60 *6)){
         this.setData({endTime: dateArr});
         return false;
       }else{
@@ -112,7 +112,6 @@ Page({
   },
 
   Transformation: function(dateArr){
-    console.log('222222',dateArr)
     console.log(new Date(dateArr[0]+ '/' +dateArr[1]+ '/' +dateArr[2]+ ' ' +dateArr[3]).getTime())
     let data = dateArr[0]+ '/' +dateArr[1]+ '/' +dateArr[2]+ ' ' +dateArr[3];
     return new Date(data).getTime();

@@ -1,14 +1,17 @@
 <!--pages/my/my.wxml-->
 <view>
   <view class="main" wx:if="{{showSheyingshi == '0'}}">
-    <view class="header">
-      <image class="headerIconText_img" wx:if="{{portraitUrl}}" src="{{portraitUrl}}"></image>
-      <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
+    <view class="header" bindtap="gotoMyData">
+      <image class="headerIconText_img" wx:if="{{portraitUrl}}" src="{{serverUrl}}/statics/image/myBgImg.png"></image>
+      <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/myBgImg.png"></image>
       <view class="headerIconText">
+        <image wx:if="{{showVip}}" class="showVip" src="{{serverUrl}}/statics/image/hgimg.png"></image>
         <image wx:if="{{portraitUrl}}" src="{{portraitUrl}}"></image>
         <image wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
         <view class="headerIconText_text">
-          <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}</view>
+          <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}
+            <image class="showView" wx:if="{{showVip}}" src="{{serverUrl}}/statics/image/vipimg.png"></image>
+          </view>
           <view wx:else class="headerIconText_name">去登录</view>
           <view class="headerIconText_num">
             <mp-icon icon="pad" color="#fff" size="{{12}}"></mp-icon>
@@ -17,7 +20,7 @@
             <label class="bindPhoneNum" wx:else><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button></label>
           </view>
         </view>
-        <view class="moreWork" bindtap="gotoMyData"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>
+        <view class="moreWork"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>
       </view>
     </view>
     <view class="myFunctionList">

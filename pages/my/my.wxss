@@ -36,7 +36,22 @@
 }
 
 .headerIconText_img{
-  -webkit-filter: blur(14rpx);
+  /* -webkit-filter: blur(14rpx); */
+}
+
+.headerIconText .showView{
+  width: 97rpx;
+  height: 40rpx;
+  border-radius: 0;
+  margin-left: 20rpx;
+}
+
+.headerIconText .showVip{
+  position: absolute;
+  top: -35rpx;
+  width: 70rpx;
+  height: 40rpx;
+  left: 43rpx;
 }
 
 .headerIconText_name{
