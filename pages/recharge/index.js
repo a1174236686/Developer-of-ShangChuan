@@ -1,4 +1,5 @@
 // pages/recharge/index.js
+import {getSession,login} from '../../utils/login'
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
 import {
@@ -57,8 +58,10 @@ Page({
             package: payargs.packageValue,
             signType: payargs.signType,
             paySign: payargs.paySign,
-            success (res) {
+            async success (res) {
               wx.showToast({ title: '充值成功', icon: 'success' });
+              let wxUser =  await getSession();//获取session
+              wx.setStorageSync('sessionInfo',wxUser);
             }
           })
         }

@@ -1,0 +1,7 @@
+<!--pages/join/join.wxml-->
+<view>
+  <view class="gotview">
+    <image bindtap="gotoJoinSy" src="../../img/cwsys.png"></image>
+    <image bindtap="gotoJoinZy" src="../../img/cwzy.png"></image>
+  </view>
+</view>

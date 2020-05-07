@@ -1,0 +1,9 @@
+/* pages/join/join.wxss */
+.gotview{
+  padding: 0 20rpx;
+}
+.gotview image{
+  width: 100%;
+  height: 300rpx;
+  margin-top: 30rpx;
+}

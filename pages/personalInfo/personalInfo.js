@@ -1,11 +1,9 @@
 // pages/personalInfo/personalInfo.js
 const app = getApp();
 const { switchLevel } = require('../../utils/util');
-const computedBehavior = require('miniprogram-computed');
 import { http,avatarUrlFn } from '../../utils/util'
 
 Page({
-  behaviors: [computedBehavior],
   /**
    * 页面的初始数据
    */
@@ -17,20 +15,8 @@ Page({
     isManage: false,
     hiddenPickBox: true,
     serverUrl:app.globalData.serverUrl,
-    showGallery: false
-  },
-
-  computed: {
-    gallerydData: function (data) {
-      const { imgList,serverUrl } = data;
-      const imgUrls = [];
-      imgList.map((item)=>{
-        const index = `${serverUrl}/sys/file/previewImg?fileName=${item.fileName}`;
-        imgUrls.push(index);
-      })
-      console.log('imgUrls',imgUrls)
-      return imgUrls;
-    },
+    showGallery: false,
+    gallerydData: []
   },
 
   switchBar: function (e) {
@@ -282,7 +268,10 @@ Page({
     this.setData({ imgList: this.data.imgList.filter(item => item.id != id) })
   },
 
-  openGallery: function () {
-    this.setData({showGallery:!this.data.showGallery})
+  openGallery: function (e) {
+    let serverUrl = this.data.serverUrl;
+    let item = e.target.dataset.param
+    let index = [`${serverUrl}/sys/file/previewImg?fileName=${item.fileName}`];
+    this.setData({showGallery: true,gallerydData: index})
   }
 })

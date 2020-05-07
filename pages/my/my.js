@@ -19,6 +19,7 @@ Page({
       {label: '我的预约',id: 'userOrder/userOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
       {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
+      {label: '加入我们',id: 'join/join',src: serverUrl + '/statics/image/joinWe.png'},
     ],
     sysObject: {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'},
     optionsUserList:[
@@ -124,9 +125,9 @@ Page({
         })
       }else{
         //不是摄影师  需要添加加入我们
-        let optionsList = this.data.optionsList;
-        optionsList.qcConcat([this.data.sysObject],'id');
-        this.setData({optionsList});
+        // let optionsList = this.data.optionsList;
+        // optionsList.qcConcat([this.data.sysObject],'id');
+        // this.setData({optionsList});
       }
     }
   },

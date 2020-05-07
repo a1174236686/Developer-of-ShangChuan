@@ -23,7 +23,10 @@ Page({
     })
   },
   onLoad: function () {
-      this.getToken();
+    //this.getToken();
+  },
+  onShow: function(){
+    this.getToken();
   },
   getToken(){
     var that = this;
