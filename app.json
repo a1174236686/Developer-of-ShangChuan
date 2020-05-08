@@ -1,11 +1,11 @@
 {
 
   "pages": [ 
+    "pages/my_sy/index",
     "pages/my/my",  
     "pages/join/join",
     "pages/joinCompany/joinCompany",
     "pages/joinWe/index",
-    "pages/my_sy/index",
     "pages/index/index",
     "pages/myInfor/myInfor",
     "pages/myInfo_sy/myInfo_sy",

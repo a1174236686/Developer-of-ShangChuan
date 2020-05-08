@@ -62,6 +62,7 @@ Page({
               wx.showToast({ title: '充值成功', icon: 'success' });
               let wxUser =  await getSession();//获取session
               wx.setStorageSync('sessionInfo',wxUser);
+              wx.navigateBack();
             }
           })
         }

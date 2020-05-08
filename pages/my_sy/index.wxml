@@ -29,9 +29,16 @@
 <!-- 轮播图结束 -->
 
 <!-- 区域开始 -->
-<!-- <view class="region">
-  <view>区域</view><image src="{{serverUrl}}/statics/image/down.png"></image>
-</view> -->
+<view class="region">
+  <view bindtap="getLocation" wx:if="{{!currentLocation}}">区域</view><image wx:if="{{!currentLocation}}" bindtap="getLocation" src="{{serverUrl}}/statics/image/down.png"></image>
+  <picker wx:if="{{currentLocation}}" style="flex: 1;text-align: right;" mode="region" bindchange="bindRegionChange" value="{{regionCode.code}}" custom-item="{{customItem}}">
+      <view class="picker">
+        <label wx:if="{{regionCode.value.length}}">{{regionCode.value[2] || '暂无区'}}</label>
+        <label wx:else>区域</label>
+        <image src="{{serverUrl}}/statics/image/down.png"></image>
+      </view>
+  </picker>
+</view>
 <!-- 区域结束 -->
 
 <!-- 摄影师列表开始 -->

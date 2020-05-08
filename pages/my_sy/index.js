@@ -49,6 +49,7 @@ Page({
     let json = {
       province: data.code[0],
       city: data.code[1],
+      area: data.code[2],
     }
     this.setData({regionCode: data,locationName: json},() =>{
       this.getData();

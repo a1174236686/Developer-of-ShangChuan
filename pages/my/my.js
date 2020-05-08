@@ -18,13 +18,13 @@ Page({
     optionsList:[
       {label: '我的预约',id: 'userOrder/userOrder',src: serverUrl + '/statics/image/yuyue.png'},
       {label: '我的会员卡',id: 'vipCard/index',src: serverUrl + '/statics/image/vip.png'},
-      {label: '邀请有奖',id: 'works',src: serverUrl + '/statics/image/jiangli.png'},
+      {label: '邀请有奖',id: 'money',src: serverUrl + '/statics/image/jiangli.png'},
       {label: '加入我们',id: 'join/join',src: serverUrl + '/statics/image/joinWe.png'},
     ],
     sysObject: {label: '加入我们',id: 'joinWe/index',src: serverUrl + '/statics/image/joinWe.png'},
     optionsUserList:[
       {label: '我的评价',id: 'myEvaluate/myEvaluate',src: serverUrl + '/statics/image/evaluate.png'},
-      {label: '邀请奖励',id: 'myWallet/myWallet',src: serverUrl + '/statics/image/reward.png'},
+      {label: '邀请奖励',id: 'money',src: serverUrl + '/statics/image/reward.png'},
       {label: '作品管理',id: 'personalInfo/personalInfo',src: serverUrl + '/statics/image/works.png'},
       {label: '我的资料',id: 'myInfor/myInfor',src: serverUrl + '/statics/image/data.png'}
     ],
@@ -33,6 +33,13 @@ Page({
   },
 
   gotoView: function(e){
+    if(e.currentTarget.dataset.view == 'money'){
+      wx.showToast({
+        title: '正在开发，敬请期待...',
+        icon: 'none'
+      })
+      return false;
+    }
     if(this.isLogin()){
       let type = e.currentTarget.dataset.view
       if(type == 'vipCard/index' && !this.data.wxUser.isVip){
@@ -48,6 +55,13 @@ Page({
   },
 
   gotoUserView: function(e){
+    if(e.currentTarget.dataset.view == 'money'){
+      wx.showToast({
+        title: '正在开发，敬请期待...',
+        icon: 'none'
+      })
+      return false;
+    }
     let that = this;
     if(this.isLogin()){
       wx.navigateTo({
@@ -139,9 +153,14 @@ Page({
     this.setData({showSheyingshi: this.data.showSheyingshi == '1' ? '0' : '1'})
   },
 
+  zuzhi: function(){
+    return false;
+  },
+
   getPhoneNumber: async function(e){
     let that = this
-    if(e.detail){
+    console.log(e.detail.encryptedData)
+    if(e.detail.encryptedData){
      //登录
       let code = await login();
       let send = {
