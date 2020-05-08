@@ -2,11 +2,13 @@
 
   "pages": [ 
     "pages/my_sy/index",
-    "pages/index/index",
     "pages/my/my",  
+    "pages/join/join",
+    "pages/joinCompany/joinCompany",
+    "pages/joinWe/index",
+    "pages/index/index",
     "pages/myInfor/myInfor",
     "pages/myInfo_sy/myInfo_sy",
-    "pages/joinWe/index",
     "pages/enterTime/enterTime",
     "pages/evaluate/index",
     "pages/releaseWorks/releaseWorks",

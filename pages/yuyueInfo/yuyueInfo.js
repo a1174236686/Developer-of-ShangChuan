@@ -107,10 +107,11 @@ Page({
     let startTime = enterDate.start[0] + '-' + enterDate.start[1] + '-' + enterDate.start[2] + ' ' + enterDate.start[3] + ':00';
     let endTime = enterDate.end[0] + '-' + enterDate.end[1] + '-' + enterDate.end[2] + ' ' + enterDate.end[3] + ':00';
     let arr = this.data.infoList;
-    let obj =  wx.getStorageSync('sessionInfo')
+    let obj =  wx.getStorageSync('sessionInfo');
+    let objSy = wx.getStorageSync('yuyueData');
     let regionData = {
-      code: obj.area ? [obj.province || '',obj.city || '',obj.area || ''] : [],
-      value: obj.areaName ? [obj.provinceName + '省' || '',obj.cityName + '市' || '',obj.areaName || ''] : []
+      code: objSy.area ? [objSy.province || '',objSy.city || '',objSy.area || ''] : [],
+      value: objSy.areaName ? [objSy.provinceName + '省' || '',objSy.cityName + '市' || '',objSy.areaName || ''] : []
     }
     for(let i = 0;i < arr.length;i++){
       let item = arr[i];

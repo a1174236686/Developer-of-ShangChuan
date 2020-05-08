@@ -84,6 +84,16 @@
 </template>
 
 <!--
+	工作经历
+-->
+<template name="workExperience">
+	<view class="workExperience">
+		<view class="itemLabel" style="height: 50rpx;">{{label}}：</view>
+    	<textarea  id='{{mapping}}' placeholder="{{placeholder}}"  value="{{formDataMap[mapping]}}" placeholder-class="formItemInputPlaceholder" bindblur="bindDataChange" />
+	</view>
+</template>
+
+<!--
 	表单上传身份证
 -->
 <template name="IDImgCtn">
