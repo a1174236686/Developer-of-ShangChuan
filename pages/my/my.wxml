@@ -76,7 +76,7 @@
       </view>
     </view>
   </view>
-    <view class="switchBtn" wx:if="{{wxUser.isPhotographer == '1' && wxUser.isPhotographer == 0}}" bindtap="switchMy">
+    <view class="switchBtn" wx:if="{{wxUser.isPhotographer == '1' && wxUser.disablePhotographer == 0}}" bindtap="switchMy">
         <image src="{{serverUrl}}/statics/image/qiehuan.png"></image>
       <!-- <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon> -->
       <view wx:if="{{showSheyingshi == '0'}}">摄影师工作台</view>

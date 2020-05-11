@@ -20,7 +20,7 @@ Page({
       {icon: serverUrl + '/statics/image/riqi.png',name: '出生日期', value: '', type: 'date',},
       {icon: serverUrl + '/statics/image/shouji.png',name: '电话', value: '', type: 'phone',key: 'phone'},
       {icon: serverUrl + '/statics/image/quyu.png',name: '区域', value: '', type: 'region'},
-      {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address',key: 'deptName'},
+      {icon: serverUrl + '/statics/image/map.png',name: '拍摄地点', value: '', type: 'address',key: 'address'},
       {icon: serverUrl + '/statics/image/paishe.png',name: '拍摄对象', value: '', type: 'target',key: 'target'}],
       noEdit: false, 
       date: '',
@@ -96,7 +96,7 @@ Page({
       gender: this.data.sexArray[this.data.sexIndex] == '男' ? '1' : '2',//性别
       phone: e.detail.value.phone,//手机号码
       birthDate: this.data.date,//出生年月
-      deptName: e.detail.value.address,
+      address: e.detail.value.address,
       target: e.detail.value.target
     }
     console.log(data)

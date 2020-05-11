@@ -234,7 +234,7 @@ console.log(this.data.formData)
 
       success: function (result) {
         if (result.data.code == 0) {
-          wx.showToast({ title: '提交成功！', icon: 'success'});
+          wx.showToast({ title: '提交成功,三个工作日回复!', icon: 'none'});
           setTimeout(function() {
             wx.navigateBack()
           },1500)

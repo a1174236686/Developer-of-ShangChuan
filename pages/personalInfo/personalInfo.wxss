@@ -226,15 +226,19 @@ page{
   position: fixed;
   width: 108rpx;
   height: 108rpx;
-  line-height: 90rpx;
   background-color: #FE5560;
   bottom: 40rpx;
   text-align: center;
-  color: #fff;
-  font-weight: bold;
   left: 42%;
   border-radius: 50%;
-  font-size: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addWorks image{
+  width: 68rpx;
+  height: 68rpx;
 }
 
 .showXuanze{

@@ -145,11 +145,11 @@ Page({
   onShow: function (e) {
     let info = wx.getStorageSync('sessionInfo');
     if(wx.getStorageSync('yuyuechenggong')){
-      this.setData({showChengg: true});
+      this.setData({showDate: false,showChengg: true});
       wx.removeStorageSync('yuyuechenggong');
     }
     this.getBannerList();
-    this.setData({showDate: false,wxUser: info})
+    this.setData({wxUser: info})
   },
 
   getBannerList: async function(){
@@ -186,6 +186,9 @@ Page({
     }
     let res = await http.get("/photographer/page",data);
     if(res.code == 0){
+      if(this.data.page == 1 && !res.data.list.length){
+        wx.showToast({title: '该地区暂未开放业务!',icon: 'none'})
+      }
       let arr = []
       if(type){
         arr = that.data.sheying;

@@ -84,7 +84,7 @@ Page({
   },
 
   isLogin(){
-    if(wx.getStorageSync('tokenInfo') && wx.getStorageSync('userInfo')){
+    if(wx.getStorageSync('sessionInfo')){
       return true
     }else{
       wx.navigateTo({
@@ -105,12 +105,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // if(wx.getStorageSync('userInfo') && wx.getStorageSync('tokenInfo') && wx.getStorageSync('tokenInfo').bindFlag === 0){
-    //   this.setData({isHaveNum: false});
-    // }
-    // if(wx.getStorageSync('userInfo') && wx.getStorageSync('tokenInfo') && wx.getStorageSync('tokenInfo').bindFlag && wx.getStorageSync('sessionInfo')){
-    //   this.setData({isHaveNum: true,phoneNum: wx.getStorageSync('sessionInfo').phone});
-    // }
+    this.init();
+  },
+
+  init(){
     if(wx.getStorageSync('sessionInfo')){
       let that = this;
       let url = '';
@@ -213,20 +211,68 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.showLoading({title: '加载中...',})
+    this.getToken();
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  getToken(){
+    var that = this;
+    // 查看是否授权
+    wx.getSetting({
+     success: function(res) {
+      console.log('查看是否授权',res.authSetting['scope.userInfo'])
+         if (res.authSetting['scope.userInfo']) {
+             wx.getUserInfo({
+                 success: function(res_Info) {
+                   // 登录
+                   wx.login({
+                     success: res => {
+                       // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                       //wx.setStorageSync('temporaryCode',res.code);
+                       wx.request({
+                         url: that.data.serverUrl + '/wx/login',
+                         method: 'POST',
+                         data: {
+                           code: res.code,
+                           rawData: res_Info.rawData,
+                           signature: res_Info.signature,
+                           encryptedData: res_Info.encryptedData,
+                           iv: res_Info.iv,
+                         },
+                         success (data) {
+                           if(data.data.code == 0){
+                            wx.setStorageSync('tokenInfo',data.data);
+                            wx.request({
+                              url: that.data.serverUrl + '/wxuser/session',
+                              header: {"token": data.data.token},
+                              method: 'GET',
+                              success (sessionInfo) {
+                                console.log(sessionInfo)
+                                if(sessionInfo.data.code == 0){
+                                  wx.stopPullDownRefresh()
+                                  wx.hideLoading()
+                                  that.setData({wxUser: sessionInfo.data.wxUser},() => {
+                                    that.init();
+                                  });
+                                  wx.setStorageSync('sessionInfo',sessionInfo.data.wxUser);
+                                }else{
+                                  console.log('初始化获取session失败',sessionInfo)
+                                }
+                              }
+                            })
+                           }else{
+                             that.getToken();
+                           }
+                         }
+                       })
+                     }
+                   })
+                 }
+             });
+         }else{
+           wx.removeStorageSync('sessionInfo');
+         } 
+     }
+    });
   }
 })

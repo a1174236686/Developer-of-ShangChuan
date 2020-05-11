@@ -48,7 +48,7 @@
   top: -34rpx;
   width: 70rpx;
   height: 40rpx;
-  left: 38rpx;
+  left: 36rpx;
 }
 
 .headerIconText_name{

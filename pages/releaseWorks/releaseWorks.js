@@ -120,7 +120,10 @@ Page({
       fileName: fileName,
       photographerCode
     }});
-    wx.navigateBack()
+    wx.showToast({title: '发布成功！'})
+    setTimeout(()=>{
+      wx.navigateBack()
+    },1500)
   },
 
   addVideo:async function (){
@@ -131,7 +134,10 @@ Page({
       fileName: videoFileName,
       photographerCode
     }});
-    wx.navigateBack()
+    wx.showToast({title: '发布成功！'})
+    setTimeout(()=>{
+      wx.navigateBack()
+    },1500)
   },
 
   submitForm:async function (){

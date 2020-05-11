@@ -72,7 +72,7 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{showAddBtn}}" class="addWorks" bindtap="uploadWork">+</view>
+  <view wx:if="{{showAddBtn}}" class="addWorks" bindtap="uploadWork"><image src="../../img/addWo2.png"></image></view>
   <mp-gallery show="{{showGallery}}" showDelete="{{false}}" img-urls="{{gallerydData}}" />
 </view>
 

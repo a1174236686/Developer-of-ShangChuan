@@ -269,9 +269,11 @@ Page({
   },
 
   openGallery: function (e) {
-    let serverUrl = this.data.serverUrl;
-    let item = e.target.dataset.param
-    let index = [`${serverUrl}/sys/file/previewImg?fileName=${item.fileName}`];
+    let imglist = this.data.imgList;
+    let index = []
+    for(let i = 0; i < imglist.length;i++){
+      index.push(avatarUrlFn(imglist[i].fileName))
+    }
     this.setData({showGallery: true,gallerydData: index})
   }
 })
