@@ -62,7 +62,7 @@ Page({
     count: 1,
     success:async function(e){
       const Path = e.tempFilePaths[0];
-      wx.showLoading({title: '上传中...',})
+      wx.showLoading({title: '上传中...',mask: true})
       const res =  await uploadFile(Path);
       wx.hideLoading();
       const fileName = res.fileName;
@@ -83,7 +83,7 @@ Page({
       camera: 'back',
       success: async e => {
         const Path = e.tempFilePath;
-        wx.showLoading({title: '上传中...',})
+        wx.showLoading({title: '上传中...',mask: true})
         const res =  await uploadFile(Path);
         wx.hideLoading();
         const videoFileName = res.fileName;
@@ -120,7 +120,7 @@ Page({
       fileName: fileName,
       photographerCode
     }});
-    wx.showToast({title: '发布成功！'})
+    wx.showToast({title: '发布成功！',mask: true})
     setTimeout(()=>{
       wx.navigateBack()
     },1500)
@@ -134,7 +134,7 @@ Page({
       fileName: videoFileName,
       photographerCode
     }});
-    wx.showToast({title: '发布成功！'})
+    wx.showToast({title: '发布成功！',mask: true})
     setTimeout(()=>{
       wx.navigateBack()
     },1500)
@@ -142,7 +142,7 @@ Page({
 
   submitForm:async function (){
     if(!this.data.textareaValue){
-      wx.showToast({ title: '请输入作品名称！', icon: 'none' });
+      wx.showToast({ title: '请输入作品名称！', icon: 'none' ,mask: true});
       return false;
     }
     this.addWork();

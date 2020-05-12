@@ -24,7 +24,8 @@ Page({
     wxUser: '',
     currentLocation: '',
     locationName: {province: '',city: '',area: ''},
-    listInfo: {}
+    listInfo: {},
+    queryName: ''
   },
 
   openDate:function(e){
@@ -130,6 +131,13 @@ Page({
     this.setData({showChengg: false})
   },
 
+  queryData: function(event){
+    console.log(event.detail.value);
+    this.setData({queryName: event.detail.value},() => {
+      this.getData();
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -182,6 +190,8 @@ Page({
     let data = {
       page: that.data.page,
       limit: 15,
+      name: this.data.queryName,
+      // target: this.data.queryName,
       ...that.data.locationName
     }
     let res = await http.get("/photographer/page",data);
@@ -223,6 +233,9 @@ Page({
   onPullDownRefresh: function () {
     this.setData({page: 1})
     this.getData();
+    setTimeout(() =>{
+      wx.stopPullDownRefresh();
+    },500)
   },
 
   /**
@@ -242,6 +255,8 @@ Page({
 
   },
   goToPersonalInfo: function (e){
+    console.log(e.currentTarget.dataset.item)
+    wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
     wx.navigateTo({
       url: '/pages/personalInfo/personalInfo',
       success: function(res) {

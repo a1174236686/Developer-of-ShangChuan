@@ -234,7 +234,7 @@ console.log(this.data.formData)
 
       success: function (result) {
         if (result.data.code == 0) {
-          wx.showToast({ title: '提交成功,三个工作日回复!', icon: 'none'});
+          wx.showToast({ title: '提交成功,三个工作日回复!', icon: 'none',mask: true});
           setTimeout(function() {
             wx.navigateBack()
           },1500)
@@ -247,7 +247,12 @@ console.log(this.data.formData)
   submitForm: function () {
     const { Check } = this.getFormCheckObj();
     const res = Check();
-    console.log('res', res);
+    if(!res){
+      wx.showToast({
+        title: '请完善信息！',
+        icon: 'none'
+      })
+    }
     res && this.postMsg();
   }
 })

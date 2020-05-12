@@ -137,6 +137,7 @@ goToEvaluation(evt){
         status: type
       },
       success (res) {
+        wx.stopPullDownRefresh();
         wx.hideNavigationBarLoading() //完成停止加载
         if(res.data.code == 0){
           if(res.data.data.length){
@@ -189,14 +190,15 @@ goToEvaluation(evt){
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({page: 1})
     this.getData();
-  
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    this.setData({page: this.data.page += 1})
     this.getData();
   },
 

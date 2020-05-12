@@ -16,7 +16,7 @@
     </view>
     <!-- 输入 -->
     <view class="input-box">
-      <input placeholder="请输入摄影师/摄影对象"></input>
+      <input value="{{queryName}}" bindblur="queryData" placeholder="请输入摄影师/摄影对象"></input>
       <image class="input-icon" src="{{serverUrl}}/statics/image/ssmax.png"></image>
     </view>
   </view>
@@ -43,8 +43,9 @@
 
 <!-- 摄影师列表开始 -->
 <view class="syList">
+  <view class="noPro" wx:if="{{!sheying.length}}">很抱歉！该区域暂无摄影师入驻</view>
   <view class="syItem" wx:for="{{sheying}}" wx:key="index">
-    <view class="syIcon"><image src="{{item.avatarUrl}}" bindtap="goToPersonalInfo" data-param="{{item.userCode}}"></image></view>
+    <view class="syIcon"><image src="{{item.avatarUrl}}" bindtap="goToPersonalInfo" data-param="{{item.userCode}}" data-item="{{item}}"></image></view>
     <view class="syInfo">
       <view class="syInfo_Mask" bindtap="goToPersonalInfo" data-param="{{item.userCode}}"></view>
       <view class="infoTtile">{{item.name}} <view class="titleLabel">{{item.levelName}}</view></view>

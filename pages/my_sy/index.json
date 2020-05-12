@@ -4,6 +4,7 @@
   "navigationBarTitleText": "摄影",
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "Swiper":"../../components/theSwiper/theSwiper",
     "Timer":"../position/index",
