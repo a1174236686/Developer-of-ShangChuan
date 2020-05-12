@@ -299,3 +299,8 @@
   background-color: rgba(0, 0, 0, 0);
   border-radius: 40rpx;
 }
+
+.noPro{
+  margin-top: 180rpx;
+  text-align: center;
+}

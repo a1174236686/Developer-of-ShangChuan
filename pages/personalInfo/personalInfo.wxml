@@ -14,8 +14,11 @@
       </view>
       <view class="numInfo">
         <view class="numInfo_title">
-          <view>{{biPhotographer.name}}</view>
-          <view>{{biPhotographer.level}}</view>
+          <view class="numInfo_titleName">{{biPhotographer.name}}</view>
+          <view class="numInfo_titleLevel">{{biPhotographer.level}}</view>
+          <view class="numInfo_title_btn">
+            <view wx:if="{{!showAddBtn}}" class="topBtn" style="padding: 2rpx 40rpx;margin-right: 0;" bindtap="openDate">预约</view>
+          </view>
         </view>
         <view class="score">
           <view>{{biPhotographer.score}}</view>
@@ -40,7 +43,8 @@
     </view>
     <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <video class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
+        <video class="video" id="video-{{index}}" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
+        <view class="videoMsk" hidden="{{item.isPlaying}}" bindtap="playVideo" data-param="{{index}}"></view>
          <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork" data-param="{{item.id}}" />
         <view class="videoName">{{item.workName}}</view>
         <view class="author">
@@ -50,9 +54,9 @@
     </view>
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <image class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" bindtap="openGallery" data-param="{{item}}"></image>
+        <image class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" bindtap="openGallery" data-param="{{item}}" data-indexs="{{index}}"></image>
         <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork"
-        data-param="{{item.id}}" />
+        data-param="{{item.id}}"/>
       </view>
     </view>
   </view>
@@ -72,7 +76,28 @@
       </view>
     </view>
   </view>
-  <view wx:if="{{showAddBtn}}" class="addWorks" bindtap="uploadWork">+</view>
-  <mp-gallery show="{{showGallery}}" showDelete="{{false}}" img-urls="{{gallerydData}}" />
+  <view wx:if="{{showAddBtn}}" class="addWorks" bindtap="uploadWork"><image src="../../img/addWo2.png"></image></view>
+  <mp-gallery show="{{showGallery}}" showDelete="{{false}}" current="{{seeIndex}}" img-urls="{{gallerydData}}" />
+
+
+    <view class="weekTitle" wx:if="{{showDate}}">
+    <view class="headTitle">
+      <view class="titleIcon" bindtap="closeDate"><mp-icon icon="close" color="#8B8A99" size="{{25}}"></mp-icon></view>
+      <view class="titleText">日期选择</view>
+    </view>
+    <view class="week">
+      <view wx:for="{{weekList}}" wx:key="index" wx:for-item="it">{{it}}</view>
+    </view>
+  </view>
+  <view class="showDate" wx:if="{{showDate}}">
+    <Timer list="{{list}}" currentDate="{{currentDate}}"/>
+  </view>
+  <view class="yuyuechengg" wx:if="{{showChengg}}">
+    <view class="content-info">
+      <view class="close" bindtap="closeChengg"><mp-icon icon="close" color="#fff" size="{{25}}"></mp-icon></view>
+      <image src="{{serverUrl}}/statics/image/yuyuegongg.png"></image>
+      <view class="enter" bindtap="closeChengg"></view>
+    </view>
+  </view>
 </view>
 

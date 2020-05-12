@@ -64,6 +64,22 @@ Page({
           })
         }else{
           wx.hideLoading(); //完成停止加载
+          if(res.data.msg == '摄影次数不足，请充值'){
+            wx.showModal({
+              title: '温馨提示',
+              content: '摄影次数不足，是否前往充值？',
+              success (res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../recharge/index',
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+            return false
+          }
           wx.showToast({ title: res.data.msg, icon: 'none' });
         }
       }

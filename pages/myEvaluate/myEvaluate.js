@@ -23,6 +23,7 @@ Page({
     let res = await http.get("/evaluate/page?photographerCode=" + this.data.photographerCode);
     if(res.code==0){
       let arr = res.data
+      wx.stopPullDownRefresh();
       for(let i = 0 ; i < arr.length ; i ++){
         let item = arr[i];
         item.customerPhoto = avatarUrlFn(item.customerPhoto);
@@ -71,7 +72,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getSuggestion();
   },
 
   /**

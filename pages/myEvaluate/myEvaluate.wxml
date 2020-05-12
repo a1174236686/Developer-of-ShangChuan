@@ -19,4 +19,7 @@
     </view> -->
     <view class="evaluateTime">{{item.createTime}}</view>
   </view>
+   <view class="nodata" wx:if="{{!suggestionList.length}}">
+    <image src="{{serverUrl}}/statics/image/noData.png"></image>
+  </view>
 </view>

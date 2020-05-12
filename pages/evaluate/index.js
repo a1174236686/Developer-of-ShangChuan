@@ -1,5 +1,5 @@
 // pages/evaluate/index.js
-import {http,switchLevel} from '../../utils/util'
+import {http,switchLevel,avatarUrlFn} from '../../utils/util'
 Page({
   data: {
       files: [{
@@ -31,7 +31,7 @@ Page({
           if(res.code===0){
               let biPhotographer = res.biPhotographer;
               let send = {
-                avatarUrl:biPhotographer.avatarUrl,
+                avatarUrl:avatarUrlFn(biPhotographer.avatarUrl),
                 levelName:switchLevel(biPhotographer.level),
                 score:biPhotographer.score, 
                 name:biPhotographer.name
@@ -71,9 +71,7 @@ Page({
             title: '评价成功',
             icon:"none"
           })
-          wx.reLaunch({
-            url: '../userOrder/userOrder',
-          })
+          wx.navigateBack();
       }
 
   },

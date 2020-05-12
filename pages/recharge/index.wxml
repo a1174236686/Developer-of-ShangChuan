@@ -20,8 +20,8 @@
 						wx:for="{{pickNumArr}}" wx:for-index="index" wx:for-item="item" 
 						wx:key="index" bindtap="selectLimit" data-param="{{item}}">
 								<view class="infoCtn">
-									<view class="Quota">{{item.price}}</view>
-									<view class="frequency">{{item.times}}</view>
+									<view class="Quota">￥{{item.price}}</view>
+									<view class="frequency">{{item.times}}/次</view>
 								</view>
 						</view>
 				</view>

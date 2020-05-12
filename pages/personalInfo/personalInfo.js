@@ -1,7 +1,7 @@
 // pages/personalInfo/personalInfo.js
 const app = getApp();
 const { switchLevel } = require('../../utils/util');
-import { http,avatarUrlFn } from '../../utils/util'
+import { http,avatarUrlFn,updateCalendar } from '../../utils/util'
 
 Page({
   /**
@@ -16,7 +16,12 @@ Page({
     hiddenPickBox: true,
     serverUrl:app.globalData.serverUrl,
     showGallery: false,
-    gallerydData: []
+    gallerydData: [],
+    seeIndex: 0,
+    currentDate: [],
+    weekList:['日', '一', '二', '三', '四', '五', '六'],
+    list: [],
+    showDate: false,
   },
 
   switchBar: function (e) {
@@ -40,6 +45,47 @@ Page({
       console.log('11111',photographerCode)
       this.setData({ photographerCode, showAddBtn })
     })
+    this.setData({name: app.globalData.userInfo});
+    let list = [];
+    let nowDate = new Date();
+   
+    this.setData({currentY: nowDate.getFullYear(),currentM: nowDate.getMonth() + 1,currentD: nowDate.getDate()});
+    this.setData({currentDate: [nowDate.getFullYear(),nowDate.getMonth() + 1,nowDate.getDate()]})
+    
+    let m = nowDate.getMonth();
+    let y = nowDate.getFullYear();
+    for(let i = 0; i < 6;i++){
+      let m = nowDate.getMonth() + i;
+      if(m > 11){
+        y += 1;
+        m = m % 11;
+      }
+      list.push(updateCalendar(y,m,null))
+    }
+    this.setData({list:list});
+  },
+
+  onShow: function(){
+    this.setData({hiddenPickBox: true})
+    if(wx.getStorageSync('gotoType')){
+      this.setData({hiddenPickBox: true, currentType: wx.getStorageSync('gotoType')})
+      wx.removeStorageSync('gotoType')
+    }
+  },
+
+  openDate:function(e){
+    let wxUser = wx.getStorageSync('sessionInfo');
+    if(wxUser){
+      this.setData({showDate: true});
+    }else{
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+  },
+
+  closeDate:function(){
+    this.setData({showDate: false})
   },
 
   /**
@@ -125,9 +171,26 @@ Page({
         }
         const resVideoList = list;
         const videoList = currentVideoList.qcConcat(resVideoList, 'id');
+        for(let i = 0; i < videoList.length; i++){
+          videoList[i].isPlaying = false;
+        }
         this.setData({ videoList }, () => resLength === limit && videoPageinfo.page++)
       }
     })
+  },
+
+  playVideo: function(e){
+    let index = e.target.dataset.param;
+    let list= this.data.videoList
+    for(let i = 0; i < list.length;i++){
+      let videoContext = wx.createVideoContext('video-' + i)
+      videoContext.pause();
+      list[i].isPlaying = false;
+    }
+    list[index].isPlaying = true;
+    let videoContext = wx.createVideoContext('video-' + index)
+    videoContext.play();
+    this.setData({videoList: list});
   },
 
   /**
@@ -201,6 +264,7 @@ Page({
   pickWorkType: function (e) {
     const { photographerCode } = this.data;
     const currentType = parseInt(e.target.dataset.param);
+    wx.setStorageSync('gotoType', currentType)
     wx.navigateTo({
       url: '/pages/releaseWorks/releaseWorks',
       success: function (res) {
@@ -269,9 +333,11 @@ Page({
   },
 
   openGallery: function (e) {
-    let serverUrl = this.data.serverUrl;
-    let item = e.target.dataset.param
-    let index = [`${serverUrl}/sys/file/previewImg?fileName=${item.fileName}`];
-    this.setData({showGallery: true,gallerydData: index})
+    let imglist = this.data.imgList;
+    let index = []
+    for(let i = 0; i < imglist.length;i++){
+      index.push(avatarUrlFn(imglist[i].fileName))
+    }
+    this.setData({showGallery: true,gallerydData: index,seeIndex: e.target.dataset.indexs})
   }
 })

@@ -87,13 +87,13 @@ page{
   align-items: center;
 }
 
-.numInfo_title view:first-child{
+.numInfo_title .numInfo_titleName{
   font-size: 32rpx;
   font-weight: bold;
   margin-right: 15rpx;
 }
 
-.numInfo_title view:last-child{
+.numInfo_title .numInfo_titleLevel{
   padding: 0 12rpx;
   height: 35rpx;
   line-height: 35rpx;
@@ -101,6 +101,12 @@ page{
   border-radius: 4rpx;
   font-size: 20rpx;
   color: #9F6B32;
+}
+
+.numInfo_title_btn{
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .score{
@@ -188,6 +194,16 @@ page{
   margin-bottom: 20rpx;
 }
 
+.videoMsk{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 315rpx;
+  background-color: rgba(0,0,0,.1);
+  z-index: 1;
+}
+
 .item .video{
   width: 100%;
   height: 315rpx;
@@ -226,15 +242,20 @@ page{
   position: fixed;
   width: 108rpx;
   height: 108rpx;
-  line-height: 90rpx;
   background-color: #FE5560;
   bottom: 40rpx;
   text-align: center;
-  color: #fff;
-  font-weight: bold;
   left: 42%;
   border-radius: 50%;
-  font-size: 100rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.addWorks image{
+  width: 68rpx;
+  height: 68rpx;
 }
 
 .showXuanze{
@@ -246,7 +267,7 @@ page{
   background-color: rgba(0, 0, 0, .3);
   display: flex;
   justify-content: center;
-  z-index: 999;
+  z-index: 10;
 }
 
 .imgBox{
@@ -289,5 +310,74 @@ page{
 .imgBox image{
   width: 60rpx;
   height: 60rpx;
+}
+
+
+.showDate{
+  position: fixed;
+  width: 100%;
+  top: 13%;
+  height: 87%;
+  overflow-y: auto;
+  padding-top: 100rpx;
+  background-color: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  padding-top: 230rpx;
+  z-index: 99990;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.weekTitle{
+  position: fixed;
+  top: 13%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 99999;
+  padding-top: 40rpx;
+  border-radius: 20rpx 20rpx 0 0;
+}
+
+.headTitle{
+  display: flex;
+  height: 90rpx;
+}
+
+.titleText{
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.titleIcon{
+  position: absolute;
+  left: 40rpx;
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.headTitle{
+  position: relative;
+}
+
+.titleText{
+  text-align: center;
+  flex: 1;
+}
+
+.week {
+  display: flex;
+  justify-content: center;
+  padding: 0 40rpx;
+}
+
+.week view {
+  flex: 1;
+  text-align: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  color: #8B8A99;
+  font-weight: bold;
 }
 
