@@ -1,6 +1,6 @@
 //index.js
 //获取应用实例
-
+import { filterString } from '../../utils/util'
 const app = getApp();
 const computedBehavior = require('miniprogram-computed')
 const serverUrl = app.globalData.serverUrl
@@ -142,6 +142,7 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: (res) => {
+        wx.showLoading({title: '上传中...',mask: true})
         const { tempFilePaths } = res
         const IDImgData = JSON.parse(JSON.stringify(this.data.IDImgData));
         const { target } = e;
@@ -160,6 +161,7 @@ Page({
               method: 'post',
               name: 'file',
               success: (res) => {
+                wx.hideLoading();
                 let text = JSON.parse(res.data)
                 IDImgData[i].baseSrc = text.fileName
                 obj[target.id] = text.fileName;
@@ -170,18 +172,6 @@ Page({
                 console.log(this.data.formDataMap)
               }
             })
-            // wx.getFileSystemManager().readFile({
-            //   filePath: tempFilePaths[0],
-            //   encoding: "base64",
-            //   success: data => {
-            //     IDImgData[i].baseSrc = data.data
-            //     obj[target.id] = data.data;
-            //     console.log(data.data)
-            //     this.setData({
-            //       formDataMap: { ...this.data.formDataMap, ...obj }
-            //     })
-            //   }
-            // })
             break;
           }
         }
@@ -225,11 +215,11 @@ console.log(this.data.formData)
       method: 'post',
       data: {
         // platform: 'wx',
-        name: map.name,//姓名
+        name: filterString(map.name),//姓名
         phone: map.PhoneNumber,//手机号码
         idCardPhoto1: map.IDImgFront,//身份证正面照
         idCardPhoto2: map.IDImgback,//身份证背面照
-        workExperience: map.workExperience
+        workExperience: filterString(map.workExperience)
       },
 
       success: function (result) {

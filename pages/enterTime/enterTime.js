@@ -16,8 +16,7 @@ Page({
     datas: [],
     errorMsg: false,
     errorText: '开始时间不能大于结束时间',
-    yuyueData: {},
-    resDataTime: []
+    yuyueData: {}
   },
 
   /**
@@ -29,11 +28,10 @@ Page({
       photographerCode: wx.getStorageSync('yuyueData').userCode
     }
     wx.showLoading({title: '加载中',})
-    let resData =  await http.get('/biappointment/page',{data:data});
+    let resData =  await http.get('/biappointment/page',data);
     let resDataRES = []
     if(resData.code == 0){
       resDataRES = resData.data
-      this.setData({resDataTime: resData.data})
     }else{
       wx.showToast({
         title: resData.msg,
@@ -41,6 +39,7 @@ Page({
       })
       wx.hideLoading()
     }
+    console.log(resDataRES);
     let dataTime = [];
     let day = options.day.replace(/-/g,'/')
     let currentData = new Date(day).getTime()
