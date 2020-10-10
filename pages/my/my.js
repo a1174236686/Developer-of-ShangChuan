@@ -110,6 +110,7 @@ Page({
 
   init(){
     if(wx.getStorageSync('sessionInfo')){
+
       let that = this;
       let url = '';
       let avatarUrl = wx.getStorageSync('sessionInfo').avatarUrl

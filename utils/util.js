@@ -191,6 +191,7 @@ const switchJSON= json => {
 	};
 
 
+
 	const http = {
 	
 		init(obj){
@@ -302,6 +303,7 @@ const switchJSON= json => {
 		})
  }
 
+
 	const switchLevel = level =>{
 		let levelLabel = '';
 		switch (level) {
@@ -369,8 +371,33 @@ Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
 			return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 	};
 
+	//根据id去重合并
+	Array.prototype.qcConcat = function(array,key){
+		 let list = this;
+		 if(list.length===0){
+			 return array;
+		 }
+		 for(let i = 0 ; i < array.length ; i ++){
+			 let item = array[i];
+			 let bool = false;
+			 if(key){
+				 //根据id
+				 bool =  list.findIndex(it=>it[key]===item[key])===-1; //不在里面
+			 }else{
+				 bool =  list.findIndex(it=>it===item)===-1; //不在里面
+			 }
+			 if(bool){
+				 list.push(item);
+			 }
+		 }
+		 return list;
+		  
+	}
+
+
 
 	
+
 
 module.exports = {
   formatTime: formatTime,

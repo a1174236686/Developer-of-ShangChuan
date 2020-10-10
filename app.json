@@ -21,10 +21,20 @@
     "pages/login/login",
     "pages/vipCard/index",
     "pages/myEvaluate/myEvaluate",
-    "pages/withdrawal/withdrawal",
-    "pages/myWallet/myWallet",
-    "pages/myUser/myUser",
-    "pages/photographer/photographer"
+   
+    "pages/userOrder/userOrder",
+    "pages/my_sy/index",
+    "pages/yuyueInfo/yuyueInfo",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/enterTime/enterTime",
+    "pages/vipCard/index",
+    "pages/myEvaluate/myEvaluate",
+    "pages/myInfor/myInfor",
+    "pages/worksManagement/worksManagement",
+    "pages/myOrder/myOrder",
+
+
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -37,6 +47,8 @@
       "desc": "小程序需要获取你当前的的位置"
     }
   },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
     "weui": true
   },

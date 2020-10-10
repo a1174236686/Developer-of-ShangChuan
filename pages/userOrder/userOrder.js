@@ -53,6 +53,34 @@ Page({
       }
     });
   },
+  //核销码 TODO 核销待完成
+  writeOffOrder(evt){
+    let item = evt.currentTarget.dataset.item;
+    let that = this;
+    let arr = that.data.orderList;
+    wx.showModal({
+      title: '提示',
+      content: '是否取消预约',
+      showCancel: true,
+      success: async function(res) {
+        wx.showNavigationBarLoading();//在标题栏中显示加载
+        let myRes = await http.post('/order/cancel',{data:{ orderId: item.orderId,  cancelReason: '取消'  }});
+        if(myRes.code===0){
+          that.setData({orderList: arr.filter(it=>it.orderId!==item.orderId)});
+        }
+        wx.hideNavigationBarLoading() //完成停止加载
+      
+      }
+    });
+  },
+//跳转到立即评价页面
+goToEvaluation(evt){
+ // let item = evt.currentTarget.dataset.item;
+  wx.navigateTo({
+    url: "../evaluate/index",
+  })
+},
+
 
 //跳转到立即评价页面
 goToEvaluation(evt){
