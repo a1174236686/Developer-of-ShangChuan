@@ -54,9 +54,11 @@
     </view>
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <image class="video" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" bindtap="openGallery" data-param="{{item}}" data-indexs="{{index}}"></image>
-        <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork"
-        data-param="{{item.id}}"/>
+        <view class="img">
+          <image src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" bindtap="openGallery" data-param="{{item}}" data-indexs="{{index}}"></image>
+          <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork"
+          data-param="{{item.id}}"/>
+        </view>
       </view>
     </view>
   </view>

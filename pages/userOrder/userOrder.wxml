@@ -29,9 +29,9 @@
           <view class="orderItem_Customer_left">
           </view>
           <view class="orderItem_Customer_right">
-            <view wx:if="{{currentType === '1'}}" class="orderItem_Customer_cancel" bindtap="cancelOrider" data-item="{{item}}" data-index="{{index}}">取消预约</view>
-            <view wx:if="{{currentType === '3'}}" class="orderItem_Customer_cancel" data-item="{{item}}" bindtap="goToEvaluation">立即评价</view>
             <view wx:if="{{currentType === '2'}}" class="orderItem_Customer_enter" data-item="{{item}}" bindtap="showHidden">核销码</view>
+            <view wx:if="{{currentType === '1' || currentType === '2'}}" class="orderItem_Customer_cancel" bindtap="cancelOrider" data-item="{{item}}" data-index="{{index}}">取消预约</view>
+            <view wx:if="{{currentType === '3'}}" class="orderItem_Customer_cancel" data-item="{{item}}" bindtap="goToEvaluation">立即评价</view>
           </view>
         </view>
       </view>

@@ -333,11 +333,13 @@ Page({
   },
 
   openGallery: function (e) {
-    let imglist = this.data.imgList;
-    let index = []
-    for(let i = 0; i < imglist.length;i++){
-      index.push(avatarUrlFn(imglist[i].fileName))
-    }
-    this.setData({showGallery: true,gallerydData: index,seeIndex: e.target.dataset.indexs})
+    this.setData({gallerydData: []},() => {
+      let imglist = this.data.imgList;
+      let index = []
+      for(let i = 0; i < imglist.length;i++){
+        index.push(avatarUrlFn(imglist[i].fileName))
+      }
+      this.setData({showGallery: true,gallerydData: index,seeIndex: e.target.dataset.indexs})
+    })
   }
 })
