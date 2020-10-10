@@ -16,12 +16,12 @@
 		<view class="pickNumCtn">
 				<text class="pickNumTit">{{pickNumTit}}</text>
 				<view class="cardCtn">
-						<view class="{{item.value===pickNum?'Selection':'cardItem'}}" 
+						<view class="{{item.id===pickNum.id?'Selection':'cardItem'}}" 
 						wx:for="{{pickNumArr}}" wx:for-index="index" wx:for-item="item" 
-						wx:key="index" bindtap="selectLimit" data-param="{{item.value}}">
+						wx:key="index" bindtap="selectLimit" data-param="{{item}}">
 								<view class="infoCtn">
-									<view class="Quota">{{item.Quota}}</view>
-									<view class="frequency">{{item.frequency}}</view>
+									<view class="Quota">￥{{item.price}}</view>
+									<view class="frequency">{{item.times}} 次</view>
 								</view>
 						</view>
 				</view>
@@ -47,6 +47,6 @@
 <!-- 支付按钮 -->
 <template name="confirmPay">
 		<view class="confirmPay">
-				<button class="btn">确认支付</button>
+				<button class="btn" bindtap="enterPlay">确认支付</button>
 		</view>
 </template>

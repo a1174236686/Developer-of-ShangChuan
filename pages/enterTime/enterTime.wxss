@@ -124,3 +124,8 @@
   background-color: #FF6D77;
   border-radius: 40rpx;
 }
+
+.isEnter{
+  background-color: #c1c1c1;
+  color: #fff;
+}

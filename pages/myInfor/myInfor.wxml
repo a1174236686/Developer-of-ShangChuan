@@ -1,9 +1,8 @@
-<!--pages/myInfor/myInfor.wxml-->
 <view class="infoList">
 	<form bindsubmit="formSubmit">
-		<view class="infoItem ">
+		<view class="infoItem" style="height: 120rpx">
 			<view class='infoItemLeft'>
-				<icon type="success" size="20"></icon>
+				<image class="infoItemImg" src="{{serverUrl}}/statics/image/paishe.png"></image>
 				<label>头像</label>
 			</view>
 			<view bindtap="postImg">
@@ -12,25 +11,34 @@
 		</view>
 		<view class="infoItem {{index === 2 ? 'bordetBottom' : ''}}" wx:for="{{infoList}}" wx:key="index">
 			<view class='infoItemLeft'>
-				<icon type="success" size="20"></icon>
+				<image class="infoItemImg" src="{{item.icon}}"></image>
 				<label>{{item.name}}</label>
 			</view>
-			<input wx:if="{{item.type!='date' && item.type!='region'}}" name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' placeholder='请输入{{item.name}}' disabled="{{noEdit}}" />
-			<!-- 出生日期选择 -->
-			<view wx:if="{{item.type=='date'}}">
-				<picker id='{{value}}' mode="date"  bindchange="bindDataChange">
+			<input wx:if="{{item.type!='date' && item.type!='region' && item.type!='sex'}}" name="{{item.type}}" class="{{!noEdit ? 'editInput' : ''}}" value='{{item.value}}' data-value="{{item.type}}" placeholder='请输入{{item.name}}' disabled="{{noEdit}}"/>
+				<!-- 性别 -->
+			<view class="itemRight" wx:if="{{item.type=='sex'}}">
+				<picker id='{{mapping}}' range="{{sexArray}}" value="{{sexText}}" bindchange="sexSelect" disabled ="{{noEdit}}">
 					<view class="picker">
-						{{item.value}}
-						<image  wx:if="{{!noEdit}}" src="../../img/daySelect.png" class="img"></image>
+						{{sexArray[sexIndex]}}
+						<image style="width: 24rpx;height: 18rpx" wx:if="{{!noEdit}}" src="{{serverUrl}}/statics/image/seximage.png" class="img"></image>
+					</view>
+				</picker>
+			</view>
+			<!-- 出生日期选择 -->
+			<view class="itemRight" wx:if="{{item.type=='date'}}">
+				<picker id='{{value}}' mode="date"  bindchange="bindDataChange" value="{{date}}" disabled ="{{noEdit}}">
+					<view class="picker">
+						{{date}}
+						<image  wx:if="{{!noEdit}}" src="{{serverUrl}}/statics/image/daySelect.png" class="img"></image>
 					</view>
 				</picker>
 			</view>
 			<!-- 地址选择 -->
-			<view wx:if="{{item.type=='region'}}">
-					<picker id='{{value}}' mode="region" bindchange="open">
+			<view class="itemRight" wx:if="{{item.type=='region'}}">
+					<picker id='{{value}}' mode="region" bindchange="open" value="{{regionData.code}}" disabled ="{{noEdit}}">
 					<view class="picker">
-						{{item.value}}
-						<image  wx:if="{{!noEdit}}" src="../../img/adress.png" class="img"></image>
+						{{regionData.value[0] || ''}}{{regionData.value[1] || ''}}{{regionData.value[2] || ''}}
+						<image  wx:if="{{!noEdit}}" src="{{serverUrl}}/statics/image/adress.png" class="img"></image>
 					</view>
 				</picker>
 			</view>

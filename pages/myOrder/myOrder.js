@@ -1,7 +1,8 @@
 // pages/myOrder/myOrder.js
 const app = getApp();
 import {
-  http
+  http,
+  avatarUrlFn
 } from '../../utils/util'
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -24,10 +25,6 @@ Page({
       name: '已完成',
       type: '4'
     }], //tab
-    // waitOrderList: [],//待接单
-    // waitShotList:[],//待拍摄
-    // alreadyCompleteList: [],//已拍摄
-    // alreadyShotList: [],//已完成
     orderList: [],
     currentType: '1',
     page: 1
@@ -37,7 +34,8 @@ Page({
     let type = e.currentTarget.dataset.type;
     this.setData({
       currentType: type,
-      page: 1
+      page: 1,
+      orderList:[],
     }, () => {
       this.getData(type);
     })
@@ -79,6 +77,7 @@ Page({
         status: type
       },
       success(res) {
+        wx.stopPullDownRefresh();
         if (res.data.code == 0) {
           if (res.data.data.length) {
             //之前的老数据
@@ -87,6 +86,10 @@ Page({
             let newArray = res.data.data;
             //根据id去重 qcConcat 见 util js
             arr = arr.qcConcat(newArray, 'orderId');
+            for(let i = 0 ; i < arr.length ; i ++){
+              let item = arr[i];
+              item.customerPhoto = avatarUrlFn(item.customerPhoto);
+            }
             that.setData({
               orderList: arr
             });
@@ -117,6 +120,7 @@ Page({
           });
           if (res.code === 0) {
             //拒绝之后 删除当前拒绝项
+            wx.showToast({ title: '拒绝成功！', icon: 'none' });
             self.setData({
               orderList: orderList.filter(it => it.orderId !== item.orderId)
             });
@@ -145,6 +149,7 @@ Page({
           });
           if (res.code === 0) {
             //确认之后 删除当前确认项
+            wx.showToast({ title: '接单成功！', icon: 'none' });
             self.setData({
               orderList: orderList.filter(it => it.orderId !== item.orderId)
             });
@@ -256,23 +261,16 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({page: 1})
     this.getData();
-    wx.showNavigationBarLoading(); //在标题栏中显示加载
-    setTimeout(function () {
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    wx.showNavigationBarLoading(); //在标题栏中显示加载
-    setTimeout(function () {
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500)
+    this.setData({page: this.data.page += 1})
+    this.getData();
   },
 
   /**

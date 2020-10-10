@@ -2,7 +2,7 @@
   <view>
       <view wx:if="{{canIUse}}" >
           <view class='header'>
-              <image src='{{serverUrl}}/statics/image/toux.jpg'></image>
+              <image src='{{serverUrl}}/statics/image/wxIcon.jpg'></image>
           </view>
   
           <view class='content'>

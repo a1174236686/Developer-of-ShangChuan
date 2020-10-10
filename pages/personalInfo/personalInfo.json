@@ -1,4 +1,9 @@
 {
-  "usingComponents": {"rate": "/components/rate/index"},
+  "usingComponents": {
+    "rate": "/components/rate/index",
+    "mp-gallery": "/miniprogram_npm/weui-miniprogram/gallery/gallery",
+    "Timer":"../position/index",
+    "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
+  },
   "navigationBarTitleText": "摄影师主页"
 }

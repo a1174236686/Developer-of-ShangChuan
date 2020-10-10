@@ -4,9 +4,11 @@
   "navigationBarTitleText": "摄影",
   "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "Swiper":"../../components/theSwiper/theSwiper",
     "Timer":"../position/index",
+    "rate": "/components/rate/index",
     "mp-icon": "/miniprogram_npm/weui-miniprogram/icon/icon"
   }
 }

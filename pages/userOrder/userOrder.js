@@ -1,6 +1,6 @@
 // pages/myOrder/myOrder.js
 const app = getApp()
-import {http} from '../../utils/util';
+import {http,avatarUrlFn} from '../../utils/util';
 import QRCode from '../../libs/weapp-qrcode'
 const serverUrl = app.globalData.serverUrl
 Page({
@@ -41,13 +41,15 @@ Page({
       content: '是否取消预约',
       showCancel: true,
       success: async function(res) {
-        wx.showNavigationBarLoading();//在标题栏中显示加载
-        let myRes = await http.post('/order/cancel',{data:{ orderId: item.orderId,  cancelReason: '取消'  }});
-        if(myRes.code===0){
-          that.setData({orderList: arr.filter(it=>it.orderId!==item.orderId)});
+        if(res.confirm){
+          wx.showNavigationBarLoading();//在标题栏中显示加载
+          let myRes = await http.post('/order/cancel',{data:{ orderId: item.orderId,  cancelReason: '取消'  }});
+          if(myRes.code===0){
+            that.setData({orderList: arr.filter(it=>it.orderId!==item.orderId)});
+
+          }
+          wx.hideNavigationBarLoading() //完成停止加载
         }
-        wx.hideNavigationBarLoading() //完成停止加载
-      
       }
     });
   },
@@ -77,6 +79,20 @@ goToEvaluation(evt){
   wx.navigateTo({
     url: "../evaluate/index",
   })
+},
+
+
+//跳转到立即评价页面
+goToEvaluation(evt){
+  let item = evt.currentTarget.dataset.item;
+  let send = {
+    orderId:item.orderId,
+    photographerCode:item.photographerCode
+
+  }
+    wx.navigateTo({
+      url: "../evaluate/index?info="+JSON.stringify(send),
+    })
 },
 
 
@@ -149,6 +165,7 @@ goToEvaluation(evt){
         status: type
       },
       success (res) {
+        wx.stopPullDownRefresh();
         wx.hideNavigationBarLoading() //完成停止加载
         if(res.data.code == 0){
           if(res.data.data.length){
@@ -158,6 +175,10 @@ goToEvaluation(evt){
               let newArray = res.data.data;
               //根据id去重 qcConcat 见 util js
               arr = arr.qcConcat(newArray,'orderId');
+              for(let i = 0 ; i < arr.length ; i ++){
+                let item = arr[i];
+                item.photographerPhoto = avatarUrlFn(item.photographerPhoto);
+              }
               that.setData({orderList: arr});
           }
         }
@@ -197,14 +218,15 @@ goToEvaluation(evt){
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({page: 1})
     this.getData();
-  
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    this.setData({page: this.data.page += 1})
     this.getData();
   },
 

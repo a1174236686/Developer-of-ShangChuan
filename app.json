@@ -1,6 +1,26 @@
 {
 
   "pages": [ 
+    "pages/my/my",  
+    "pages/my_sy/index",
+    "pages/enterTime/enterTime",
+    "pages/evaluate/index",
+    "pages/join/join",
+    "pages/joinCompany/joinCompany",
+    "pages/joinWe/index",
+    "pages/index/index",
+    "pages/myInfor/myInfor",
+    "pages/myInfo_sy/myInfo_sy",
+    "pages/releaseWorks/releaseWorks",
+    "pages/recharge/index",
+    "pages/userOrder/userOrder",
+    "pages/yuyueInfo/yuyueInfo",
+    "pages/myOrder/myOrder",
+    "pages/find/find",
+    "pages/personalInfo/personalInfo",
+    "pages/login/login",
+    "pages/vipCard/index",
+    "pages/myEvaluate/myEvaluate",
    
     "pages/userOrder/userOrder",
     "pages/my_sy/index",
@@ -13,20 +33,6 @@
     "pages/myInfor/myInfor",
     "pages/worksManagement/worksManagement",
     "pages/myOrder/myOrder",
-    "pages/withdrawal/withdrawal",
-    "pages/myWallet/myWallet",
-    "pages/comments/comments",
-    "pages/myUser/myUser",
-    "pages/photographer/photographer",
-    "pages/logs/logs",
-    "pages/find/find",
-    "pages/joinWe/index",
-    "pages/recharge/index",
-    "pages/releaseWorks/releaseWorks",
-    "pages/test/index",
-    "pages/evaluate/index",
-    "pages/personalInfo/personalInfo",
-    "pages/my/my"
 
 
   ],
@@ -36,24 +42,48 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "小程序需要获取你当前的的位置"
+    }
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "useExtendedLib": {
     "weui": true
   },
-  "tabBar": 
-    {
-      "position":"bottom",
-      "color": "#B7C0CC",
-      "borderStyle":"white",
-      "selectedColor": "#ED2B2B",
-     "list":[
-        {"pagePath":"pages/index/index","text":"首页","iconPath": "./img/shouyeA.png","selectedIconPath": "img/shouye.png"},
-        {"pagePath":"pages/my_sy/index","text":"摄影师","iconPath": "./img/zhanshisheyingshiA.png","selectedIconPath": "img/zhanshisheyingshi.png"},
-        {"pagePath":"pages/find/find","text":"发现","iconPath": "./img/faxianA.png","selectedIconPath": "img/faxian.png"},
-        {"pagePath":"pages/my/my","text":"我的","iconPath": "./img/wodetianchongA.png","selectedIconPath": "img/wodetianchong.png"}
-      ]
-     },
+  "tabBar": {
+    "position": "bottom",
+    "color": "#B7C0CC",
+    "borderStyle": "white",
+    "selectedColor": "#ED2B2B",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "./img/shouyeA.png",
+        "selectedIconPath": "img/shouye.png"
+      },
+      {
+        "pagePath": "pages/my_sy/index",
+        "text": "摄影师",
+        "iconPath": "./img/zhanshisheyingshiA.png",
+        "selectedIconPath": "img/zhanshisheyingshi.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "text": "发现",
+        "iconPath": "./img/faxianA.png",
+        "selectedIconPath": "img/faxian.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "./img/wodetianchongA.png",
+        "selectedIconPath": "img/wodetianchong.png"
+      }
+    ]
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

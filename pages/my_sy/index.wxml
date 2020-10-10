@@ -3,12 +3,20 @@
   <view class="top-box">
   <!-- 地址 -->
     <view class="address">
-      <view>深圳</view>
-      <image src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
+    <view style="display: flex;align-items: center;" wx:if="{{!currentLocation}}" bindtap="getLocation">
+      位置<image class="addressImage" src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
+    </view>
+      <picker wx:if="{{currentLocation}}" style="flex: 1;text-align: right;" mode="region" bindchange="bindRegionChange" value="{{regionCode.code}}" custom-item="{{customItem}}">
+        <view class="picker">
+          <label wx:if="{{regionCode.value.length}}">{{regionCode.value[1]}}</label>
+          <label wx:else>位置</label>
+          <image class="addressImage" src="{{serverUrl}}/statics/image/shiyuanjiaosanjiao.png"></image>
+        </view>
+      </picker>
     </view>
     <!-- 输入 -->
     <view class="input-box">
-      <input placeholder="请输入摄影师/摄影对象"></input>
+      <input value="{{queryName}}" bindblur="queryData" placeholder="请输入摄影师/摄影对象"></input>
       <image class="input-icon" src="{{serverUrl}}/statics/image/ssmax.png"></image>
     </view>
   </view>
@@ -22,17 +30,26 @@
 
 <!-- 区域开始 -->
 <view class="region">
-  <view>区域</view><image src="{{serverUrl}}/statics/image/down.png"></image>
+  <view bindtap="getLocation" wx:if="{{!currentLocation}}">区域</view><image wx:if="{{!currentLocation}}" bindtap="getLocation" src="{{serverUrl}}/statics/image/down.png"></image>
+  <picker wx:if="{{currentLocation}}" style="flex: 1;text-align: right;" mode="region" bindchange="bindRegionChange" value="{{regionCode.code}}" custom-item="{{customItem}}">
+      <view class="picker">
+        <label wx:if="{{regionCode.value.length}}">{{regionCode.value[2] || '暂无区'}}</label>
+        <label wx:else>区域</label>
+        <image src="{{serverUrl}}/statics/image/down.png"></image>
+      </view>
+  </picker>
 </view>
 <!-- 区域结束 -->
 
 <!-- 摄影师列表开始 -->
 <view class="syList">
+  <view class="noPro" wx:if="{{!sheying.length}}">很抱歉！该区域暂无摄影师入驻</view>
   <view class="syItem" wx:for="{{sheying}}" wx:key="index">
-    <view class="syIcon"><image src="{{item.avatarUrl}}"></image></view>
+    <view class="syIcon"><image src="{{item.avatarUrl}}" bindtap="goToPersonalInfo" data-param="{{item.userCode}}" data-item="{{item}}"></image></view>
     <view class="syInfo">
+      <view class="syInfo_Mask" bindtap="goToPersonalInfo" data-param="{{item.userCode}}"></view>
       <view class="infoTtile">{{item.name}} <view class="titleLabel">{{item.levelName}}</view></view>
-      <view style="font-size: 20rpx">星星组件</view>
+      <view wx:if="{{!showDate}}"><rate disabled score="{{item.score}}" /></view>
       <view class="score">
           <view>{{item.score ? item.score : 0}}</view>
           <view>评分</view>
@@ -56,7 +73,7 @@
       </view>
     </view>
   </view>
-  <view class="BecomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
+  <view wx:if="{{wxUser && !wxUser.isVip}}" class="BecomeVip" bindtap="becomeVip"><image src="{{serverUrl}}/statics/image/Become.png"></image></view>
 </view>
 <!-- 摄影师列表结束 -->
   <view class="weekTitle" wx:if="{{showDate}}">
@@ -70,6 +87,13 @@
   </view>
   <view class="showDate" wx:if="{{showDate}}">
     <Timer list="{{list}}" currentDate="{{currentDate}}"/>
+  </view>
+  <view class="yuyuechengg" wx:if="{{showChengg}}">
+    <view class="content-info">
+      <view class="close" bindtap="closeChengg"><mp-icon icon="close" color="#fff" size="{{25}}"></mp-icon></view>
+      <image src="{{serverUrl}}/statics/image/yuyuegongg.png"></image>
+      <view class="enter" bindtap="closeChengg"></view>
+    </view>
   </view>
 </view>
 

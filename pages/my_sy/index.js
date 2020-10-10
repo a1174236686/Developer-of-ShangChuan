@@ -1,5 +1,5 @@
 // pages/my_sy/index.js
-import {updateCalendar} from '../../utils/util';
+import {updateCalendar,avatarUrlFn,http} from '../../utils/util';
 const app = getApp()
 const serverUrl = app.globalData.serverUrl;
 Page({
@@ -8,39 +8,88 @@ Page({
    */
   data: {
     serverUrl: serverUrl,
-    //轮播图列表
-    branList:[
-      {url:"../../static/l1.png",id:"1",mode:"scaleToFill"},
-      {url:"../../static/l1.png",id:"2",mode:"aspectFill"},
-      {url:"../../static/l1.png",id:"3",mode:"scaleToFill"}
-    ],
+    regionCode: {code: [],value: []},
+    showChengg: false,
     name: {},
-    imgUrls: [
-      "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=231620273,2622968107&fm=27&gp=0.jpg",
-      "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=281531042,273318123&fm=27&gp=0.jpg",
-      "http://img4.imgtn.bdimg.com/it/u=2731345960,2613387946&fm=26&gp=0.jpg"
-    ],
+    //轮播图列表
+    imgUrls: [],
     currentIndex:0,
     //摄影师列表
-    photographerList:[
-      {
-        name:"潘洋摄影师", //名称
-        label:['美食云集'],//标签
-        address:"深圳",//地址
-        grade:4,//等级
-        score:5.0,//评分
-        image:"",
-    }],
+    photographerList:[],
     currentDate: [],
     weekList:['日', '一', '二', '三', '四', '五', '六'],
     showDate: false,
     sheying: [],
-    page: 1
+    page: 1,
+    wxUser: '',
+    currentLocation: '',
+    locationName: {province: '',city: '',area: ''},
+    listInfo: {},
+    queryName: ''
   },
 
   openDate:function(e){
-    this.setData({showDate: true});
-    wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
+    let wxUser = wx.getStorageSync('sessionInfo');
+    if(wxUser){
+      if(e.currentTarget.dataset.item.userCode == wxUser.userCode){
+        wx.showToast({ title: '不可预约自己！', icon: 'none' });
+        return false;
+      }
+      this.setData({showDate: true});
+      wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
+    }else{
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+  },
+
+  bindRegionChange: function(e){
+    console.log(e.detail)
+    let data = e.detail;
+    let json = {
+      province: data.code[0],
+      city: data.code[1],
+      area: data.code[2],
+    }
+    this.setData({regionCode: data,locationName: json},() =>{
+      this.getData();
+    })
+  },
+
+  getLocation:function(){
+    let that = this;
+    wx.getLocation({success: async (loca) =>{
+      console.log(loca)
+      that.setData({currentLocation: loca})
+      let res = await http.get("/wxuser/location",{lng: loca.longitude,lat: loca.latitude});
+      if(res.code == 0){
+        let json = {
+          code: [res.data.province+'',res.data.city + '',res.data.area+''],
+          value: [res.data.provinceName,res.data.cityName,res.data.areaName]
+        }
+        let locaName = {
+          province: res.data.province,
+          city: res.data.city,
+          area: res.data.area
+        }
+        that.setData({locationName: locaName,regionCode: json})
+        that.getData();
+      }
+    },
+    fail: function(mag){
+      that.getData();
+      wx.showModal({
+        title: '温馨提示',
+        content: '未授权定位请打开右上角→设置→定位服务开启',
+        showCancel: false,
+        success (res) {
+          if (res.confirm) {
+            //console.log('用户点击确定')
+          } 
+        }
+      })
+    }})
   },
 
   closeDate:function(){
@@ -51,9 +100,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getLocation();
     this.setData({name: app.globalData.userInfo});
     let list = [];
     let nowDate = new Date();
+   
     this.setData({currentY: nowDate.getFullYear(),currentM: nowDate.getMonth() + 1,currentD: nowDate.getDate()});
     this.setData({currentDate: [nowDate.getFullYear(),nowDate.getMonth() + 1,nowDate.getDate()]})
     
@@ -76,6 +127,17 @@ Page({
     })
   },
 
+  closeChengg(){
+    this.setData({showChengg: false})
+  },
+
+  queryData: function(event){
+    console.log(event.detail.value);
+    this.setData({queryName: event.detail.value},() => {
+      this.getData();
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -88,28 +150,68 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    this.getData();
+  onShow: function (e) {
+    let info = wx.getStorageSync('sessionInfo');
+    if(wx.getStorageSync('yuyuechenggong')){
+      this.setData({showDate: false,showChengg: true});
+      wx.removeStorageSync('yuyuechenggong');
+    }
+    this.getBannerList();
+    this.setData({wxUser: info})
   },
 
-  getData(){
-    let that = this;
-    wx.request({
-      url: app.globalData.serverUrl + '/photographer/page',
-      // header: {"token": wx.getStorageSync('tokenInfo')},
-      method: 'GET',
-      data: {
-        page: this.data.page,
-        limit: 15
-      },
-      success (res) {
-        if(res.data.data.length){
-          let arr = that.data.sheying;
-          arr = arr.concat(res.data.data);
-          that.setData({sheying: arr});
-        }
+  getBannerList: async function(){
+    let res = await http.get("/banner/list?showStatus=1");
+    if(res.code == 0){
+      let arr = res.data
+      for(let i = 0 ; i < arr.length ; i ++){
+        let item = arr[i];
+        item.picture = avatarUrlFn(item.picture);
       }
-    })
+      this.setData({imgUrls: arr})
+    }
+  },
+
+  becomeVip(){
+    if(wx.getStorageSync('sessionInfo')){
+      wx.navigateTo({
+        url: '../recharge/index',
+      })
+    }else{
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+  },
+
+  getData: async function(type){
+    type = type || '';
+    let that = this;
+    let data = {
+      page: that.data.page,
+      limit: 15,
+      name: this.data.queryName,
+      // target: this.data.queryName,
+      ...that.data.locationName
+    }
+    let res = await http.get("/photographer/page",data);
+    if(res.code == 0){
+      if(this.data.page == 1 && !res.data.list.length){
+        wx.showToast({title: '该地区暂未开放业务!',icon: 'none'})
+      }
+      let arr = []
+      if(type){
+        arr = that.data.sheying;
+        arr = arr.qcConcat(res.data.list,'userCode');
+      }else{
+        arr = res.data.list;
+      }
+      for(let i = 0 ; i < arr.length ; i ++){
+        let item = arr[i];
+        item.avatarUrl = avatarUrlFn(item.avatarUrl);
+      }
+      that.setData({sheying: arr,listInfo: res});
+    }
   },
 
   /**
@@ -129,15 +231,21 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({page: 1})
+    this.getData();
+    setTimeout(() =>{
+      wx.stopPullDownRefresh();
+    },500)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({page: this.data.page += 1})
-    this.getData();
+    if(this.data.listInfo.totalPage && this.data.page < this.data.listInfo.totalPage){
+      this.setData({page: this.data.page += 1})
+      this.getData('up');
+    }
   },
 
   /**
@@ -145,5 +253,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  goToPersonalInfo: function (e){
+    console.log(e.currentTarget.dataset.item)
+    wx.setStorageSync('yuyueData',e.currentTarget.dataset.item);
+    wx.navigateTo({
+      url: '/pages/personalInfo/personalInfo',
+      success: function(res) {
+        res.eventChannel.emit('photographerCode', {
+            photographerCode: e.target.dataset.param
+        })
+      }
+    })
   }
 })

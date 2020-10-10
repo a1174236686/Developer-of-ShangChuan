@@ -1,30 +1,37 @@
 <!--pages/my/my.wxml-->
 <view>
   <view class="main" wx:if="{{showSheyingshi == '0'}}">
-    <view class="header">
-      <image class="headerIconText_img" wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
-      <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/toux.jpg"></image>
+    <view class="header" bindtap="gotoMyData">
+      <image class="headerIconText_img" wx:if="{{portraitUrl}}" src="{{serverUrl}}/statics/image/myBgImg.png"></image>
+      <image class="headerIconText_img" wx:else src="{{serverUrl}}/statics/image/myBgImg.png"></image>
       <view class="headerIconText">
-        <image wx:if="{{wxUser}}" src="{{wxUser.avatarUrl}}"></image>
-        <image wx:else src="{{serverUrl}}/statics/image/toux.jpg"></image>
+        <image wx:if="{{showVip}}" class="showVip" src="{{serverUrl}}/statics/image/hgimg.png"></image>
+        <image wx:if="{{portraitUrl}}" src="{{portraitUrl}}"></image>
+        <image wx:else src="{{serverUrl}}/statics/image/toux.png"></image>
         <view class="headerIconText_text">
-          <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}</view>
+          <view wx:if="{{wxUser}}" class="headerIconText_name">{{wxUser.nickName}}
+            <image class="showView" wx:if="{{showVip}}" src="{{serverUrl}}/statics/image/vipimg.png"></image>
+          </view>
           <view wx:else class="headerIconText_name">去登录</view>
-          <view class="headerIconText_num">
+          <view class="headerIconText_num" style="padding-top: 12rpx;">
             <mp-icon icon="pad" color="#fff" size="{{12}}"></mp-icon>
             <label bindtap="bangNum" wx:if="{{wxUser && wxUser.phone}}">{{wxUser.phone}}</label>
-            <label wx:elif="{{wxUser && !wxUser.phone}}" class="bindPhoneNum"><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">点击绑定手机号</button></label>
-            <label class="bindPhoneNum" wx:else><button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button></label>
+            <label wx:elif="{{wxUser && !wxUser.phone}}" class="bindPhoneNum" catchtap="zuzhi">
+              <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">点击绑定手机号</button>
+            </label>
+            <label class="bindPhoneNum" wx:else></label>
           </view>
         </view>
-        <view class="moreWork" bindtap="gotoMyData"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>
+        <view class="moreWork"><mp-icon icon="arrow" color="#fff" size="{{15}}"></mp-icon></view>
       </view>
     </view>
     <view class="myFunctionList">
-      <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" data-detail="{{item}}" >
+        <view class="myFunctionItem" wx:for="{{optionsList}}" wx:key="index" bindtap="gotoView" data-view="{{item.id}}" data-detail="{{item}}" >
         <image src="{{item.src}}"></image>
-        <view class="functionName">{{item.label}}<text class="news">•</text></view>
-        <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoView" data-view="{{item.id}}" size="{{15}}"></mp-icon>
+        <view class="functionName">{{item.label}}
+        <!-- <text class="news">•</text> -->
+        </view>
+        <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon>
       </view>
     </view>
   </view>
@@ -35,9 +42,9 @@
       <image class="userInfo_bg" src="{{serverUrl}}/statics/image/myBg.png"></image>
       <view class="userInfo_title">
         <view class="userInfo_NameImg">
-          <image src="{{wxUser.avatarUrl}}"></image>
-          <view>{{wxUser.nickName}}</view>
-          <icon type="success" size="20"></icon>
+          <image src="{{wxUserInfo.avatarUrl}}"></image>
+          <view>{{wxUserInfo.name}}</view>
+          <!-- <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoUserView" data-view="{{item.id}}" size="{{15}}"></mp-icon> -->
         </view>
         <view class="userCount">
           <view>作品：{{wxUserInfo.photoWorkNum + wxUserInfo.videoWorkNum}}</view>
@@ -47,31 +54,33 @@
         <view class="numInfo" bindtap="gotoOrder">
           <view class="text">
             <view>订单</view>
-            <view>20</view>
+            <view>{{wxUserInfo.successOrderNums}}</view>
           </view>
-          <image src="{{serverUrl}}/statics/image/toux.jpg"></image>
+          <image src="{{serverUrl}}/statics/image/dingdan.png"></image>
         </view>
-        <view class="numInfo">
+        <view class="numInfo" bindtap="gotoWallet">
           <view class="text">
             <view>收入</view>
-            <view>2650</view>
+            <view>0</view>
           </view>
-          <image src="{{serverUrl}}/statics/image/toux.jpg"></image>
+          <image src="{{serverUrl}}/statics/image/qianbao.png"></image>
         </view>
       </view>
     </view>
 
     <view class="optionList">
-      <view class="optionListItem" wx:for="{{optionsUserList}}" wx:key="index">
+      <view class="optionListItem" wx:for="{{optionsUserList}}" bindtap="gotoUserView" data-view="{{item.id}}" wx:key="index">
         <image src="{{item.src}}"></image>
         <view>{{item.label}}</view>
-        <mp-icon icon="arrow" color="#C6C6C6" bindtap="gotoUserView" data-view="{{item.id}}" size="{{15}}"></mp-icon>
+        <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon>
       </view>
     </view>
   </view>
-    <view class="switchBtn" wx:if="{{wxUser.isPhotographer == '1'}}">
+    <view class="switchBtn" wx:if="{{wxUser.isPhotographer == '1' && wxUser.disablePhotographer == 0}}" bindtap="switchMy">
+        <image src="{{serverUrl}}/statics/image/qiehuan.png"></image>
       <!-- <mp-icon icon="arrow" color="#C6C6C6" size="{{15}}"></mp-icon> -->
-      <view bindtap="switchMy">切换到个人中心</view>
+      <view wx:if="{{showSheyingshi == '0'}}">摄影师工作台</view>
+      <view wx:else>切换到个人中心</view>
     </view>
 </view>
 

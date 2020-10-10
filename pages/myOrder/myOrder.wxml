@@ -9,16 +9,16 @@
   <view class="orderList">
     <view class="orderItem" wx:for="{{orderList}}" wx:key="index">
       <view class="orderItem_name">
-        <image class="orderItem_name_Head" src="{{serverUrl}}/statics/image/toux.jpg"></image>
+        <image class="orderItem_name_Head" src="{{item.customerPhoto}}"></image>
         <view class="orderItem_name_Text">{{item.customerName}}</view>
-        <image class="orderItem_name_Call" bindtap="makePhoneCall" data-item="{{item}}" src="{{serverUrl}}/statics/image/toux.jpg"></image>
+        <view class="orderItem_name_Call"><image bindtap="makePhoneCall" data-item="{{item}}" src="{{serverUrl}}/statics/image/PhoneCall.png"></image></view>
       </view>
       <view class="orderItem_Info">
         <view class="orderItem_Time">
           <label>预约时间：</label><view>{{item.appointStartTime}}</view><view style="margin-left: 20rpx;">{{item.appointEndTime}}</view>
         </view>
         <view class="orderItem_Time">
-          <label>拍摄地点：</label><view>{{item.province}}{{item.city}}{{item.area}}{{item.address}}</view>
+          <label>拍摄地点：</label><view>{{item.provinceName}}{{item.cityName}}{{item.areaName}}{{item.address}}</view>
         </view>
         <view class="orderItem_Time">
           <label>拍摄对象：</label><view>{{item.target}}</view>
@@ -37,6 +37,6 @@
   </view>
 
   <view class="nodata" wx:if="{{!orderList.length}}">
-    <image src="../../img/noData.png"></image>
+    <image src="{{serverUrl}}/statics/image/noData.png"></image>
   </view>
 </view>

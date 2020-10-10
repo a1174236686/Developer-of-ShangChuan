@@ -27,7 +27,7 @@
   position: relative;
 }
 
-.imgbox image{
+.imgbox .media{
   width: 222rpx;
   height: 200rpx;
   margin-right: 10rpx;

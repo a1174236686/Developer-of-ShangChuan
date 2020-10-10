@@ -197,18 +197,42 @@ const switchJSON= json => {
 		init(obj){
 			return new Promise((re,rj)=>{
 
+				let __url = app.globalData.serverUrl || null;
+				if(__url){
+						//有公共 url  请求地址 __url + obj.url 拼接
+					__url = __url+  obj.url;
+				}else{
+					//没有公共url 直接用传入的 url 
+					__url = obj.url;
+				}
+
 				wx.request({
-					...obj,
-					url: app.globalData.serverUrl + obj.url,
 					header: {"token": wx.getStorageSync('tokenInfo').token},
+					...obj,
+					url: __url,
 					method: obj.method,
 					data: obj.data,
 					success (res) {
 						if(res.data.code == 0){
 								re(res.data);
+						}else if(res.data.code==401){
+							//session 过期  TODO 过期了
+							// wx.showToast({
+							// 	title: '401 需要重新登录',
+							// 	icon:"none"
+							// })
 						}else{
-							rj();
+							rj(res.data);
+						
+							
 						}
+						// if(res.data.code==500){
+						// 	wx.showToast({
+						// 		title: '返回500  '+ res.data.msg,
+						// 		icon:"none"
+						// 	})
+						// }
+
 					},
 					fail(){
 						rj()
@@ -225,8 +249,59 @@ const switchJSON= json => {
 		},
 		get(url,data){
 			return this.init({url:url,method:"GET",data:data})
-		}
+		},
+
+
 	}
+	//根据id去重合并
+	Array.prototype.qcConcat = function(array,key){
+		let list = this;
+		if(list.length===0){
+			return array;
+		}
+		for(let i = 0 ; i < array.length ; i ++){
+			let item = array[i];
+			let bool = false;
+			if(key){
+				//根据id
+				bool =  list.findIndex(it=>it[key]===item[key])===-1; //不在里面
+			}else{
+				bool =  list.findIndex(it=>it===item)===-1; //不在里面
+			}
+			if(bool){
+				list.push(item);
+			}
+		}
+		return list;
+		 
+ }
+
+	//上传文件
+	const uploadFile = (path)=>{
+		return new Promise((re,rj)=>{
+		 let tokenInfo = wx.getStorageSync('tokenInfo')
+		 wx.uploadFile({
+				 url:app.globalData.serverUrl+'/sys/file/upload?dir=-1',
+				 header: { 'token': tokenInfo.token },
+				 filePath: path,
+				 method: 'post',
+				 name: 'file',
+				 success:(res)=>{
+						 let resInfo = JSON.parse(res.data);		
+						 if(resInfo.code===0){
+								 re(resInfo);
+						 }else{
+							 rj()
+						 }
+						
+				 },
+				 fail(error){
+					 rj();
+				 }
+		 })
+
+		})
+ }
 
 
 	const switchLevel = level =>{
@@ -258,6 +333,43 @@ const switchJSON= json => {
 		return sexLabel
 	}
 
+	const filterString = str => {
+		let reg = /[\uD83C|\uD83D|\uD83E][\uDC00-\uDFFF][\u200D|\uFE0F]|[\uD83C|\uD83D|\uD83E][\uDC00-\uDFFF]|[0-9|*|#]\uFE0F\u20E3|[0-9|#]\u20E3|[\u203C-\u3299]\uFE0F\u200D|[\u203C-\u3299]\uFE0F|[\u2122-\u2B55]|\u303D|[\A9|\AE]\u3030|\uA9|\uAE|\u3030/ig;      
+		if (str.match(reg)) {
+      str = str.replace(reg, '');
+    } 
+		return str
+	}
+
+
+	//返回图片地地址
+	const avatarUrlFn = (url)=>{
+	//	console.log('url',url);
+		const serverUrl = app.globalData.serverUrl;
+		try {
+			if(url.indexOf('https') !=-1 || url.indexOf('http') !=-1){
+				return url
+			}else{
+				return serverUrl+'/sys/file/previewImg?fileName='+url;
+			}
+		} catch (error) {
+			return '';
+		}
+	}
+
+	//解析钱的格式
+	  // defaults: (2, "$", ",", ".")
+Number.prototype.formatMoney = function (places, symbol, thousand, decimal) {
+			places = !isNaN(places = Math.abs(places)) ? places : 2;
+			symbol = '';// 加前缀 symbol !== undefined ? symbol : "$";
+			thousand = thousand || ",";
+			decimal = decimal || ".";
+			let number = this,
+					negative = number < 0 ? "-" : "",
+					i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+					j = (j = i.length) > 3 ? j % 3 : 0;
+			return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+	};
 
 	//根据id去重合并
 	Array.prototype.qcConcat = function(array,key){
@@ -294,5 +406,8 @@ module.exports = {
 	switchJSON: switchJSON,
 	http:http,
 	switchLevel,
-	switchSex
+	switchSex,
+	avatarUrlFn,
+	uploadFile,
+	filterString
 }

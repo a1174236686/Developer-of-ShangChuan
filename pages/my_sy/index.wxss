@@ -1,7 +1,7 @@
 /* 总榄 */
 
 .content .top-box{
-  padding: 0  30rpx;
+  padding: 20rpx 30rpx 10rpx;
   display: flex;    
   align-items: center;
   justify-content: space-between;
@@ -11,17 +11,23 @@
    display: flex;
    align-items: center;
 }
-.address >image{
-  width:24rpx ;
+.addressImage{
+  width:28rpx ;
   height: 12rpx;
   margin: 0 16rpx;
+  margin-top: 6rpx;
+}
+
+.picker{
+  display: flex;
+  align-items: center;
 }
 
 /* 输入框 */
 .input-box{
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 77%;
   background-color: #F5F5F6;
   border-radius: 40rpx;
   overflow:hidden;
@@ -77,22 +83,34 @@
 
 .syIcon{
   margin: 0 16rpx 0 24rpx;
+  display: flex;
+  align-items: center;
 }
 
 .syIcon image{
-  width: 193rpx;
-  height: 263rpx;
+  width: 200rpx;
+  height: 200rpx;
   border-radius: 20rpx;
 }
 
 .syInfo{
   flex: 1;
+  position: relative;
+}
+
+.syInfo_Mask{
+  position: absolute;
+  width: 300rpx;
+  height: 100%;
+  z-index: 9999;
+  top: 0;
+  left: 0;
 }
 
 .syInfo > view{
   display: flex;
   align-items: center;
-  padding-bottom: 20rpx;
+  padding-bottom: 12rpx;
 }
 
 .infoTtile{
@@ -170,8 +188,8 @@
 }
 
 .BecomeVip image{
-  width: 120rpx;
-  height: 120rpx;
+  width: 160rpx;
+  height: 160rpx;
 }
 
 .showDate{
@@ -184,6 +202,9 @@
   background-color: #fff;
   border-radius: 20rpx 20rpx 0 0;
   padding-top: 230rpx;
+  z-index: 99990;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 
@@ -193,7 +214,7 @@
   left: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 10;
+  z-index: 99999;
   padding-top: 40rpx;
   border-radius: 20rpx 20rpx 0 0;
 }
@@ -237,4 +258,49 @@
   line-height: 90rpx;
   color: #8B8A99;
   font-weight: bold;
+}
+
+.yuyuechengg{
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .3);
+  z-index: 99991;
+}
+
+.content-info{
+  width: 525rpx;
+  height: 623rpx;
+  position: relative;
+}
+
+.content-info image{
+  width: 100%;
+  height: 100%;
+}
+
+.content-info .close{
+  position: absolute;
+  top: 30rpx;
+  right: 30rpx;
+}
+
+.content-info .enter{
+  width: 400rpx;
+  height: 72rpx;
+  position: absolute;
+  bottom: 46rpx;
+  left: 64rpx;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 40rpx;
+}
+
+.noPro{
+  margin-top: 180rpx;
+  text-align: center;
 }

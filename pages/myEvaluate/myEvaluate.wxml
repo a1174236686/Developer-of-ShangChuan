@@ -1,20 +1,25 @@
 <!--pages/myEvaluate/myEvaluate.wxml-->
 <view class="evaluateList">
-  <view class="evaluateItem">
+  <view class="evaluateItem" wx:for="{{suggestionList}}" wx:key="index">
     <view class="itemHead">
       <view class="headLeft">
-        <image src="../../img/toux.jpg"></image>
-        <label>欧皓辰</label>
+        <image src="{{item.customerPhoto}}"></image>
+        <label>{{item.customerName}}</label>
       </view>
-      <view class="headRight">星星组件</view>
+      <view class="headRight">
+        	<rate disabled score="{{item.totalScore}}" />
+      </view>
     </view>
-    <view class="itemTtile">拍的实在是太棒了~~下次还找你拍！！！</view>
-    <view class="workList">
-      <image src="../../img/toux.jpg" class="workItem"></image>
-      <image src="../../img/toux.jpg" class="workItem"></image>
-      <image src="../../img/toux.jpg" class="workItem"></image>
-      <image src="../../img/toux.jpg" class="workItem"></image>
-    </view>
-    <view class="evaluateTime">2020-08-21 22:30:59</view>
+    <view class="itemTtile">{{item.suggestion}}</view>
+    <!-- <view class="workList">
+      <image src="{{serverUrl}}/statics/image/toux.png" class="workItem"></image>
+      <image src="{{serverUrl}}/statics/image/toux.png" class="workItem"></image>
+      <image src="{{serverUrl}}/statics/image/toux.png" class="workItem"></image>
+      <image src="{{serverUrl}}/statics/image/toux.png" class="workItem"></image>
+    </view> -->
+    <view class="evaluateTime">{{item.createTime}}</view>
+  </view>
+   <view class="nodata" wx:if="{{!suggestionList.length}}">
+    <image src="{{serverUrl}}/statics/image/noData.png"></image>
   </view>
 </view>

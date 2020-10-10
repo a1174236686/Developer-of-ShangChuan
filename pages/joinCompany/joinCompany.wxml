@@ -1,0 +1,114 @@
+<view class="container">
+	<template is="top" data="{{...topImgData}}" />
+	<form class="form">
+		<template is="formCard" data="{{getFormCardData,formDataMap}}" />
+		<template is="IDImgCtn" data="{{IDImgData}}" />
+		<template is="Submit" />
+	</form>
+</view>
+
+<!--
+	顶部
+-->
+<template name="top">
+	<view class="top">
+		<image mode="{{mode}}" src="{{src}}"></image>
+	</view>
+</template>
+
+<!--
+	表单card
+-->
+<template name="formCard">
+	<view class="formCard" wx:for="{{getFormCardData}}" wx:for-index="formCardKey" wx:for-item="formData" wx:key="formCardKey">
+		<template wx:for="{{formData}}" wx:for-index="index" wx:for-item="item" wx:key="index" data="{{...item,formDataMap}}" is="{{item.render?item.render:'standard'}}" />
+	</view>
+</template>
+
+<!--
+	card默认渲染
+-->
+<template name="standard">
+	<view class="item">
+		<view class="itemLabel">{{label}}</view>
+		<input id='{{mapping}}' name="input" placeholder="{{placeholder}}" type="{{type}}" value="{{formDataMap[mapping]}}" placeholder-class="formItemInputPlaceholder" bindblur="bindDataChange" />
+	</view>
+</template>
+
+<!-- 
+	性别选择器
+ -->
+<template name="sex">
+	<view class="item">
+		<view class="itemLabel">{{label}}</view>
+		<picker id='{{mapping}}' style="flex: 1;text-align: right;" range-key="key" range="{{arr}}" value="{{formDataMap[mapping]}}" bindchange="sexSelect" >
+			<view class="picker">
+				{{formDataMap[mapping].label}}
+				<!-- <icon type="success" size="20" /> -->
+				<image src="{{serverUrl}}/statics/image/down.png" style="width: 24rpx;height: 20rpx" class="img"></image>
+			</view>
+		</picker>
+	</view>
+</template>
+<!--
+	card日期选择
+-->
+<template name="pickerDate">
+	<view class="item">
+		<view class="itemLabel">{{label}}</view>
+		<picker id='{{mapping}}' style="flex: 1;text-align: right;" mode="date" value="{{formDataMap[mapping]}}" bindchange="bindDataChange">
+			<view class="picker">
+				{{formDataMap[mapping]}}
+				<!-- <icon type="success" size="20" /> -->
+				<image src="{{serverUrl}}/statics/image/daySelect.png" class="img"></image>
+			</view>
+		</picker>
+	</view>
+</template>
+
+
+<!--
+	地址选择
+-->
+<template name="adress">
+	<view class="item">
+		<view class="itemLabel">{{label}}</view>
+		<picker id='{{mapping}}' style="flex: 1;text-align: right;" mode="region" value="{{formDataMap[mapping]}}" bindchange="open">
+			<view class="picker">
+				{{formDataMap[mapping]}}
+				<!-- <icon type="success" size="20" /> -->
+				<image src="{{serverUrl}}/statics/image/adress.png" class="img"></image>
+			</view>
+		</picker>
+	</view>
+</template>
+
+<!--
+	工作经历
+-->
+<template name="workExperience">
+	<view class="workExperience">
+		<view class="itemLabel" style="height: 50rpx;">{{label}}：</view>
+    	<textarea  id='{{mapping}}' placeholder="{{placeholder}}"  value="{{formDataMap[mapping]}}" placeholder-class="formItemInputPlaceholder" bindblur="bindDataChange" />
+	</view>
+</template>
+
+<!--
+	表单上传身份证
+-->
+<template name="IDImgCtn">
+	<view class="IDImgCtn">
+		<view bind:touchstart="pickIDImg" wx:for="{{IDImgData}}" wx:for-index="index" wx:for-item="item" wx:key="index" class="IDImgItem">
+			<image mode="{{item.mode}}" src="{{item.src}}" id='{{item.mapping}}'></image>
+		</view>
+	</view>
+</template>
+
+<!--
+	表单提交
+-->
+<template name="Submit">
+	<view class="Submit">
+		<button class="btn" bindtap="submitForm">立即提交</button>
+	</view>
+</template>

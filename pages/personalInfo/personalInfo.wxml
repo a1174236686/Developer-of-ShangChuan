@@ -6,18 +6,19 @@
     <view class="userInfo_title">
       <view class="userInfo_NameImg">
         <image src="{{biPhotographer.avatarUrl}}"></image>
-        <view>sunny</view>
-        <icon type="success" size="20"></icon>
       </view>
       <view class="userCount">
-        <view>作品：350</view>
+        <view>作品：{{biPhotographer.photoWorkNum + biPhotographer.videoWorkNum}}</view>
         <view class="userCount_line"></view>
-        <view>点评：350</view>
+        <view bindtap="goEvaluate">点评：{{biPhotographer.successOrderNums}}</view>
       </view>
       <view class="numInfo">
         <view class="numInfo_title">
-          <view>{{biPhotographer.name}}</view>
-          <view>{{biPhotographer.level}}</view>
+          <view class="numInfo_titleName">{{biPhotographer.name}}</view>
+          <view class="numInfo_titleLevel">{{biPhotographer.level}}</view>
+          <view class="numInfo_title_btn">
+            <view wx:if="{{!showAddBtn}}" class="topBtn" style="padding: 2rpx 40rpx;margin-right: 0;" bindtap="openDate">预约</view>
+          </view>
         </view>
         <view class="score">
           <view>{{biPhotographer.score}}</view>
@@ -25,7 +26,7 @@
         </view>
         <view class="countScore">
           <view>总评分：</view>
-          <view><rate disabled score="{{biPhotographer.total_score}}" /></view>
+          <view style="line-height: 22rpx;"><rate disabled score="{{biPhotographer.score}}" /></view>
         </view>
       </view>
     </view>
@@ -37,37 +38,68 @@
           {{item.name}}<label></label>
         </view>
       </view>
-      <view class="topBtn">管理</view>
+      <view class="topBtn" bindtap="switchManage" wx:if="{{showAddBtn && !isManage}}">管理</view>
+      <view class="topBtn" bindtap="switchManage" wx:if="{{showAddBtn && isManage}}">完成</view>
     </view>
     <view class="imgList" hidden="{{currentType!=1}}">
       <view wx:for="{{videoList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <image class="video" src="{{biPhotographer.avatarUrl}}"></image>
+        <video class="video" id="video-{{index}}" src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" controls ></video>
+        <view class="videoMsk" hidden="{{item.isPlaying}}" bindtap="playVideo" data-param="{{index}}"></view>
+         <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork" data-param="{{item.id}}" />
         <view class="videoName">{{item.workName}}</view>
         <view class="author">
-          <view>Wyman</view>
-          <view>评分：{{item.score}}</view>
+          <!-- <view>评分：{{item.score}}</view> -->
         </view>
       </view>
     </view>
     <view class="imgList" hidden="{{currentType!=2}}">
       <view wx:for="{{imgList}}" class="item {{(index + 1) % 2 === 0 ? 'noMargin' : ''}}" wx:key="item">
-        <image class="video" src="{{biPhotographer.avatarUrl}}"></image>
-        我是图片
+        <view class="img">
+          <image src="{{serverUrl}}/sys/file/previewImg?fileName={{item.fileName}}" bindtap="openGallery" data-param="{{item}}" data-indexs="{{index}}"></image>
+          <image hidden="{{!isManage}}" class="deleteIcon" src="{{serverUrl}}/statics/image/shanchuwork.png" bindtap="deleteWork"
+          data-param="{{item.id}}"/>
+        </view>
       </view>
     </view>
   </view>
-  <view class="addWorks" bindtap="uploadWork">+</view>
-  <!-- <view class="mask">
-    <view class="maskboX">
+  <view class="showXuanze" hidden="{{hiddenPickBox}}" bindtap="closeAdd">
+    <view class="imgBox" catchtap="noClick">
       <view>
-        <image></image>
-        <image>视频</image>
+        <view class="boxshiping" >
+          <image src="../../img/shangchuanship.png" bindtap="pickWorkType" data-param="1" ></image>
+        </view>
+        <label>视频</label>
       </view>
       <view>
-        <image></image>
-        <image>视频</image>
+        <view class="boxshiping" style="background: #fdc62c;">
+          <image src="../../img/shangchuantu.png" bindtap="pickWorkType" data-param="2"></image>
+        </view>
+        <label>图片</label>
       </view>
     </view>
-  </view> -->
+  </view>
+  <view wx:if="{{showAddBtn}}" class="addWorks" bindtap="uploadWork"><image src="../../img/addWo2.png"></image></view>
+  <mp-gallery show="{{showGallery}}" showDelete="{{false}}" current="{{seeIndex}}" img-urls="{{gallerydData}}" />
+
+
+    <view class="weekTitle" wx:if="{{showDate}}">
+    <view class="headTitle">
+      <view class="titleIcon" bindtap="closeDate"><mp-icon icon="close" color="#8B8A99" size="{{25}}"></mp-icon></view>
+      <view class="titleText">日期选择</view>
+    </view>
+    <view class="week">
+      <view wx:for="{{weekList}}" wx:key="index" wx:for-item="it">{{it}}</view>
+    </view>
+  </view>
+  <view class="showDate" wx:if="{{showDate}}">
+    <Timer list="{{list}}" currentDate="{{currentDate}}"/>
+  </view>
+  <view class="yuyuechengg" wx:if="{{showChengg}}">
+    <view class="content-info">
+      <view class="close" bindtap="closeChengg"><mp-icon icon="close" color="#fff" size="{{25}}"></mp-icon></view>
+      <image src="{{serverUrl}}/statics/image/yuyuegongg.png"></image>
+      <view class="enter" bindtap="closeChengg"></view>
+    </view>
+  </view>
 </view>
 

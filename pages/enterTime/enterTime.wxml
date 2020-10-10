@@ -11,7 +11,7 @@
       </view>
       <view class="countScore" style="font-size: 22rpx">
         <label>总评分：</label>
-        <view>星星组件</view>
+        <view style="line-height: 22rpx;"><rate disabled score="{{yuyueData.score}}" /></view>
       </view>
     </view>
   </view>
@@ -19,9 +19,9 @@
     module.exports = {
       isActive: function(start,end,item,newDate){
         if(start.length && end.length){
-          var startTime = getDate(start[0]+ '-' +start[1]+ '-' +start[2]+ '-' + start[3]).getTime();
-          var endTime = getDate(end[0]+ '-' +end[1]+ '-' +end[2]+ '-' + end[3]).getTime();
-          var itemTime = getDate(item[0]+ '-' +item[1]+ '-' +item[2]+ '-' + item[3]).getTime()
+          var startTime = getDate(start[0]+ '/' +start[1]+ '/' +start[2]+ ' ' + start[3]).getTime();
+          var endTime = getDate(end[0]+ '/' +end[1]+ '/' +end[2]+ ' ' + end[3]).getTime();
+          var itemTime = getDate(item[0]+ '/' +item[1]+ '/' +item[2]+ ' ' + item[3]).getTime()
           if(endTime > itemTime && itemTime > startTime){
             return true
           }
@@ -35,10 +35,10 @@
       <view>{{items.year}}年{{items.moth}}月{{items.dey}} 星期{{items.week}}</view>
     </view>
     <view class="timeList">
-      <view class="timeRow" wx:for="{{timeList}}" wx:key="index">
-        <view class="timeItem {{fn.isActive(startTime,endTime,[items.year,items.moth,items.dey,it],newDate) ? 'active' : ''}} {{startTime[0] == items.year && startTime[1] == items.moth && startTime[2] == items.dey && startTime[3] == it  ? 'isStart' : ''}} {{endTime[0] == items.year && endTime[1] == items.moth && endTime[2] == items.dey && endTime[3] == it  ? 'isEnd' : ''}}" 
+      <view class="timeRow" wx:for="{{items.list}}" wx:key="index">
+        <view class="timeItem {{it.isEnter ? 'isEnter' : ''}} {{fn.isActive(startTime,endTime,[items.year,items.moth,items.dey,it.time],newDate) ? 'active' : ''}} {{startTime[0] == items.year && startTime[1] == items.moth && startTime[2] == items.dey && startTime[3] == it.time  ? 'isStart' : ''}} {{endTime[0] == items.year && endTime[1] == items.moth && endTime[2] == items.dey && endTime[3] == it.time  ? 'isEnd' : ''}}" 
         wx:for="{{item.child}}" wx:for-item="it" wx:for-index="idx" wx:key="it"
-        bindtap="selectTime" data-date="{{[items.year,items.moth,items.dey,it]}}">{{it}}</view>
+        bindtap="selectTime" data-date="{{[items.year,items.moth,items.dey,it.time]}}" data-isenter="{{it.isEnter}}">{{it.time}}</view>
       </view>
     </view>
   </view>
